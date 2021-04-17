@@ -12,10 +12,13 @@
   left: 0;
   right: 0;
   z-index: 1;
+  top: 0;
+  bottom: 0;
   display: block;
 }
 
 .home-content {
+  margin: 15px 25px 15px 25px;
   position: fixed;
   left: 0;
   right: 0;
@@ -23,8 +26,29 @@
 }
 
 .option-box {
-  background-color: blue;
-  width: 100px;
-  height: 100px;
-  border: 5px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.option {
+  padding: 10px;
+  position: relative;
+  margin: 0 5% 0 5%;
+  background-color: white;
+  width: 30%;
+  height: 300px;
+  border: 7px solid mediumblue;
+  border-radius: 20px;
+}
+
+a {
+  font-size: 35px;
+  font-family: "Rage Italic", sans-serif;
+  font-style: italic;
+  padding: 20px;
+  text-decoration: none;
+  text-shadow: 3px 3px 3px black;
+  color: white;
+}
+
