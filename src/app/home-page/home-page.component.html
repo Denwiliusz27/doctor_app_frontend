@@ -1,0 +1,10 @@
+<div class="backgroung-img"></div>
+
+<div class="home-content">
+  <p>Dzien dobry</p>
+  <div class="option-box" *ngFor="let option of options" (click)="onClick(option)">
+    {{option}}
+    <br>
+  </div>
+
+</div>

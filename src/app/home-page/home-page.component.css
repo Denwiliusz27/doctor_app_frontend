@@ -1,0 +1,30 @@
+.backgroung-img {
+  background-image: url(https://cdnb.artstation.com/p/assets/images/images/010/287/509/large/kleif-alexander-tan-6.jpg?1523611112);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
+  width: 100%;
+  height: 100vh;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: block;
+}
+
+.home-content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.option-box {
+  background-color: blue;
+  width: 100px;
+  height: 100px;
+  border: 5px solid black;
+}
