@@ -14,6 +14,9 @@ export class HomePageComponent implements OnInit {
   }
 
   onClick(option: string) {
+    for(let i = 0; i < this.options.length; i++){
+
+    }
     console.log(option);
   }
 }

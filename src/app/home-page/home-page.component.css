@@ -42,6 +42,14 @@
   border-radius: 20px;
 }
 
+.option h1 {
+  text-align: center;
+  font-size: 70px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
 a {
   font-size: 35px;
   font-family: "Rage Italic", sans-serif;

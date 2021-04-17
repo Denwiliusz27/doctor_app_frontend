@@ -4,6 +4,7 @@ import { Routes, RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { DoctorLoginComponent } from './doctor-login/doctor-login.component';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent}
@@ -12,7 +13,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    DoctorLoginComponent
   ],
   imports: [
     BrowserModule,
