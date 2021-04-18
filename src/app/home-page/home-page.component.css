@@ -29,6 +29,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .option-box div {
@@ -40,6 +41,7 @@
   height: 300px;
   border: 7px solid mediumblue;
   border-radius: 20px;
+
   text-align: center;
   vertical-align: middle;
   line-height: 300px;
@@ -47,33 +49,29 @@
   display: flex;
   justify-content: center;
   align-content: center;
-}
 
-.option {
-  padding: 10px;
-  position: relative;
-  margin: 0 5% 0 5%;
-  background-color: white;
-  width: 30%;
-  height: 300px;
-  border: 7px solid mediumblue;
-  border-radius: 20px;
-}
-
-.option h1 {
-  text-align: center;
-  font-size: 70px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .option-box #lekarz {
-  background-color: red;
+  background-image: url(https://answer.com.pl/wp-content/uploads/2017/11/LEKARZ.jpg);
 }
 
 .option-box #pacjent {
-  background-color: aqua;
+  background-image: url(https://www.ollie.pl/wp-content/uploads/2015/05/ollie-pl-rozmowa-lekarza-z-pacjentem.jpg);
+
+}
+
+.option-box p {
+  margin: 0;
+  font-size: 90px;
+  letter-spacing: 5px;
+  font-weight: bolder;
+  font-family: Serif, sans-serif;
+  color: mediumblue;
+  text-shadow: 3px 3px 4px black;
 }
 
 a {
@@ -86,7 +84,7 @@ a {
   color: white;
 }
 
-p {
+#main_text {
   text-align: center;
   font-size: 65px;
   font-weight: 100;
