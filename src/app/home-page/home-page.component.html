@@ -6,8 +6,8 @@
   <p>ODWIEDŹ STRONĘ JAKO</p>
   <br>
   <div class="option-box">
-    <div class="option" *ngFor="let option of options" (click)="onClick(option)">
-      <h1>{{option}}</h1>
+    <div id="{{option}}" *ngFor="let option of options" (click)="onClick(option)">
+      {{option}}
       <br>
     </div>
   </div>

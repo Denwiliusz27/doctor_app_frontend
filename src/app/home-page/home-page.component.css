@@ -31,6 +31,24 @@
   align-items: center;
 }
 
+.option-box div {
+  padding: 10px;
+  position: relative;
+  margin: 0 5% 0 5%;
+  background-color: white;
+  width: 30%;
+  height: 300px;
+  border: 7px solid mediumblue;
+  border-radius: 20px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 300px;
+  font-size: 70px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
 .option {
   padding: 10px;
   position: relative;
@@ -48,6 +66,14 @@
   display: flex;
   justify-content: center;
   align-content: center;
+}
+
+.option-box #lekarz {
+  background-color: red;
+}
+
+.option-box #pacjent {
+  background-color: aqua;
 }
 
 a {

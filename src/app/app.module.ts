@@ -7,7 +7,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { DoctorLoginComponent } from './doctor-login/doctor-login.component';
 
 const routes: Routes = [
-  {path: '', component: HomePageComponent}
+  { path: '', component: HomePageComponent},
+  { path: 'doctor-login', component: DoctorLoginComponent}
 ];
 
 @NgModule({
