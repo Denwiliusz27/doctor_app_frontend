@@ -41,6 +41,8 @@
   height: 300px;
   border: 7px solid mediumblue;
   border-radius: 20px;
+  box-shadow: 6px 6px 6px black;
+
 
   text-align: center;
   vertical-align: middle;
@@ -55,16 +57,30 @@
   background-size: cover;
 }
 
+.option-box div:hover {
+  left: -7px;
+  top: -7px;
+}
+
+
 .option-box #lekarz {
   background-image: url(https://answer.com.pl/wp-content/uploads/2017/11/LEKARZ.jpg);
 }
 
+img {
+  -webkit-filter: brightness(100%) blur(2px);
+  filter: brightness(100%) blur(2px);
+}
+
+
 .option-box #pacjent {
-  background-image: url(https://www.ollie.pl/wp-content/uploads/2015/05/ollie-pl-rozmowa-lekarza-z-pacjentem.jpg);
+  background-image: url(https://wp.pl.aleteia.org/wp-content/uploads/sites/9/2018/09/web3-doctor-hospital-patient-humanity-shutterstock.jpg?w=640&crop=1);
 
 }
 
 .option-box p {
+  position: absolute;
+
   margin: 0;
   font-size: 90px;
   letter-spacing: 5px;

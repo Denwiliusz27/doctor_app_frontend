@@ -6,8 +6,14 @@
   <p id="main_text">ODWIEDŹ STRONĘ JAKO</p>
   <br>
   <div class="option-box">
-    <div id="{{option}}" *ngFor="let option of options" (click)="onClick(option)">
-      <p>{{option}}</p>
+    <div (click)="onClick('lekarz')">
+      <img src="https://answer.com.pl/wp-content/uploads/2017/11/LEKARZ.jpg" style="width: 100%">
+      <p>lekarz</p>
+    </div>
+
+    <div (click)="onClick('pacjent')">
+      <img src="https://wp.pl.aleteia.org/wp-content/uploads/sites/9/2018/09/web3-doctor-hospital-patient-humanity-shutterstock.jpg?w=640&crop=1" style="width: 100%">
+      <p>pacjent</p>
     </div>
   </div>
 
