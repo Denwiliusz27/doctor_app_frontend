@@ -5,20 +5,25 @@ import { Routes, RouterModule} from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { DoctorLoginComponent } from './doctor-login/doctor-login.component';
+import { PatientLoginComponent } from './patient-login/patient-login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent},
-  { path: 'doctor-login', component: DoctorLoginComponent}
+  { path: 'doctor-login', component: DoctorLoginComponent},
+  { path: 'patient-login', component: PatientLoginComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    DoctorLoginComponent
+    DoctorLoginComponent,
+    PatientLoginComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(
       routes,
       { enableTracing: true } // <-- debugging purposes only

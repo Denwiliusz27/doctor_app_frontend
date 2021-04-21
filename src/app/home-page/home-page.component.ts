@@ -14,7 +14,13 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClick(option: string) {
-    console.log('przekierowuje do ' + option)
+  redirect(option: string): void {
+    if (option === 'lekarz') {
+      this.router.navigateByUrl('/doctor-login');
+    }
+    else if (option === 'pacjent') {
+      this.router.navigateByUrl('/patient-login');
+    }
+    console.log('przekierowuje do ' + option);
   }
 }
