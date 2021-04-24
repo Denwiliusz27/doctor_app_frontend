@@ -1,27 +1,29 @@
 <div class="backgroung-img"></div>
 
 <div class="home-content">
-  <a routerLink="/">przychodnia.pl</a>
+  <a class="main_site" routerLink="/">przychodnia.pl</a>
   <p id="main_text">PACJENT</p>
 
   <div class="form-container">
       <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
 
         <label>
-          <p>E-mail:</p>
-          <input type="text" formControlName="email" required [class.foo] = "submitted && currentFormControls.email.errors" placeholder="Twój e-mail">
+          <input type="text" formControlName="email" required [class.foo] = "submitted && currentFormControls.email.errors" placeholder="e-mail">
         </label>
-        <div class="error" *ngIf="submitted && currentFormControls.email.errors" >Niepoprawny e-mail</div>
-
+        <div class="error" *ngIf="submitted && currentFormControls.email.errors" >niepoprawny e-mail</div>
 
         <label>
-          <p>Hasło:</p>
-          <input type="password" formControlName="password" required placeholder="Hasło">
+          <input type="password" formControlName="password" required placeholder="hasło">
         </label>
 
-        <button class="login" type="submit" >Zaloguj</button>
+        <button type="submit" >zaloguj się</button>
+
       </form>
 
+  </div>
+
+  <div class="registration_link">
+    <a> Nie masz jeszcze konta? Zarejestruj się już teraz</a>
   </div>
 
 </div>
