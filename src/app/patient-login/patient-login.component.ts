@@ -36,7 +36,6 @@ export class PatientLoginComponent implements OnInit {
   get currentFormControls(): {
     [key: string]: AbstractControl;
   } {
-    console.log(this.loginFormGroup.controls.email.errors);
     return this.loginFormGroup.controls;
   }
 
@@ -49,7 +48,6 @@ export class PatientLoginComponent implements OnInit {
 
     const patientLogin: PatientLogin = {email: this.loginFormGroup.value.email, password: this.loginFormGroup.value.password};
 
-    console.warn(this.loginFormGroup.value);
     console.log('kliknięto');
   }
 
