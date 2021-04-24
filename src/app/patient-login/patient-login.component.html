@@ -2,25 +2,23 @@
 
 <div class="home-content">
   <a routerLink="/">przychodnia.pl</a>
-  <br><br><br>
+  <p id="main_text">PACJENT</p>
+
   <div class="form-container">
-    <div class="login-content">
-      <p>PACJENT</p>
       <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
 
         <label>
-          E-mail:
-          <input type="text" formControlName="email" required [class.foo] = "submitted && currentFormControls.email.errors">
+          <p>E-mail:</p>
+          <input type="text" formControlName="email" required [class.foo] = "submitted && currentFormControls.email.errors" placeholder="Twój e-mail">
           <div *ngIf="submitted && currentFormControls.email.errors">zły email</div>
         </label>
 
         <label>
           Hasło:
-          <input type="text" formControlName="password" required>
+          <input type="text" formControlName="password" required placeholder="Hasło">
         </label>
         <button type="submit" >Zaloguj</button>
       </form>
-    </div>
 
   </div>
 

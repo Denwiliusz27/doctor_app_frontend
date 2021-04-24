@@ -54,11 +54,16 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  transition: all 0.4s ease 0s;
+  top: 0;
+  left: 0;
 }
 
 .option-box div:hover {
   left: -7px;
   top: -7px;
+  cursor: pointer;
 }
 
 .option-box #blur {
@@ -101,7 +106,7 @@ a {
   font-size: 35px;
   font-family: "Rage Italic", sans-serif;
   font-style: italic;
-  padding: 20px;
+  margin: 20px;
   text-decoration: none;
   text-shadow: 3px 3px 3px black;
   color: white;
@@ -115,5 +120,6 @@ a {
   text-shadow: 2px 2px 5px black;
   font-style: italic;
   font-family: "Arial", sans-serif;
+  margin: 6% 0 6% 0;
 }
 

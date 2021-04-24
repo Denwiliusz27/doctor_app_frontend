@@ -3,8 +3,8 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  -webkit-filter: brightness(120%) blur(8px);
-  filter: brightness(120%) blur(8px);
+  -webkit-filter: brightness(100%) blur(7px);
+  filter: brightness(100%) blur(7px);
   width: 100%;
   height: 100vh;
 
@@ -17,6 +17,7 @@
   display: block;
 }
 
+
 .home-content {
   margin: 15px 25px 15px 25px;
   position: fixed;
@@ -25,30 +26,48 @@
   z-index: 9999;
 }
 
-a {
-  font-size: 35px;
-  font-family: "Rage Italic", sans-serif;
-  font-style: italic;
-  padding: 20px;
-  text-decoration: none;
-  text-shadow: 3px 3px 3px black;
-  color: white;
-}
-
-.login-content p{
-  text-align: center  ;
-}
 
 .form-container {
   justify-content: center;
   display: flex;
+  text-align: center;
+  align-items: center;
 }
+
+
 
 label {
   display: block;
+  padding: 5% 0 5% 0;
+  max-width: 75%;
+}
+
+label p {
+  display: inline-block;
 }
 
 .foo {
   background-color: red;
 }
 
+#main_text {
+  text-align: center;
+  font-size: 65px;
+  font-weight: 100;
+  color: #1342e8;
+  text-shadow: 2px 2px 5px black;
+  font-style: italic;
+  font-family: "Arial", sans-serif;
+  margin: 6% 0 6% 0;
+}
+
+
+a {
+  font-size: 35px;
+  font-family: "Rage Italic", sans-serif;
+  font-style: italic;
+  margin: 20px;
+  text-decoration: none;
+  text-shadow: 3px 3px 3px black;
+  color: white;
+}
