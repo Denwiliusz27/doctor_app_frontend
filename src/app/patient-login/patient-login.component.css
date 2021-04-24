@@ -26,7 +26,6 @@
   z-index: 9999;
 }
 
-
 .form-container {
   justify-content: center;
   display: flex;
@@ -41,35 +40,76 @@ form {
 
 label {
   display: block;
-  padding: 3% 0 3% 0;
+  margin: 7% 17% 0 0;
 }
 
 input {
-  width: 60%;
-  font-size: 24px;
+  width: 50%;
   padding: 15px;
+  font-size: 24px;
+  border: 3px solid #1342e8;
+  border-radius: 7px;
+}
+
+input:focus {
+  outline: none;
+  background-color: aliceblue;
 }
 
 label p {
   display: inline-block;
-  width: 15%;
+  width: 20%;
+  margin: 0 1% 0 1%;
+}
+
+p {
+  font-size: 32px;
+  text-align: center;
+  color: #1342e8;
+  font-style: italic;
+  font-family: "Arial", sans-serif;
+  text-shadow: 1px 1px 3px black;
+}
+
+button {
+  margin: 5% 0 2% 0;
+  height: 12%;
+  width: 30%;
+
+  transition: all 0.4s ease 0s;
+}
+
+button:hover {
+  width: 33%;
+}
+
+.login {
+  border: 4px solid #1342e8;
+  border-radius: 20px;
+  background-color: #2f5bef;
+}
+
+.error {
+  width: 50%;
+  float: left;
+  font-size: 24px;
+  color: red;
+  margin: 0 0 0 30%;
+  text-align: left;
 }
 
 .foo {
-  background-color: red;
+  display: inline-block;
+  border: 3px solid red;
 }
 
 #main_text {
-  text-align: center;
   font-size: 65px;
   font-weight: 100;
   color: #1342e8;
   text-shadow: 2px 2px 5px black;
-  font-style: italic;
-  font-family: "Arial", sans-serif;
-  margin: 6% 0 6% 0;
+  margin: 6% 0 2% 0;
 }
-
 
 a {
   font-size: 35px;
