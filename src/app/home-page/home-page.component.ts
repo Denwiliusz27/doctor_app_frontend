@@ -9,17 +9,17 @@ import { Router } from '@angular/router';
 export class HomePageComponent implements OnInit {
   options: string[] = ['lekarz', 'pacjent'];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
   }
 
   redirect(option: string): void {
     if (option === 'lekarz') {
-      this.router.navigateByUrl('/doctor-login');
+      this.router.navigateByUrl('/doktor-login');
     }
     else if (option === 'pacjent') {
-      this.router.navigateByUrl('/patient-login');
+      this.router.navigateByUrl('/pacjent-login');
     }
     console.log('przekierowuje do ' + option);
   }

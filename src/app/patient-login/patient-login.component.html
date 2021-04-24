@@ -1,29 +1,30 @@
 <div class="backgroung-img"></div>
 
 <div class="home-content">
-  <a class="main_site" routerLink="/">przychodnia.pl</a>
-  <p id="main_text">PACJENT</p>
+  <a class="main_site_link" routerLink="/">przychodnia.pl</a>
+  <p class="patient_txt">PACJENT</p>
 
   <div class="form-container">
-      <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
+    <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
 
-        <label>
-          <input type="text" formControlName="email" required [class.foo] = "submitted && currentFormControls.email.errors" placeholder="e-mail">
-        </label>
-        <div class="error" *ngIf="submitted && currentFormControls.email.errors" >niepoprawny e-mail</div>
+      <label>
+        <input type="text" formControlName="email" required [class.foo] = "submitted && currentFormControls.email.errors" placeholder="e-mail">
+        <div class="error" *ngIf="submitted && currentFormControls.email.errors" >
+          <p>niepoprawny adres e-mail</p>
+        </div>
+      </label>
 
-        <label>
-          <input type="password" formControlName="password" required placeholder="hasło">
-        </label>
+      <label>
+        <input type="password" formControlName="password" required placeholder="hasło">
+      </label>
 
-        <button type="submit" >zaloguj się</button>
+      <button type="submit" >zaloguj się</button>
 
-      </form>
-
+    </form>
   </div>
 
-  <div class="registration_link">
-    <a> Nie masz jeszcze konta? Zarejestruj się już teraz</a>
+  <div class="registration_link" (click)="redirect()">
+    <p>zarejestruj się</p>
   </div>
 
 </div>

@@ -52,4 +52,8 @@ export class PatientLoginComponent implements OnInit {
     console.warn(this.loginFormGroup.value);
     console.log('kliknięto');
   }
+
+  redirect(): void {
+    console.log('elo'); /* przekierowanie do rejestracji */
+  }
 }

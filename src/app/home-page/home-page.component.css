@@ -112,7 +112,8 @@ a {
   color: white;
 }
 
-#main_text {
+
+.main_text{
   text-align: center;
   font-size: 65px;
   font-weight: 100;
