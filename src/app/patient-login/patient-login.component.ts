@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-
+import { Router } from '@angular/router';
 
 interface PatientLogin {
   email: string;
   password: string;
-
 }
 
 
@@ -14,6 +13,7 @@ interface PatientLogin {
   templateUrl: './patient-login.component.html',
   styleUrls: ['./patient-login.component.css']
 })
+
 export class PatientLoginComponent implements OnInit {
   submitted = false;
 
@@ -28,7 +28,7 @@ export class PatientLoginComponent implements OnInit {
     ]),
   });
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
@@ -53,6 +53,6 @@ export class PatientLoginComponent implements OnInit {
   }
 
   redirect(): void {
-    console.log('elo'); /* przekierowanie do rejestracji */
+    this.router.navigateByUrl('/pacjent-rejestracja');
   }
 }
