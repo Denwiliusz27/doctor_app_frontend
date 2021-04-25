@@ -23,7 +23,8 @@ export class DoctorLoginComponent implements OnInit {
       Validators.email
     ]),
     password: new FormControl('', [
-      Validators.required
+      Validators.required,
+      Validators.minLength(8)
     ]),
   });
 
@@ -36,7 +37,6 @@ export class DoctorLoginComponent implements OnInit {
   get currentFormControls(): {
     [key: string]: AbstractControl;
   } {
-    console.log(this.loginFormGroup.controls.email.errors);
     return this.loginFormGroup.controls;
   }
 
@@ -49,7 +49,6 @@ export class DoctorLoginComponent implements OnInit {
 
     const doctorLogin: DoctorLogin = {email: this.loginFormGroup.value.email, password: this.loginFormGroup.value.password};
 
-    console.warn(this.loginFormGroup.value);
     console.log('kliknięto');
   }
 

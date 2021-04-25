@@ -9,13 +9,22 @@
 
       <label>
         <input type="text" formControlName="email" required [class.foo] = "submitted && currentFormControls.email.errors" placeholder="e-mail">
-        <div class="error" *ngIf="submitted && currentFormControls.email.errors" >
+        <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
+          <p>nie podano adresu e-mail</p>
+        </div>
+        <div class="error" *ngIf="submitted && currentFormControls.email.errors?.email" >
           <p>niepoprawny adres e-mail</p>
         </div>
       </label>
 
       <label>
-        <input type="password" formControlName="password" required placeholder="hasło">
+        <input type="password" formControlName="password" required [class.foo] = "submitted && currentFormControls.password.errors" placeholder="hasło">
+        <div class="error" *ngIf="submitted && currentFormControls.password.errors?.required" >
+          <p>nie podano hasła</p>
+        </div>
+        <div class="error" *ngIf="submitted && currentFormControls.password.errors?.minlength" >
+          <p>hasło za krótkie</p>
+        </div>
       </label>
 
       <button type="submit" >zaloguj się</button>

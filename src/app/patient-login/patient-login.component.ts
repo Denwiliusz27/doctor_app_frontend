@@ -23,7 +23,8 @@ export class PatientLoginComponent implements OnInit {
       Validators.email
     ]),
     password: new FormControl('', [
-      Validators.required
+      Validators.required,
+      Validators.minLength(8)
     ]),
   });
 
