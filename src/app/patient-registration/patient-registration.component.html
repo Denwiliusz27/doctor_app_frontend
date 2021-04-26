@@ -13,7 +13,7 @@
           <p>nie wpisano imienia</p>
         </div>
         <div class="error" *ngIf="submitted && currentFormControls.name.errors?.pattern" >
-          <p>imie powinno zaczynać się od dużej litery i nie posiadać innych znaków</p>
+          <p>imie nie spełnia założeń</p>
         </div>
       </label>
 
@@ -23,7 +23,7 @@
           <p>nie wpisano nazwiska</p>
         </div>
         <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.pattern" >
-          <p>nazwisko może zawierać wyłącznie litery</p>
+          <p>nazwisko nie spełnia założeń</p>
         </div>
       </label>
 
@@ -44,6 +44,9 @@
         </div>
         <div class="error" *ngIf="submitted && currentFormControls.password.errors?.minlength" >
           <p>hasło za krótkie</p>
+        </div>
+        <div class="error" *ngIf="submitted && currentFormControls.password.errors?.pattern" >
+          <p>hasło nie spełnia założeń</p>
         </div>
       </label>
 
