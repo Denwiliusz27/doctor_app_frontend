@@ -19,10 +19,12 @@ export class PatientRegistrationComponent implements OnInit {
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
-      Validators.required
+      Validators.required,
+      Validators.pattern('^[A-Z][a-z]*')
     ]),
     surname: new FormControl('', [
-      Validators.required
+      Validators.required,
+      Validators.pattern('^[A-Z][a-z]*')
     ]),
     email: new FormControl('', [
       Validators.required,

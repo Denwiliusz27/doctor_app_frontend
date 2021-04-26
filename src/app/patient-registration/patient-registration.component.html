@@ -9,10 +9,22 @@
 
       <label>
         <input type="text" formControlName="name" required [class.foo] = "submitted && currentFormControls.name.errors" placeholder="imie">
+        <div class="error" *ngIf="submitted && currentFormControls.name.errors?.required" >
+          <p>nie wpisano imienia</p>
+        </div>
+        <div class="error" *ngIf="submitted && currentFormControls.name.errors?.pattern" >
+          <p>imie powinno zaczynać się od dużej litery i nie posiadać innych znaków</p>
+        </div>
       </label>
 
       <label>
         <input type="text" formControlName="surname" required [class.foo] = "submitted && currentFormControls.surname.errors" placeholder="nazwisko">
+        <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.required" >
+          <p>nie wpisano nazwiska</p>
+        </div>
+        <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.pattern" >
+          <p>nazwisko może zawierać wyłącznie litery</p>
+        </div>
       </label>
 
       <label>
