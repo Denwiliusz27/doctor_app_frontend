@@ -2,25 +2,40 @@
 
 <div class="home-content">
   <a class="main_site_link" routerLink="/">przychodnia.pl</a>
-  <p class="main_txt">REJESTRACJA</p>
+  <p class="main_text">REJESTRACJA</p>
 
   <div class="form-container">
     <form [formGroup]="registrationFormGroup" (ngSubmit)="register()">
+
       <label>
-        <input>
+        <input type="text" formControlName="name" required [class.foo] = "submitted && currentFormControls.name.errors" placeholder="imie">
       </label>
 
       <label>
-        <input>
+        <input type="text" formControlName="surname" required [class.foo] = "submitted && currentFormControls.surname.errors" placeholder="nazwisko">
       </label>
 
       <label>
-        <input>
+        <input type="text" formControlName="email" required [class.foo] = "submitted && currentFormControls.email.errors" placeholder="e-mail">
+        <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
+          <p>nie podano adresu e-mail</p>
+        </div>
+        <div class="error" *ngIf="submitted && currentFormControls.email.errors?.email" >
+          <p>niepoprawny adres e-mail</p>
+        </div>
       </label>
 
       <label>
-        <input>
+        <input type="password" formControlName="password" required [class.foo] = "submitted && currentFormControls.password.errors" placeholder="hasło">
+        <div class="error" *ngIf="submitted && currentFormControls.password.errors?.required" >
+          <p>nie podano hasła</p>
+        </div>
+        <div class="error" *ngIf="submitted && currentFormControls.password.errors?.minlength" >
+          <p>hasło za krótkie</p>
+        </div>
       </label>
+
+      <button type="submit" >zarejestruj się</button>
 
     </form>
 

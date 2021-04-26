@@ -15,6 +15,8 @@ interface PatientRegistration {
   styleUrls: ['./patient-registration.component.css']
 })
 export class PatientRegistrationComponent implements OnInit {
+  submitted = false;
+
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.required
@@ -37,7 +39,15 @@ export class PatientRegistrationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get currentFormControls(): {
+    [key: string]: AbstractControl;
+  } {
+    return this.registrationFormGroup.controls;
+  }
+
   register(): void {
+    this.submitted = true;
+
     console.log('zarejestrowano');
   }
 }
