@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 interface DoctorLogin {
@@ -28,7 +29,7 @@ export class DoctorLoginComponent implements OnInit {
     ]),
   });
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
@@ -53,6 +54,6 @@ export class DoctorLoginComponent implements OnInit {
   }
 
   redirect(): void {
-    console.log('elo'); /* przekierowanie do rejestracji */
+    this.router.navigateByUrl('/doktor-rejestracja');
   }
 }

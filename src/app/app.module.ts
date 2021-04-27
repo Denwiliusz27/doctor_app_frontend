@@ -8,13 +8,15 @@ import { DoctorLoginComponent } from './doctor-login/doctor-login.component';
 import { PatientLoginComponent } from './patient-login/patient-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PatientRegistrationComponent } from './patient-registration/patient-registration.component';
+import { DoctorRegistrationComponent } from './doctor-registration/doctor-registration.component';
 
 
 const routes: Routes = [
   { path: '', component: HomePageComponent},
   { path: 'doktor-login', component: DoctorLoginComponent},
   { path: 'pacjent-login', component: PatientLoginComponent},
-  { path: 'pacjent-rejestracja', component: PatientRegistrationComponent}
+  { path: 'pacjent-rejestracja', component: PatientRegistrationComponent},
+  { path: 'doktor-rejestracja', component: DoctorRegistrationComponent}
 ];
 
 @NgModule({
@@ -23,7 +25,8 @@ const routes: Routes = [
     HomePageComponent,
     DoctorLoginComponent,
     PatientLoginComponent,
-    PatientRegistrationComponent
+    PatientRegistrationComponent,
+    DoctorRegistrationComponent
   ],
   imports: [
     BrowserModule,
