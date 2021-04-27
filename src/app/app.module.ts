@@ -9,6 +9,7 @@ import { PatientLoginComponent } from './patient-login/patient-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PatientRegistrationComponent } from './patient-registration/patient-registration.component';
 
+
 const routes: Routes = [
   { path: '', component: HomePageComponent},
   { path: 'doktor-login', component: DoctorLoginComponent},
