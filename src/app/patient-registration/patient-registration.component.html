@@ -13,6 +13,9 @@
         <div class="error" *ngIf="submitted && currentFormControls.name.errors?.required" >
           <p>nie wpisano imienia</p>
         </div>
+        <div class="error" *ngIf="submitted && currentFormControls.name.errors?.minlength" >
+          <p>imie za krótkie</p>
+        </div>
         <div class="error" *ngIf="submitted && currentFormControls.name.errors?.pattern" >
           <p>imie nie spełnia założeń</p>
         </div>
@@ -23,6 +26,9 @@
           type="text" formControlName="surname" required [class.foo] = "submitted && currentFormControls.surname.errors" placeholder="nazwisko">
         <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.required" >
           <p>nie wpisano nazwiska</p>
+        </div>
+        <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.minlength" >
+          <p>nazwisko za krótkie</p>
         </div>
         <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.pattern" >
           <p>nazwisko nie spełnia założeń</p>

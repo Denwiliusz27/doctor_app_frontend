@@ -19,10 +19,12 @@ export class PatientRegistrationComponent implements OnInit {
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.required,
+      Validators.minLength(2),
       Validators.pattern('^[A-Z][a-z]*')
     ]),
     surname: new FormControl('', [
       Validators.required,
+      Validators.minLength(2),
       Validators.pattern('^[A-Z][a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+')
     ]),
     email: new FormControl('', [
@@ -49,6 +51,15 @@ export class PatientRegistrationComponent implements OnInit {
 
   register(): void {
     this.submitted = true;
+
+    if (this.registrationFormGroup.invalid){
+      return;
+    }
+
+    const patientRegistration: PatientRegistration = {name: this.registrationFormGroup.value.name,
+      surname: this.registrationFormGroup.value.surname,
+      email: this.registrationFormGroup.value.email,
+      password: this.registrationFormGroup.value.password};
 
     console.log('zarejestrowano');
   }
