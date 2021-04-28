@@ -32,6 +32,12 @@
   padding: 0 0 5% 0
 }
 
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 25px;
+}
+
 .main_site_link {
   font-size: 35px;
   font-family: "Rage Italic", sans-serif;

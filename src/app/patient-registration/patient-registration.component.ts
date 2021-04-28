@@ -25,7 +25,7 @@ export class PatientRegistrationComponent implements OnInit {
     surname: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.pattern('^[A-Z][a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+')
+      Validators.pattern('^[A-Z][a-zA-ZąćęįłńóżźĄĆĘŁŃÓŻŹ ,.\'-]+')
     ]),
     email: new FormControl('', [
       Validators.required,

@@ -6,6 +6,10 @@ interface DocrtorRegistration {
   surname: string;
   email: string;
   password: string;
+  city: string;
+  address: string;
+  phoneNumber: string;
+  description: string;
 }
 
 @Component({
@@ -26,7 +30,7 @@ export class DoctorRegistrationComponent implements OnInit {
     surname: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.pattern('^[A-Z][a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+')
+      Validators.pattern('^[A-Z][a-zA-ZąćęįłńóżźĄĆĘŁŃÓŻŹ ,.\'-]+')
     ]),
     email: new FormControl('', [
       Validators.required,
@@ -36,6 +40,17 @@ export class DoctorRegistrationComponent implements OnInit {
       Validators.required,
       Validators.minLength(8),
       Validators.pattern('(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')
+    ]),
+    city: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[A-Z]{1}([a-z-ąćęįłńóżź]){1,}')
+    ]),
+    address: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[A-Z]{1}([a-z-ąćęįłńóżź]){1,} [0-9]{1,}[a-zA-Z]{0,1}') // na początek: [u][l][.]
+    ]),
+    phoneNumber: new FormControl('', [
+      Validators.pattern('^[0-9]{3}[0-9]{3}[0-9]{3}')
     ])
   });
 
@@ -56,6 +71,17 @@ export class DoctorRegistrationComponent implements OnInit {
     if (this.registrationFormGroup.invalid){
       return;
     }
+
+    const doctorRegistration: DocrtorRegistration = {
+      name: this.registrationFormGroup.value.name,
+      surname: this.registrationFormGroup.value.surname,
+      email: this.registrationFormGroup.value.email,
+      password: this.registrationFormGroup.value.password,
+      city: this.registrationFormGroup.value.city,
+      address: this.registrationFormGroup.value.address,
+      description: this.registrationFormGroup.value.description,
+      phoneNumber: this.registrationFormGroup.value.phoneNumber
+    };
 
     console.log('elo');
   }
