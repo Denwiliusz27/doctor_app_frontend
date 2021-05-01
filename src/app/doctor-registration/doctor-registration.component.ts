@@ -44,11 +44,12 @@ export class DoctorRegistrationComponent implements OnInit {
     ]),
     city: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[A-Z]{1}([a-z-ąćęįłńóżź]){1,}')
+      Validators.pattern('^[A-Z][a-ząćęįłńóżź]+(\-[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+)?$')
     ]),
     address: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+(\-[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+)? [0-9]{1,}[a-zA-Z]{0,1}') // na początek: [u][l][.]
+      Validators.pattern('^([A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+(\-[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+)? ){1,}' +
+        '[0-9]{1,}(\/[0-9]{1,})*[a-zA-Z]{0,1}') // na początek: [u][l][.]
     ]),
     phoneNumber: new FormControl('', [
       Validators.pattern('^[0-9]{3}[0-9]{3}[0-9]{3}')

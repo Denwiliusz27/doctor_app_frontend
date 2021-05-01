@@ -88,7 +88,7 @@
 
       <label>
         <input data-toggle="tooltip" data-placement="right" title="Powinien składać się wyłącznie z cyfr"
-               type="tel" formControlName="phoneNumber" [class.foo] = "currentFormControls.phoneNumber.errors" placeholder="numer telefonu">
+               type="tel" formControlName="phoneNumber" [class.foo] = "submitted && currentFormControls.phoneNumber.errors" placeholder="numer telefonu">
         <div class="error" *ngIf="submitted && currentFormControls.phoneNumber.errors?.pattern" >
           <p>podany numer nie spełnia wymagań</p>
         </div>
