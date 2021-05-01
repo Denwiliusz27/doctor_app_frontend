@@ -45,7 +45,7 @@
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.email.errors?.email" >
+        <div class="error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
           <p>niepoprawny adres e-mail</p>
         </div>
       </label>
