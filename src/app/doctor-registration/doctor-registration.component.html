@@ -64,6 +64,26 @@
         </div>
       </label>
 
+
+
+
+
+      <label for="specializations">
+        <select (change)="onChange($event.target.value)" name="specializations" id="specializations">
+          <option *ngFor="let specialization of specializations">{{specialization}}</option>
+        </select>
+      </label>
+
+      <label for="services">
+        <select name="services" id="services">
+          <option *ngFor="let service of services">{{service}}</option>
+        </select>
+      </label>
+
+
+
+
+
       <label>
         <input data-toggle="tooltip" data-placement="right" title="Powinno zaczynać się od dużej litery i nie zawierać cyfr"
                type="text" formControlName="city" required [class.foo] = "submitted && currentFormControls.city.errors" placeholder="miasto*">
@@ -95,8 +115,11 @@
       </label>
 
       <label>
-        <textarea data-toggle="tooltip" data-placement="right" title="Pare słów o Tobie"
-                  type="text" formControlName="description" placeholder="opis"></textarea>
+        <textarea title="Pare słów o Tobie" formControlName="description" type="text" placeholder="opis"></textarea>
+      </label>
+
+      <label>
+        <input type="image">
       </label>
 
       <button type="submit" >zarejestruj się</button>

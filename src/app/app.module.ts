@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { DoctorLoginComponent } from './doctor-login/doctor-login.component';
 import { PatientLoginComponent } from './patient-login/patient-login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PatientRegistrationComponent } from './patient-registration/patient-registration.component';
 import { DoctorRegistrationComponent } from './doctor-registration/doctor-registration.component';
-
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSelectModule} from '@angular/material/select';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent},
@@ -29,12 +31,16 @@ const routes: Routes = [
     DoctorRegistrationComponent
   ],
   imports: [
+    MatFormFieldModule,
     BrowserModule,
     ReactiveFormsModule,
     RouterModule.forRoot(
       routes,
-      { enableTracing: true } // <-- debugging purposes only
-    )
+      {enableTracing: true} // <-- debugging purposes only
+    ),
+    BrowserAnimationsModule,
+    MatSelectModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

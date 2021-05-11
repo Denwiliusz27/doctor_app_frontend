@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {DoctorRegistrationService} from "../services/doctor-registration.service";
 
 interface DocrtorRegistration {
   name: string;
@@ -18,8 +19,9 @@ interface DocrtorRegistration {
   styleUrls: ['./doctor-registration.component.css']
 })
 export class DoctorRegistrationComponent implements OnInit {
-
+  disableSelect = new FormControl(false);
   submitted = false;
+  services: string[] = ['konsultacja', 'badanie'];
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -53,10 +55,15 @@ export class DoctorRegistrationComponent implements OnInit {
     ]),
     phoneNumber: new FormControl('', [
       Validators.pattern('^[0-9]{3}[0-9]{3}[0-9]{3}')
-    ])
+    ]),
+    image: new FormControl('', [
+      Validators.required,
+    ]),
+    description: new FormControl()
   });
+  specializations: string[] = ['kardiolog', 'dentysta'];
 
-  constructor() { }
+  constructor(private readonly doctorRegistrationService: DoctorRegistrationService) { }
 
   ngOnInit(): void {
   }
@@ -86,5 +93,10 @@ export class DoctorRegistrationComponent implements OnInit {
     };
 
     console.log('elo');
+  }
+
+  onChange(value: string) {
+    this.services = this.doctorRegistrationService.getServicesBySpecialization(value);
+    console.log(value);
   }
 }
