@@ -101,8 +101,7 @@ select {
 
 
 .checkbox {
-  display: block;
-  width: 300px;
+  width: 60%;
   margin: 3% auto 0 auto;
   padding: 15px;
   font-size: 24px;
@@ -112,9 +111,15 @@ select {
 }
 
 .in_box {
-  display: block;
+  text-align: left;
+  padding: 0 10px 0 10px;
+  margin: 10px 0 10px 0;
 }
 
+.in_box input {
+  width: 20px;
+  padding: 20px;
+}
 
 
 

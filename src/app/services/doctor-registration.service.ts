@@ -11,7 +11,7 @@ export class DoctorRegistrationService {
     if (value === 'dentysta') {
       return ['badanie', 'konultacje'];
     } else if (value === 'kardiolog'){
-      return ['badanie', 'konsultacje kardiolog'];
+      return ['badanie', 'konsultacje kardiolog', 'testy', 'proby  wysilkowe', 'alergeny'];
     }
   }
 }

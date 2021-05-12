@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DoctorRegistrationService} from "../services/doctor-registration.service";
-import {validate} from "codelyzer/walkerFactory/walkerFn";
 
 interface DocrtorRegistration {
   name: string;
@@ -24,7 +23,7 @@ interface DocrtorRegistration {
 export class DoctorRegistrationComponent implements OnInit {
   disableSelect = new FormControl(false);
   submitted = false;
-  services: string[] = ['konsultacja', 'badanie'];
+  services: string[] = ['konsultacja', 'badanie', 'testy', 'proby  wysilkowe', 'alergeny'];
   specializations: string[] = ['kardiolog', 'dentysta'];
 
   registrationFormGroup = new FormGroup({
