@@ -75,12 +75,11 @@
       </label>
 
 
-      <div class="checkbox">
-        <label class="in_box" for="services" *ngFor="let service of services">
-          <input type="checkbox" id="service">{{service}}
-        </label>
-      </div>
+      <label >
+          <input id="services" name="services" type="checkbox" formControlName="services">
+      </label>
 
+<!--
 
       <label for="services">
         <select name="services" id="services">
@@ -88,6 +87,7 @@
         </select>
       </label>
 
+-->
 
 
 

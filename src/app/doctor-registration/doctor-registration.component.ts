@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DoctorRegistrationService} from "../services/doctor-registration.service";
-import {validate} from "codelyzer/walkerFactory/walkerFn";
 
 interface DocrtorRegistration {
   name: string;
