@@ -85,6 +85,43 @@ input:focus {
   background-color: aliceblue;
 }
 
+select {
+  width: 63.5%;
+  padding: 15px;
+  font-size: 24px;
+  border: 3px solid #1342e8;
+  border-radius: 7px;
+  font-style: italic;
+  font-family: "Arial", sans-serif;
+  color: #717171;
+}
+
+
+
+
+
+.checkbox {
+  display: block;
+  width: 300px;
+  margin: 3% 0 0 0;
+  padding: 15px;
+  font-size: 24px;
+  border: 3px solid #1342e8;
+  border-radius: 7px;
+  background-color: white;
+}
+
+.in_box {
+  display: block;
+}
+
+
+
+
+
+
+
+
 textarea {
   height: 300px;
   width: 60%;

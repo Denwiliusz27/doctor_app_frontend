@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DoctorRegistrationService} from "../services/doctor-registration.service";
+import {validate} from "codelyzer/walkerFactory/walkerFn";
 
 interface DocrtorRegistration {
   name: string;
   surname: string;
   email: string;
   password: string;
+  specialization: string;
+  services: string[];
   city: string;
   address: string;
   phoneNumber: string;
@@ -22,6 +25,7 @@ export class DoctorRegistrationComponent implements OnInit {
   disableSelect = new FormControl(false);
   submitted = false;
   services: string[] = ['konsultacja', 'badanie'];
+  specializations: string[] = ['kardiolog', 'dentysta'];
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -44,6 +48,12 @@ export class DoctorRegistrationComponent implements OnInit {
       Validators.minLength(8),
       Validators.pattern('(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')
     ]),
+    specialization: new FormControl('', [
+      Validators.required
+    ]),
+    services: new FormControl('', [
+      Validators.required,
+    ]),
     city: new FormControl('', [
       Validators.required,
       Validators.pattern('^[A-Z][a-ząćęįłńóżź]+(\-[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+)?$')
@@ -61,7 +71,6 @@ export class DoctorRegistrationComponent implements OnInit {
     ]),
     description: new FormControl()
   });
-  specializations: string[] = ['kardiolog', 'dentysta'];
 
   constructor(private readonly doctorRegistrationService: DoctorRegistrationService) { }
 
@@ -86,13 +95,15 @@ export class DoctorRegistrationComponent implements OnInit {
       surname: this.registrationFormGroup.value.surname,
       email: this.registrationFormGroup.value.email,
       password: this.registrationFormGroup.value.password,
+      specialization: this.registrationFormGroup.value.specialization,
+      services: this.registrationFormGroup.value.services,
       city: this.registrationFormGroup.value.city,
       address: this.registrationFormGroup.value.address,
       description: this.registrationFormGroup.value.description,
       phoneNumber: this.registrationFormGroup.value.phoneNumber
     };
 
-    console.log('elo');
+    console.log(doctorRegistration);
   }
 
   onChange(value: string) {
