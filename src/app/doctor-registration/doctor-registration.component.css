@@ -103,7 +103,7 @@ select {
 .checkbox {
   display: block;
   width: 300px;
-  margin: 3% 0 0 0;
+  margin: 3% auto 0 auto;
   padding: 15px;
   font-size: 24px;
   border: 3px solid #1342e8;
