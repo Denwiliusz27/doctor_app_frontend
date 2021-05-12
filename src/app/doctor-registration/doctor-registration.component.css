@@ -96,13 +96,16 @@ select {
   color: #717171;
 }
 
-
+option {
+  border: 3px solid #1342e8;
+  border-radius: 7px;
+}
 
 
 
 .checkbox {
   width: 60%;
-  margin: 3% 0 0 0;
+  margin: 3% auto 0 auto;
   padding: 15px;
   font-size: 24px;
   border: 3px solid #1342e8;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DoctorRegistrationService} from "../services/doctor-registration.service";
 
-interface DocrtorRegistration {
+interface DoctorRegistration {
   name: string;
   surname: string;
   email: string;
@@ -89,7 +89,7 @@ export class DoctorRegistrationComponent implements OnInit {
       return;
     }
 
-    const doctorRegistration: DocrtorRegistration = {
+    const doctorRegistration: DoctorRegistration = {
       name: this.registrationFormGroup.value.name,
       surname: this.registrationFormGroup.value.surname,
       email: this.registrationFormGroup.value.email,

@@ -76,8 +76,8 @@
 
 
       <div class="checkbox">
-        <label class="in_box" for="services" *ngFor="let service of services">
-          <input type="checkbox" id="service">{{service}}
+        <label class="in_box"  *ngFor="let service of services">
+          <input type="checkbox" formControlName="services">{{service}}
         </label>
       </div>
 
