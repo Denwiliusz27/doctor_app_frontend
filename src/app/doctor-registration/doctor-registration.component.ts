@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {DoctorRegistrationService} from "../services/doctor-registration.service";
 
 interface DoctorRegistration {
@@ -13,6 +13,7 @@ interface DoctorRegistration {
   address: string;
   phoneNumber: string;
   description: string;
+  image: File;
 }
 
 @Component({
@@ -27,6 +28,7 @@ export class DoctorRegistrationComponent implements OnInit {
   services: string[] = ['konsultacja', 'badanie', 'testy', 'proby  wysilkowe', 'alergeny'];
   specializations: string[] = ['kardiolog', 'dentysta'];
   chosenServices: string[] = [];
+  imageFile = null;
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -53,7 +55,7 @@ export class DoctorRegistrationComponent implements OnInit {
       Validators.required
     ]),
     services: new FormControl('', [
-      // Validators.required,
+      // this.isChosen()
     ]),
     city: new FormControl('', [
       Validators.required,
@@ -68,7 +70,7 @@ export class DoctorRegistrationComponent implements OnInit {
       Validators.pattern('^[0-9]{3}[0-9]{3}[0-9]{3}')
     ]),
     image: new FormControl('', [
-     // Validators.required,
+      Validators.required
     ]),
     description: new FormControl()
   });
@@ -101,7 +103,8 @@ export class DoctorRegistrationComponent implements OnInit {
       city: this.registrationFormGroup.value.city,
       address: this.registrationFormGroup.value.address,
       description: this.registrationFormGroup.value.description,
-      phoneNumber: this.registrationFormGroup.value.phoneNumber
+      phoneNumber: this.registrationFormGroup.value.phoneNumber,
+      image: this.imageFile
     };
 
     console.log(doctorRegistration);
@@ -120,5 +123,18 @@ export class DoctorRegistrationComponent implements OnInit {
       this.chosenServices.splice(index, 1);
     }
     console.log(this.chosenServices);
+  }
+/*
+  private isChosen(): ValidatorFn {
+    if (this.chosenServices.length === 0){
+      return ;
+    } else {
+      return true;
+    }
+  } */
+
+  uploadImage(event): void {
+    this.imageFile = event.target.files[0];
+    console.log(this.imageFile);
   }
 }

@@ -130,8 +130,13 @@
         <textarea title="Pare słów o Tobie" formControlName="description" type="text" placeholder="opis"></textarea>
       </label>
 
+
       <label>
-        <input type="image">
+        <input class="doc_image" type="file" accept="image/*" formControlName="image" required (change)="uploadImage($event)"
+               [class.foo] = "submitted && currentFormControls.image.errors" data-buttonText="Zdjecie">
+        <div class="error" *ngIf="submitted && currentFormControls.image.errors?.required" >
+          <p>nie dodano zdjęcia</p>
+        </div>
       </label>
 
       <button type="submit" >zarejestruj się</button>
