@@ -8,12 +8,18 @@ interface DoctorRegistration {
   email: string;
   password: string;
   specialization: string;
-  services: string[];
+  services: DoctorService[];
   city: string;
   address: string;
   phoneNumber: string;
   description: string;
   image: File;
+}
+
+interface DoctorService {
+  name: string;
+  price: number;
+  isChosen?: boolean;
 }
 
 @Component({
@@ -27,7 +33,7 @@ export class DoctorRegistrationComponent implements OnInit {
   submitted = false;
   services: string[] = ['konsultacja', 'badanie', 'testy', 'proby  wysilkowe', 'alergeny'];
   specializations: string[] = ['kardiolog', 'dentysta'];
-  chosenServices: string[] = [];
+  chosenServices: DoctorService[] = [];
   imageFile = null;
 
   registrationFormGroup = new FormGroup({
@@ -89,9 +95,14 @@ export class DoctorRegistrationComponent implements OnInit {
   register(): void {
     this.submitted = true;
 
-    if (this.registrationFormGroup.invalid){
+    if (this.registrationFormGroup.valid || this.isServicesFormValid()){
+      console.log('w ifie');
+      console.log(this.registrationFormGroup.valid);
+      console.log(!this.isServicesFormValid());
       return;
     }
+
+    console.log('po ifie');
 
     const doctorRegistration: DoctorRegistration = {
       name: this.registrationFormGroup.value.name,
@@ -110,32 +121,51 @@ export class DoctorRegistrationComponent implements OnInit {
     console.log(doctorRegistration);
   }
 
-  onChange(value: string): void {
-    this.services = this.doctorRegistrationService.getServicesBySpecialization(value);
-    console.log(value);
+  onSelectService(serviceName: string): void {
+    this.services = this.doctorRegistrationService.getServicesBySpecialization(serviceName);
+    console.log(serviceName);
   }
 
-  addService(service: string, isChosen: boolean): void {
+  addService(serviceName: string, isChosen: boolean): void {
+    const currentService = this.chosenServices.find(service => service.name === serviceName); // return service or undefined
     if (isChosen){
-      this.chosenServices.push(service);
+      if (currentService === undefined) {
+        this.chosenServices.push({name: serviceName, price: 0, isChosen: true});
+      } else {
+        currentService.isChosen = true;
+      }
     } else {
-      const index = this.chosenServices.indexOf(service);
-      this.chosenServices.splice(index, 1);
+      currentService.isChosen = false;
     }
-    console.log(this.chosenServices);
   }
-
-/*
-  private isChosen(): ValidatorFn {
-    if (this.chosenServices.length === 0){
-      return ;
-    } else {
-      return true;
-    }
-  } */
 
   uploadImage(event): void {
     this.imageFile = event.target.files[0];
     console.log(this.imageFile);
+  }
+
+  onPriceInput(serviceName: string, price: number) {
+    if (price.toString() === '') {
+      return;
+    }
+    const currentService = this.chosenServices.find(service => service.name === serviceName);
+    if (currentService) {
+      currentService.price = Number(price);
+    } else {
+      const newService = {name: serviceName, price: Number(price), isChosen: false};
+      this.chosenServices.push(newService);
+    }
+  }
+
+  isServicesFormValid(): boolean {
+    console.log(this.chosenServices);
+    console.log(this.chosenServices.find(service => service.isChosen === true));
+    const currentService =  this.chosenServices.find(service => service.isChosen === true);
+    if (currentService === undefined) {
+      console.log('jest undefined');
+      return true;
+    } else {
+      return false;
+    }
   }
 }

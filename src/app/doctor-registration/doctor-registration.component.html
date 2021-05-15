@@ -69,7 +69,7 @@
       </label>
 
       <label for="specializations">
-        <select (change)="onChange($event.target.value)" name="specializations" id="specializations">
+        <select (change)="onSelectService($event.target.value)" name="specializations" id="specializations">
           <option *ngFor="let specialization of specializations">{{specialization}}</option>
         </select>
       </label>
@@ -78,15 +78,15 @@
 
 
 
-      <div class="checkbox" [class.error-red-border]="submitted && currentFormControls.services.errors">
+      <div class="checkbox" [class.error-red-border]="submitted && isServicesFormValid()">
         <p class="services_txt">Usługi:</p>
         <label class="in_box" for="services" *ngFor="let service of services">
-          <input type="checkbox" formControlName="services" required
+          <input type="checkbox" required
                         (change)="addService(service, $event.target.checked)"/>{{service}}
-          <input class="price-service" type="text" placeholder="pole">
+          <input class="price-service" type="number" value="0" placeholder="cena" (keyup)="onPriceInput(service, $event.target.value)">
         </label>
       </div>
-      <div class="error" *ngIf="submitted && currentFormControls.services.errors?.required" >
+      <div class="error" *ngIf="submitted && isServicesFormValid()">
         <p>nie wybrano żadnego pola</p>
       </div>
 
