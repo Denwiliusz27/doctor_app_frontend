@@ -64,10 +64,6 @@
         </div>
       </label>
 
-
-
-
-
       <label for="specializations">
         <select (change)="onChange($event.target.value)" name="specializations" id="specializations">
           <option *ngFor="let specialization of specializations">{{specialization}}</option>
@@ -75,9 +71,15 @@
       </label>
 
 
+
+
+
       <div class="checkbox">
+        <p class="services_txt">Usługi:</p>
         <label class="in_box" for="services" *ngFor="let service of services">
-          <input type="checkbox" id="service" required [class.foo] = "submitted && currentFormControls.services.errors"/>{{service}}
+          <input type="checkbox" formControlName="services" required
+                 [class.foo] = "submitted && currentFormControls.services.errors"
+                        (change)="addService(service, $event.target.checked)"/>{{service}}
         </label>
       </div>
 

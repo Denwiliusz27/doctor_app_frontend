@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DoctorRegistrationService} from "../services/doctor-registration.service";
 
-interface DocrtorRegistration {
+interface DoctorRegistration {
   name: string;
   surname: string;
   email: string;
@@ -20,11 +20,13 @@ interface DocrtorRegistration {
   templateUrl: './doctor-registration.component.html',
   styleUrls: ['./doctor-registration.component.css']
 })
+
 export class DoctorRegistrationComponent implements OnInit {
   disableSelect = new FormControl(false);
   submitted = false;
   services: string[] = ['konsultacja', 'badanie', 'testy', 'proby  wysilkowe', 'alergeny'];
   specializations: string[] = ['kardiolog', 'dentysta'];
+  chosenServices: string[] = [];
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -51,7 +53,7 @@ export class DoctorRegistrationComponent implements OnInit {
       Validators.required
     ]),
     services: new FormControl('', [
-      Validators.required,
+      // Validators.required,
     ]),
     city: new FormControl('', [
       Validators.required,
@@ -66,7 +68,7 @@ export class DoctorRegistrationComponent implements OnInit {
       Validators.pattern('^[0-9]{3}[0-9]{3}[0-9]{3}')
     ]),
     image: new FormControl('', [
-      Validators.required,
+     // Validators.required,
     ]),
     description: new FormControl()
   });
@@ -89,13 +91,13 @@ export class DoctorRegistrationComponent implements OnInit {
       return;
     }
 
-    const doctorRegistration: DocrtorRegistration = {
+    const doctorRegistration: DoctorRegistration = {
       name: this.registrationFormGroup.value.name,
       surname: this.registrationFormGroup.value.surname,
       email: this.registrationFormGroup.value.email,
       password: this.registrationFormGroup.value.password,
       specialization: this.registrationFormGroup.value.specialization,
-      services: this.registrationFormGroup.value.services,
+      services: this.chosenServices,
       city: this.registrationFormGroup.value.city,
       address: this.registrationFormGroup.value.address,
       description: this.registrationFormGroup.value.description,
@@ -105,8 +107,18 @@ export class DoctorRegistrationComponent implements OnInit {
     console.log(doctorRegistration);
   }
 
-  onChange(value: string) {
+  onChange(value: string): void {
     this.services = this.doctorRegistrationService.getServicesBySpecialization(value);
     console.log(value);
+  }
+
+  addService(service: string, isChosen: boolean): void {
+    if (isChosen){
+      this.chosenServices.push(service);
+    } else {
+      const index = this.chosenServices.indexOf(service);
+      this.chosenServices.splice(index, 1);
+    }
+    console.log(this.chosenServices);
   }
 }

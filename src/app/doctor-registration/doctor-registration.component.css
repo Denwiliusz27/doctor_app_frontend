@@ -91,14 +91,11 @@ select {
   font-size: 24px;
   border: 3px solid #1342e8;
   border-radius: 7px;
-  font-style: italic;
-  font-family: "Arial", sans-serif;
-  color: #717171;
 }
 
-
-
-
+select:focus {
+  outline: none;
+}
 
 .checkbox {
   width: 60%;
@@ -121,7 +118,10 @@ select {
   padding: 20px;
 }
 
-
+.services_txt {
+  padding-bottom: 10px;
+  font-style: normal;
+}
 
 
 
