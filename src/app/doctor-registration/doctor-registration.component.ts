@@ -124,6 +124,7 @@ export class DoctorRegistrationComponent implements OnInit {
     }
     console.log(this.chosenServices);
   }
+
 /*
   private isChosen(): ValidatorFn {
     if (this.chosenServices.length === 0){

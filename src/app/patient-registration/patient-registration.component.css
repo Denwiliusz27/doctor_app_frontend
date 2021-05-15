@@ -133,6 +133,6 @@ button:hover {
   position: relative;
 }
 
-.foo {
+.error-red-border {
   border: 3px solid red;
 }

@@ -95,6 +95,7 @@ select {
 
 select:focus {
   outline: none;
+  background-color: aliceblue;
 }
 
 .checkbox {
@@ -127,6 +128,9 @@ select:focus {
   background-color: white;
 }
 
+.price-service {
+  W
+}
 
 
 textarea {
@@ -195,6 +199,6 @@ button:hover {
   position: relative;
 }
 
-.foo {
+.error-red-border {
   border: 3px solid red;
 }

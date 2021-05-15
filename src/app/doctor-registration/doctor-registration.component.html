@@ -13,7 +13,8 @@
 
       <label>
         <input data-toggle="tooltip" data-placement="right" title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery"
-               type="text" formControlName="name" required [class.foo] = "submitted && currentFormControls.name.errors" placeholder="imie*">
+               type="text" formControlName="name" required
+               [class.error-red-border]="submitted && currentFormControls.name.errors" placeholder="imie*">
         <div class="error" *ngIf="submitted && currentFormControls.name.errors?.required" >
           <p>nie wpisano imienia</p>
         </div>
@@ -27,7 +28,8 @@
 
       <label>
         <input data-toggle="tooltip" data-placement="right" title="Powinno zaczynać się od dużej litery i nie zawierać cyfr"
-               type="text" formControlName="surname" required [class.foo] = "submitted && currentFormControls.surname.errors" placeholder="nazwisko*">
+               type="text" formControlName="surname" required
+               [class.error-red-border]="submitted && currentFormControls.surname.errors" placeholder="nazwisko*">
         <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.required" >
           <p>nie wpisano nazwiska</p>
         </div>
@@ -41,7 +43,8 @@
 
       <label>
         <input data-toggle="tooltip" data-placement="right" title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'"
-               type="text" formControlName="email" required [class.foo] = "submitted && currentFormControls.email.errors" placeholder="e-mail*">
+               type="text" formControlName="email" required
+               [class.error-red-border]="submitted && currentFormControls.email.errors" placeholder="e-mail*">
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
@@ -52,7 +55,8 @@
 
       <label>
         <input data-toggle="tooltip" data-placement="right" title="Musi zawierać 8 znaków, jedną cyfrę, jedną małą i dużą literę"
-               type="password" formControlName="password" required [class.foo] = "submitted && currentFormControls.password.errors" placeholder="hasło*">
+               type="password" formControlName="password" required
+               [class.error-red-border]="submitted && currentFormControls.password.errors" placeholder="hasło*">
         <div class="error" *ngIf="submitted && currentFormControls.password.errors?.required" >
           <p>nie podano hasła</p>
         </div>
@@ -74,13 +78,16 @@
 
 
 
-      <div class="checkbox">
+      <div class="checkbox" [class.error-red-border]="submitted && currentFormControls.services.errors">
         <p class="services_txt">Usługi:</p>
         <label class="in_box" for="services" *ngFor="let service of services">
           <input type="checkbox" formControlName="services" required
-                 [class.foo] = "submitted && currentFormControls.services.errors"
                         (change)="addService(service, $event.target.checked)"/>{{service}}
+          <input class="price-service" type="text" placeholder="pole">
         </label>
+      </div>
+      <div class="error" *ngIf="submitted && currentFormControls.services.errors?.required" >
+        <p>nie wybrano żadnego pola</p>
       </div>
 
 
@@ -98,7 +105,8 @@
 
       <label>
         <input data-toggle="tooltip" data-placement="right" title="Powinno zaczynać się od dużej litery i nie zawierać cyfr"
-               type="text" formControlName="city" required [class.foo] = "submitted && currentFormControls.city.errors" placeholder="miasto*">
+               type="text" formControlName="city" required
+               [class.error-red-border]="submitted && currentFormControls.city.errors" placeholder="miasto*">
         <div class="error" *ngIf="submitted && currentFormControls.city.errors?.required" >
           <p>nie wpisano miasta</p>
         </div>
@@ -109,7 +117,8 @@
 
       <label>
         <input data-toggle="tooltip" data-placement="right" title="Powinna zawierać nazwę oraz numer"
-               type="text" formControlName="address" required [class.foo] = "submitted && currentFormControls.address.errors" placeholder="adres*">
+               type="text" formControlName="address" required
+               [class.error-red-border]="submitted && currentFormControls.address.errors" placeholder="adres*">
         <div class="error" *ngIf="submitted && currentFormControls.address.errors?.required" >
           <p>nie wpisano adresu</p>
         </div>
@@ -120,7 +129,8 @@
 
       <label>
         <input data-toggle="tooltip" data-placement="right" title="Powinien składać się wyłącznie z cyfr"
-               type="tel" formControlName="phoneNumber" [class.foo] = "submitted && currentFormControls.phoneNumber.errors" placeholder="numer telefonu">
+               type="tel" formControlName="phoneNumber"
+               [class.error-red-border]="submitted && currentFormControls.phoneNumber.errors" placeholder="numer telefonu">
         <div class="error" *ngIf="submitted && currentFormControls.phoneNumber.errors?.pattern" >
           <p>podany numer nie spełnia wymagań</p>
         </div>
@@ -131,13 +141,18 @@
       </label>
 
 
+
+
       <label>
         <input class="doc_image" type="file" accept="image/*" formControlName="image" required (change)="uploadImage($event)"
-               [class.foo] = "submitted && currentFormControls.image.errors" data-buttonText="Zdjecie">
+               [class.error-red-border]="submitted && currentFormControls.image.errors" data-buttonText="Zdjecie">
         <div class="error" *ngIf="submitted && currentFormControls.image.errors?.required" >
           <p>nie dodano zdjęcia</p>
         </div>
       </label>
+
+
+
 
       <button type="submit" >zarejestruj się</button>
 
