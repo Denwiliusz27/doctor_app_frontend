@@ -109,6 +109,10 @@ select:focus {
 }
 
 .in_box {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 30px 60% auto;
+  word-wrap: break-word;
   text-align: left;
   padding: 0 10px 0 10px;
   margin: 10px 0 10px 0;
@@ -129,11 +133,21 @@ select:focus {
 }
 
 .price-service {
-  width: 100px !important;
-  padding: 10px;
+  width: 70px !important;
+  padding: 10px !important;
   font-size: 18px;
   border: 2px solid #1342e8;
 }
+
+
+.text-for-checkbox {
+  padding: 0;
+  text-align: left;
+  font-size: 20px;
+  font-style: normal;
+  font-family: "Arial", sans-serif;
+}
+
 
 
 textarea {

@@ -69,39 +69,21 @@
       </label>
 
       <label for="specializations">
-        <select (change)="onSelectService($event.target.value)" name="specializations" id="specializations">
+        <select (change)="onSelectSpecialization($event.target.value)" formControlName="specialization" id="specializations">
           <option *ngFor="let specialization of specializations">{{specialization}}</option>
         </select>
       </label>
 
-
-
-
-
       <div class="checkbox" [class.error-red-border]="submitted && isServicesFormValid()">
         <p class="services_txt">Usługi:</p>
         <label class="in_box" for="services" *ngFor="let service of services">
-          <input type="checkbox" required
-                        (change)="addService(service, $event.target.checked)"/>{{service}}
-          <input class="price-service" type="number" value="0" placeholder="cena" (keyup)="onPriceInput(service, $event.target.value)">
+          <input type="checkbox" required (change)="addService(service, $event.target.checked)"/>{{service}}
+          <input class="price-service" type="number" value="0" (keyup)="onPriceInput(service, $event.target.value)">
         </label>
       </div>
       <div class="error" *ngIf="submitted && isServicesFormValid()">
         <p>nie wybrano żadnego pola</p>
       </div>
-
-
-
-
-     <!-- <label for="services">
-        <select name="services" id="services">
-          <option *ngFor="let service of services">{{service}}</option>
-        </select>
-      </label>-->
-
-
-
-
 
       <label>
         <input data-toggle="tooltip" data-placement="right" title="Powinno zaczynać się od dużej litery i nie zawierać cyfr"
@@ -140,9 +122,6 @@
         <textarea title="Pare słów o Tobie" formControlName="description" type="text" placeholder="opis"></textarea>
       </label>
 
-
-
-
       <label>
         <input class="doc_image" type="file" accept="image/*" formControlName="image" required (change)="uploadImage($event)"
                [class.error-red-border]="submitted && currentFormControls.image.errors" data-buttonText="Zdjecie">
@@ -150,9 +129,6 @@
           <p>nie dodano zdjęcia</p>
         </div>
       </label>
-
-
-
 
       <button type="submit" >zarejestruj się</button>
 

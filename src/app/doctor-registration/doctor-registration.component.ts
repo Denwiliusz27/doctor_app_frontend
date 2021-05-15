@@ -35,6 +35,7 @@ export class DoctorRegistrationComponent implements OnInit {
   specializations: string[] = ['kardiolog', 'dentysta'];
   chosenServices: DoctorService[] = [];
   imageFile = null;
+  chosenSpecialization: string = this.specializations[0];
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -109,7 +110,7 @@ export class DoctorRegistrationComponent implements OnInit {
       surname: this.registrationFormGroup.value.surname,
       email: this.registrationFormGroup.value.email,
       password: this.registrationFormGroup.value.password,
-      specialization: this.registrationFormGroup.value.specialization,
+      specialization: this.chosenSpecialization,
       services: this.chosenServices,
       city: this.registrationFormGroup.value.city,
       address: this.registrationFormGroup.value.address,
@@ -121,9 +122,11 @@ export class DoctorRegistrationComponent implements OnInit {
     console.log(doctorRegistration);
   }
 
-  onSelectService(serviceName: string): void {
-    this.services = this.doctorRegistrationService.getServicesBySpecialization(serviceName);
-    console.log(serviceName);
+  onSelectSpecialization(specializationName: string): void {
+    this.chosenServices = [];
+    this.services = this.doctorRegistrationService.getServicesBySpecialization(specializationName);
+    this.chosenSpecialization = specializationName;
+    console.log(specializationName);
   }
 
   addService(serviceName: string, isChosen: boolean): void {
@@ -137,6 +140,7 @@ export class DoctorRegistrationComponent implements OnInit {
     } else {
       currentService.isChosen = false;
     }
+    console.log(this.chosenServices);
   }
 
   uploadImage(event): void {
