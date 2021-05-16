@@ -77,8 +77,10 @@
       <div class="checkbox" [class.error-red-border]="submitted && isServicesFormValid()">
         <p class="services_txt">Usługi:</p>
         <label class="in_box" for="services" *ngFor="let service of services">
-          <input type="checkbox" required (change)="addService(service, $event.target.checked)"/>{{service}}
-          <input class="price-service" type="number" value="0" (keyup)="onPriceInput(service, $event.target.value)">
+          <input type="checkbox" required
+                 (change)="addService(service, $event.target.checked)" #serviceCheckboxes/>{{service}}
+          <input class="price-service" type="number" value="0"
+                 (keyup)="onPriceInput(service, $event.target.value)" #priceInputs>
         </label>
       </div>
       <div class="error" *ngIf="submitted && isServicesFormValid()">

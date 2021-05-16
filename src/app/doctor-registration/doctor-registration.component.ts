@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {DoctorRegistrationService} from "../services/doctor-registration.service";
 
@@ -132,7 +132,8 @@ export class DoctorRegistrationComponent implements OnInit {
     this.chosenServices = [];
     this.services = this.doctorRegistrationService.getServicesBySpecialization(specializationName);
     this.chosenSpecialization = specializationName;
-    // console.log(specializationName);
+    console.log(this.chosenServices);
+    this.uncheckAllServices();
   }
 
   addService(serviceName: string, isChosen: boolean): void {
@@ -144,9 +145,11 @@ export class DoctorRegistrationComponent implements OnInit {
         currentService.isChosen = true;
       }
     } else {
-      currentService.isChosen = false;
+      if (currentService !== undefined) {
+        currentService.isChosen = false;
+      }
     }
-    // console.log(this.chosenServices);
+    console.log(this.chosenServices);
   }
 
   uploadImage(event): void {
@@ -172,10 +175,24 @@ export class DoctorRegistrationComponent implements OnInit {
     // console.log(this.chosenServices.find(service => service.isChosen === true));
     const currentService =  this.chosenServices.find(service => service.isChosen === true);
     if (currentService === undefined) {
-      // console.log(currentService);
       return true;
     } else {
       return false;
     }
   }
+
+  @ViewChildren('serviceCheckboxes') checkboxes: QueryList<ElementRef>;
+  @ViewChildren('priceInputs') priceCheckboxes: QueryList<ElementRef>;
+
+  uncheckAllServices() {
+    this.checkboxes.forEach((element) => {
+      element.nativeElement.checked = false;
+    });
+    this.priceCheckboxes.forEach((element) => {
+      element.nativeElement.value = 0;
+    });
+  }
+
+
+
 }
