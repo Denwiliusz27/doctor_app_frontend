@@ -29,7 +29,6 @@ interface DoctorService {
 })
 
 export class DoctorRegistrationComponent implements OnInit {
-  disableSelect = new FormControl(false);
   submitted = false;
   services: string[] = ['konsultacja', 'badanie', 'testy', 'proby  wysilkowe', 'alergeny'];
   specializations: string[] = ['kardiolog', 'dentysta'];
@@ -59,7 +58,7 @@ export class DoctorRegistrationComponent implements OnInit {
       Validators.pattern('(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')
     ]),
     specialization: new FormControl('', [
-      Validators.required
+      // Validators.required
     ]),
     services: new FormControl('', [
       // this.isChosen()
@@ -96,16 +95,25 @@ export class DoctorRegistrationComponent implements OnInit {
   register(): void {
     this.submitted = true;
 
-    if (this.registrationFormGroup.valid || this.isServicesFormValid()){
-      console.log('w ifie');
+    this.registrationFormGroup.updateValueAndValidity();
+
+    if ((this.registrationFormGroup.valid && !this.isServicesFormValid()) === true){
+      console.log('w ifie - jest git');
       console.log(this.registrationFormGroup.valid);
       console.log(!this.isServicesFormValid());
-      return;
+
+      const doctorRegistration = this.prepareDoctorObject();
+      console.log(doctorRegistration);
+    } else {
+      console.log('!!!nie jest git?');
+      console.log(this.registrationFormGroup.valid);
+      console.log(!this.isServicesFormValid());
     }
+  }
 
-    console.log('po ifie');
-
-    const doctorRegistration: DoctorRegistration = {
+  prepareDoctorObject(): DoctorRegistration {
+    this.chosenServices = this.chosenServices.filter(service => service.isChosen === true);
+    return {
       name: this.registrationFormGroup.value.name,
       surname: this.registrationFormGroup.value.surname,
       email: this.registrationFormGroup.value.email,
@@ -118,15 +126,13 @@ export class DoctorRegistrationComponent implements OnInit {
       phoneNumber: this.registrationFormGroup.value.phoneNumber,
       image: this.imageFile
     };
-
-    console.log(doctorRegistration);
   }
 
   onSelectSpecialization(specializationName: string): void {
     this.chosenServices = [];
     this.services = this.doctorRegistrationService.getServicesBySpecialization(specializationName);
     this.chosenSpecialization = specializationName;
-    console.log(specializationName);
+    // console.log(specializationName);
   }
 
   addService(serviceName: string, isChosen: boolean): void {
@@ -140,12 +146,12 @@ export class DoctorRegistrationComponent implements OnInit {
     } else {
       currentService.isChosen = false;
     }
-    console.log(this.chosenServices);
+    // console.log(this.chosenServices);
   }
 
   uploadImage(event): void {
     this.imageFile = event.target.files[0];
-    console.log(this.imageFile);
+    // console.log(this.imageFile);
   }
 
   onPriceInput(serviceName: string, price: number) {
@@ -162,11 +168,11 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   isServicesFormValid(): boolean {
-    console.log(this.chosenServices);
-    console.log(this.chosenServices.find(service => service.isChosen === true));
+    // console.log(this.chosenServices);
+    // console.log(this.chosenServices.find(service => service.isChosen === true));
     const currentService =  this.chosenServices.find(service => service.isChosen === true);
     if (currentService === undefined) {
-      console.log('jest undefined');
+      // console.log(currentService);
       return true;
     } else {
       return false;
