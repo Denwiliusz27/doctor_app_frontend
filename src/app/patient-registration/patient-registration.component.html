@@ -12,8 +12,8 @@
     <form [formGroup]="registrationFormGroup" (ngSubmit)="register()">
 
       <label>
-        <input data-toggle="tooltip" data-placement="right" title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery"
-               type="text" formControlName="name" required [class.foo] = "submitted && currentFormControls.name.errors" placeholder="imie*">
+        <input title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery" type="text" formControlName="name"
+               required [class.error-red-border] = "submitted && currentFormControls.name.errors" placeholder="imie*">
         <div class="error" *ngIf="submitted && currentFormControls.name.errors?.required" >
           <p>nie wpisano imienia</p>
         </div>
@@ -26,8 +26,8 @@
       </label>
 
       <label>
-        <input data-toggle="tooltip" data-placement="right" title="Powinno zaczynać się od dużej litery i nie zawierać cyfr"
-          type="text" formControlName="surname" required [class.foo] = "submitted && currentFormControls.surname.errors" placeholder="nazwisko*">
+        <input title="Powinno zaczynać się od dużej litery i nie zawierać cyfr" type="text" formControlName="surname"
+               required [class.error-red-border] = "submitted && currentFormControls.surname.errors" placeholder="nazwisko*">
         <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.required" >
           <p>nie wpisano nazwiska</p>
         </div>
@@ -40,8 +40,8 @@
       </label>
 
       <label>
-        <input data-toggle="tooltip" data-placement="right" title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'"
-          type="text" formControlName="email" required [class.foo] = "submitted && currentFormControls.email.errors" placeholder="e-mail*">
+        <input title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'" type="text" formControlName="email"
+               required [class.error-red-border] = "submitted && currentFormControls.email.errors" placeholder="e-mail*">
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
@@ -51,8 +51,8 @@
       </label>
 
       <label>
-        <input data-toggle="tooltip" data-placement="right" title="Musi zawierać 8 znaków, jedną cyfrę, jedną małą i dużą literę"
-          type="password" formControlName="password" required [class.foo] = "submitted && currentFormControls.password.errors" placeholder="hasło*">
+        <input title="Musi zawierać 8 znaków, jedną cyfrę, jedną małą i dużą literę" type="password" formControlName="password"
+               required [class.error-red-border] = "submitted && currentFormControls.password.errors" placeholder="hasło*">
         <div class="error" *ngIf="submitted && currentFormControls.password.errors?.required" >
           <p>nie podano hasła</p>
         </div>

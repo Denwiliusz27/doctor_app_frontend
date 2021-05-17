@@ -94,7 +94,6 @@ export class DoctorRegistrationComponent implements OnInit {
 
   register(): void {
     this.submitted = true;
-
     this.registrationFormGroup.updateValueAndValidity();
 
     if ((this.registrationFormGroup.valid && !this.isServiceFormValid()) === true){
@@ -132,7 +131,6 @@ export class DoctorRegistrationComponent implements OnInit {
     this.chosenServices = [];
     this.services = this.doctorRegistrationService.getServicesBySpecialization(specializationName);
     this.chosenSpecialization = specializationName;
-    console.log(this.chosenServices);
     this.uncheckAllServices();
   }
 
@@ -154,7 +152,6 @@ export class DoctorRegistrationComponent implements OnInit {
 
   uploadImage(event): void {
     this.imageFile = event.target.files[0];
-    // console.log(this.imageFile);
   }
 
   onPriceInput(serviceName: string, price: number) {
@@ -162,7 +159,6 @@ export class DoctorRegistrationComponent implements OnInit {
     if (currentService) {
       if (price.toString() === '' && (currentService.isChosen === true)) {
         currentService.price = 0;
-        console.log('jestem zerem');
       } else {
         currentService.price = Number(price);
       }
@@ -186,8 +182,6 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   noServiceChecked(): boolean {
-    // console.log(this.chosenServices);
-    // console.log(this.chosenServices.find(service => service.isChosen === true));
     const currentService =  this.chosenServices.find(service => service.isChosen === true);
     if (currentService === undefined) {
       return true;
@@ -213,7 +207,10 @@ export class DoctorRegistrationComponent implements OnInit {
     if (currentService === undefined) {
       return false;
     } else {
-      return true;
+      if (currentService.isChosen === true){
+        return true;
+      }
+      return false;
     }
   }
 
@@ -228,14 +225,4 @@ export class DoctorRegistrationComponent implements OnInit {
       element.nativeElement.value = 0;
     });
   }
-/*
-  isPriceInputEmpty(value: string): boolean {
-    console.log(value);
-    if (value === '') {
-      console.log('jestem pusty i nic ci do tego');
-      return true;
-    } else {
-      return false;
-    }
-  }*/
 }

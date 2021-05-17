@@ -12,7 +12,7 @@
     <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
 
       <label>
-        <input type="text" formControlName="email" required [class.foo] = "submitted && currentFormControls.email.errors" placeholder="e-mail">
+        <input type="text" formControlName="email" required [class.error-red-border] = "submitted && currentFormControls.email.errors" placeholder="e-mail">
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
@@ -22,7 +22,7 @@
       </label>
 
       <label>
-        <input type="password" formControlName="password" required [class.foo] = "submitted && currentFormControls.password.errors" placeholder="hasło">
+        <input type="password" formControlName="password" required [class.error-red-border] = "submitted && currentFormControls.password.errors" placeholder="hasło">
         <div class="error" *ngIf="submitted && currentFormControls.password.errors?.required" >
           <p>nie podano hasła</p>
         </div>

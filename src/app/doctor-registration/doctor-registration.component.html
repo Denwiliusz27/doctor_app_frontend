@@ -12,8 +12,8 @@
     <form [formGroup]="registrationFormGroup" (ngSubmit)="register()">
 
       <label>
-        <input data-toggle="tooltip" data-placement="right" title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery"
-               type="text" formControlName="name" required
+        <input title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery" type="text"
+               formControlName="name" required
                [class.error-red-border]="submitted && currentFormControls.name.errors" placeholder="imie*">
         <div class="error" *ngIf="submitted && currentFormControls.name.errors?.required" >
           <p>nie wpisano imienia</p>
@@ -27,9 +27,8 @@
       </label>
 
       <label>
-        <input data-toggle="tooltip" data-placement="right" title="Powinno zaczynać się od dużej litery i nie zawierać cyfr"
-               type="text" formControlName="surname" required
-               [class.error-red-border]="submitted && currentFormControls.surname.errors" placeholder="nazwisko*">
+        <input title="Powinno zaczynać się od dużej litery i nie zawierać cyfr" type="text" formControlName="surname"
+               required [class.error-red-border]="submitted && currentFormControls.surname.errors" placeholder="nazwisko*">
         <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.required" >
           <p>nie wpisano nazwiska</p>
         </div>
@@ -42,9 +41,8 @@
       </label>
 
       <label>
-        <input data-toggle="tooltip" data-placement="right" title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'"
-               type="text" formControlName="email" required
-               [class.error-red-border]="submitted && currentFormControls.email.errors" placeholder="e-mail*">
+        <input title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'" type="text" formControlName="email"
+               required [class.error-red-border]="submitted && currentFormControls.email.errors" placeholder="e-mail*">
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
@@ -54,8 +52,8 @@
       </label>
 
       <label>
-        <input data-toggle="tooltip" data-placement="right" title="Musi zawierać 8 znaków, jedną cyfrę, jedną małą i dużą literę"
-               type="password" formControlName="password" required
+        <input title="Musi zawierać 8 znaków, jedną cyfrę, jedną małą i dużą literę" type="password"
+               formControlName="password" required
                [class.error-red-border]="submitted && currentFormControls.password.errors" placeholder="hasło*">
         <div class="error" *ngIf="submitted && currentFormControls.password.errors?.required" >
           <p>nie podano hasła</p>
@@ -74,12 +72,13 @@
         </select>
       </label>
 
-      <div class="checkbox" [class.error-red-border]="(submitted && isServiceFormValid())">
+      <div class="checkbox" [class.error-red-border]="(submitted && isServiceFormValid())"
+           title="Należy zaznaczyć co najmniej jedną usługę">
         <p class="services_txt">Usługi:</p>
         <label class="in_box" for="services" *ngFor="let service of services">
           <input type="checkbox" required
                  (change)="addService(service, $event.target.checked)" #serviceCheckboxes/>{{service}}
-          <input class="price-service" type="number" value=0
+          <input class="price-service" type="number" value=0 title="Cena powinna być większa od zera"
                  (keyup)="onPriceInput(service, $event.target.value)" #priceInputs>
         </label>
       </div>
@@ -93,11 +92,9 @@
         <p>cena nie może być ujemna</p>
       </div>
 
-
       <label>
-        <input data-toggle="tooltip" data-placement="right" title="Powinno zaczynać się od dużej litery i nie zawierać cyfr"
-               type="text" formControlName="city" required
-               [class.error-red-border]="submitted && currentFormControls.city.errors" placeholder="miasto*">
+        <input title="Powinno zaczynać się od dużej litery i nie zawierać cyfr" type="text" formControlName="city"
+               required [class.error-red-border]="submitted && currentFormControls.city.errors" placeholder="miasto*">
         <div class="error" *ngIf="submitted && currentFormControls.city.errors?.required" >
           <p>nie wpisano miasta</p>
         </div>
@@ -107,8 +104,7 @@
       </label>
 
       <label>
-        <input data-toggle="tooltip" data-placement="right" title="Powinna zawierać nazwę oraz numer"
-               type="text" formControlName="address" required
+        <input title="Powinna zawierać nazwę oraz numer" type="text" formControlName="address" required
                [class.error-red-border]="submitted && currentFormControls.address.errors" placeholder="adres*">
         <div class="error" *ngIf="submitted && currentFormControls.address.errors?.required" >
           <p>nie wpisano adresu</p>
@@ -119,8 +115,7 @@
       </label>
 
       <label>
-        <input data-toggle="tooltip" data-placement="right" title="Powinien składać się wyłącznie z cyfr"
-               type="tel" formControlName="phoneNumber"
+        <input title="Powinien składać się wyłącznie z cyfr" type="tel" formControlName="phoneNumber"
                [class.error-red-border]="submitted && currentFormControls.phoneNumber.errors" placeholder="numer telefonu">
         <div class="error" *ngIf="submitted && currentFormControls.phoneNumber.errors?.pattern" >
           <p>podany numer nie spełnia wymagań</p>
@@ -133,13 +128,14 @@
 
       <label>
         <input class="doc_image" type="file" accept="image/*" formControlName="image" required (change)="uploadImage($event)"
+               title="Plik powinien byc obiektem graficznym"
                [class.error-red-border]="submitted && currentFormControls.image.errors" data-buttonText="Zdjecie">
         <div class="error" *ngIf="submitted && currentFormControls.image.errors?.required" >
           <p>nie dodano zdjęcia</p>
         </div>
       </label>
 
-      <button type="submit" >zarejestruj się</button>
+      <button type="submit">zarejestruj się</button>
 
     </form>
 
