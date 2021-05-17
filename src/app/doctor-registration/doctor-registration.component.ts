@@ -97,17 +97,17 @@ export class DoctorRegistrationComponent implements OnInit {
 
     this.registrationFormGroup.updateValueAndValidity();
 
-    if ((this.registrationFormGroup.valid && !this.isServicesFormValid()) === true){
+    if ((this.registrationFormGroup.valid && !this.isServiceFormValid()) === true){
       console.log('w ifie - jest git');
       console.log(this.registrationFormGroup.valid);
-      console.log(!this.isServicesFormValid());
+      console.log(!this.isServiceFormValid());
 
       const doctorRegistration = this.prepareDoctorObject();
       console.log(doctorRegistration);
     } else {
       console.log('!!!nie jest git?');
       console.log(this.registrationFormGroup.valid);
-      console.log(!this.isServicesFormValid());
+      console.log(!this.isServiceFormValid());
     }
   }
 
@@ -158,19 +158,34 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   onPriceInput(serviceName: string, price: number) {
-    if (price.toString() === '') {
-      return;
-    }
     const currentService = this.chosenServices.find(service => service.name === serviceName);
     if (currentService) {
-      currentService.price = Number(price);
+      if (price.toString() === '' && (currentService.isChosen === true)) {
+        currentService.price = 0;
+        console.log('jestem zerem');
+      } else {
+        currentService.price = Number(price);
+      }
     } else {
       const newService = {name: serviceName, price: Number(price), isChosen: false};
       this.chosenServices.push(newService);
     }
   }
 
-  isServicesFormValid(): boolean {
+  isServiceFormValid(): boolean {
+    if (this.noServiceChecked()) {
+      return true;
+    }
+    if (this.isPriceZero()) {
+      return true;
+    }
+    if (this.isPriceNegative()) {
+      return true;
+    }
+    return false;
+  }
+
+  noServiceChecked(): boolean {
     // console.log(this.chosenServices);
     // console.log(this.chosenServices.find(service => service.isChosen === true));
     const currentService =  this.chosenServices.find(service => service.isChosen === true);
@@ -178,6 +193,27 @@ export class DoctorRegistrationComponent implements OnInit {
       return true;
     } else {
       return false;
+    }
+  }
+
+  isPriceZero(): boolean {
+    const currentService =  this.chosenServices.find(service => service.price === 0);
+    if (currentService === undefined) {
+      return false;
+    } else {
+      if (currentService.isChosen === true){
+        return true;
+      }
+      return false;
+    }
+  }
+
+  isPriceNegative(): boolean {
+    const currentService =  this.chosenServices.find(service => service.price < 0);
+    if (currentService === undefined) {
+      return false;
+    } else {
+      return true;
     }
   }
 
@@ -192,7 +228,14 @@ export class DoctorRegistrationComponent implements OnInit {
       element.nativeElement.value = 0;
     });
   }
-
-
-
+/*
+  isPriceInputEmpty(value: string): boolean {
+    console.log(value);
+    if (value === '') {
+      console.log('jestem pusty i nic ci do tego');
+      return true;
+    } else {
+      return false;
+    }
+  }*/
 }

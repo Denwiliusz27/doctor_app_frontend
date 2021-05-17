@@ -85,6 +85,12 @@ input:focus {
   background-color: aliceblue;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 select {
   width: 63.5%;
   padding: 15px;
@@ -139,7 +145,6 @@ select:focus {
   border: 2px solid #1342e8;
 }
 
-
 .text-for-checkbox {
   padding: 0;
   text-align: left;
@@ -147,8 +152,6 @@ select:focus {
   font-style: normal;
   font-family: "Arial", sans-serif;
 }
-
-
 
 textarea {
   height: 300px;
@@ -165,6 +168,7 @@ textarea {
 textarea:focus {
   outline: none;
   background-color: aliceblue;
+  font-style: normal;
 }
 
 ::placeholder {

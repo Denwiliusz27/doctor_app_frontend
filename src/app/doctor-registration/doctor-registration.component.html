@@ -74,18 +74,25 @@
         </select>
       </label>
 
-      <div class="checkbox" [class.error-red-border]="submitted && isServicesFormValid()">
+      <div class="checkbox" [class.error-red-border]="(submitted && isServiceFormValid())">
         <p class="services_txt">Usługi:</p>
         <label class="in_box" for="services" *ngFor="let service of services">
           <input type="checkbox" required
                  (change)="addService(service, $event.target.checked)" #serviceCheckboxes/>{{service}}
-          <input class="price-service" type="number" value="0"
+          <input class="price-service" type="number" value=0
                  (keyup)="onPriceInput(service, $event.target.value)" #priceInputs>
         </label>
       </div>
-      <div class="error" *ngIf="submitted && isServicesFormValid()">
+      <div class="error" *ngIf="submitted && noServiceChecked()">
         <p>nie wybrano żadnego pola</p>
       </div>
+      <div class="error" *ngIf="submitted && isPriceZero()">
+        <p>należy wprowadzić cenę za usługę</p>
+      </div>
+      <div class="error" *ngIf="submitted && isPriceNegative()">
+        <p>cena nie może być ujemna</p>
+      </div>
+
 
       <label>
         <input data-toggle="tooltip" data-placement="right" title="Powinno zaczynać się od dużej litery i nie zawierać cyfr"
