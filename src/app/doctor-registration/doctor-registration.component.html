@@ -93,6 +93,12 @@
       </div>
 
       <label>
+        <select (change)="onSelectCity($event.target.value)" formControlName="city" id="city">
+          <option *ngFor="let city of cities">{{city}}</option>
+        </select>
+      </label>
+
+      <!--<label>
         <input title="Powinno zaczynać się od dużej litery i nie zawierać cyfr" type="text" formControlName="city"
                required [class.error-red-border]="submitted && currentFormControls.city.errors" placeholder="miasto*">
         <div class="error" *ngIf="submitted && currentFormControls.city.errors?.required" >
@@ -101,7 +107,7 @@
         <div class="error" *ngIf="submitted && currentFormControls.city.errors?.pattern" >
           <p>nazwa miasta nie spełnia wymagań</p>
         </div>
-      </label>
+      </label>-->
 
       <label>
         <input title="Powinna zawierać nazwę oraz numer" type="text" formControlName="address" required

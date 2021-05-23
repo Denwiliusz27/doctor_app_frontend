@@ -33,6 +33,8 @@ export class DoctorRegistrationComponent implements OnInit {
   services: string[] = ['konsultacja', 'badanie', 'testy', 'proby  wysilkowe', 'alergeny'];
   specializations: string[] = ['kardiolog', 'dentysta'];
   chosenServices: DoctorService[] = [];
+  cities: string[] = ['Kraków', 'Warszawa', 'Gdańsk'];
+  selectedCity: string = this.cities[0];
   imageFile = null;
   chosenSpecialization: string = this.specializations[0];
 
@@ -64,8 +66,8 @@ export class DoctorRegistrationComponent implements OnInit {
       // this.isChosen()
     ]),
     city: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[A-Z][a-ząćęįłńóżź]+(\-[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+)?$')
+      /*Validators.required,
+      Validators.pattern('^[A-Z][a-ząćęįłńóżź]+(\-[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+)?$')*/
     ]),
     address: new FormControl('', [
       Validators.required,
@@ -119,7 +121,7 @@ export class DoctorRegistrationComponent implements OnInit {
       password: this.registrationFormGroup.value.password,
       specialization: this.chosenSpecialization,
       services: this.chosenServices,
-      city: this.registrationFormGroup.value.city,
+      city: this.selectedCity,
       address: this.registrationFormGroup.value.address,
       description: this.registrationFormGroup.value.description,
       phoneNumber: this.registrationFormGroup.value.phoneNumber,
@@ -154,7 +156,7 @@ export class DoctorRegistrationComponent implements OnInit {
     this.imageFile = event.target.files[0];
   }
 
-  onPriceInput(serviceName: string, price: number) {
+  onPriceInput(serviceName: string, price: number): void {
     const currentService = this.chosenServices.find(service => service.name === serviceName);
     if (currentService) {
       if (price.toString() === '' && (currentService.isChosen === true)) {
@@ -169,13 +171,7 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   isServiceFormValid(): boolean {
-    if (this.noServiceChecked()) {
-      return true;
-    }
-    if (this.isPriceZero()) {
-      return true;
-    }
-    if (this.isPriceNegative()) {
+    if (this.noServiceChecked() || this.isPriceZero() || this.isPriceNegative()) {
       return true;
     }
     return false;
@@ -216,13 +212,16 @@ export class DoctorRegistrationComponent implements OnInit {
 
   @ViewChildren('serviceCheckboxes') checkboxes: QueryList<ElementRef>;
   @ViewChildren('priceInputs') priceCheckboxes: QueryList<ElementRef>;
-
-  uncheckAllServices() {
+  uncheckAllServices(): void {
     this.checkboxes.forEach((element) => {
       element.nativeElement.checked = false;
     });
     this.priceCheckboxes.forEach((element) => {
       element.nativeElement.value = 0;
     });
+  }
+
+  onSelectCity(selectedCity: string): void {
+    this.selectedCity = selectedCity;
   }
 }
