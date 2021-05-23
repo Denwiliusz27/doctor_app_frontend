@@ -67,13 +67,15 @@
       </label>
 
       <label for="specializations">
-        <select (change)="onSelectSpecialization($event.target.value)" formControlName="specialization" id="specializations">
+        <select (change)="onSelectSpecialization($event.target.value)" formControlName="specialization" id="specializations"
+                [class.error-red-border]="(submitted && isSpecializationSelected())">
+          <option class="disabled-option" disabled selected value>specjalizacja</option>
           <option *ngFor="let specialization of specializations">{{specialization}}</option>
         </select>
       </label>
 
       <div class="checkbox" [class.error-red-border]="(submitted && isServiceFormValid())"
-           title="Należy zaznaczyć co najmniej jedną usługę">
+           title="Należy zaznaczyć co najmniej jedną usługę" *ngIf="(!isSpecializationSelected())">
         <p class="services_txt">Usługi:</p>
         <label class="in_box" for="services" *ngFor="let service of services">
           <input type="checkbox" required
@@ -93,10 +95,15 @@
       </div>
 
       <label>
-        <select (change)="onSelectCity($event.target.value)" formControlName="city" id="city">
+        <select (change)="onSelectCity($event.target.value)" [class.error-red-border]="(submitted && isCitySelected())"
+                formControlName="city" id="city">
+          <option class="disabled-option" disabled selected value>miasto</option>
           <option *ngFor="let city of cities">{{city}}</option>
         </select>
       </label>
+      <div class="error" *ngIf="submitted && isCitySelected()">
+        <p>nie wybrano żadnego pola</p>
+      </div>
 
       <!--<label>
         <input title="Powinno zaczynać się od dużej litery i nie zawierać cyfr" type="text" formControlName="city"

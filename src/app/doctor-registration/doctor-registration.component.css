@@ -99,6 +99,11 @@ select {
   border-radius: 7px;
 }
 
+.disabled-option {
+  color: dimgray;
+  background-color: darkgray;
+}
+
 select:focus {
   outline: none;
   background-color: aliceblue;

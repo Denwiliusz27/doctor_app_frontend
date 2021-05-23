@@ -30,13 +30,13 @@ interface DoctorService {
 
 export class DoctorRegistrationComponent implements OnInit {
   submitted = false;
-  services: string[] = ['konsultacja', 'badanie', 'testy', 'proby  wysilkowe', 'alergeny'];
+  services: string[];
   specializations: string[] = ['kardiolog', 'dentysta'];
-  chosenServices: DoctorService[] = [];
+  selectedSpecialization: string;
+  selectedServices: DoctorService[] = [];
   cities: string[] = ['Kraków', 'Warszawa', 'Gdańsk'];
-  selectedCity: string = this.cities[0];
+  selectedCity: string;
   imageFile = null;
-  chosenSpecialization: string = this.specializations[0];
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -113,14 +113,14 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   prepareDoctorObject(): DoctorRegistration {
-    this.chosenServices = this.chosenServices.filter(service => service.isChosen === true);
+    this.selectedServices = this.selectedServices.filter(service => service.isChosen === true);
     return {
       name: this.registrationFormGroup.value.name,
       surname: this.registrationFormGroup.value.surname,
       email: this.registrationFormGroup.value.email,
       password: this.registrationFormGroup.value.password,
-      specialization: this.chosenSpecialization,
-      services: this.chosenServices,
+      specialization: this.selectedSpecialization,
+      services: this.selectedServices,
       city: this.selectedCity,
       address: this.registrationFormGroup.value.address,
       description: this.registrationFormGroup.value.description,
@@ -130,17 +130,17 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   onSelectSpecialization(specializationName: string): void {
-    this.chosenServices = [];
+    this.selectedServices = [];
     this.services = this.doctorRegistrationService.getServicesBySpecialization(specializationName);
-    this.chosenSpecialization = specializationName;
+    this.selectedSpecialization = specializationName;
     this.uncheckAllServices();
   }
 
   addService(serviceName: string, isChosen: boolean): void {
-    const currentService = this.chosenServices.find(service => service.name === serviceName); // return service or undefined
+    const currentService = this.selectedServices.find(service => service.name === serviceName); // return service or undefined
     if (isChosen){
       if (currentService === undefined) {
-        this.chosenServices.push({name: serviceName, price: 0, isChosen: true});
+        this.selectedServices.push({name: serviceName, price: 0, isChosen: true});
       } else {
         currentService.isChosen = true;
       }
@@ -149,7 +149,7 @@ export class DoctorRegistrationComponent implements OnInit {
         currentService.isChosen = false;
       }
     }
-    console.log(this.chosenServices);
+    console.log(this.selectedServices);
   }
 
   uploadImage(event): void {
@@ -157,7 +157,7 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   onPriceInput(serviceName: string, price: number): void {
-    const currentService = this.chosenServices.find(service => service.name === serviceName);
+    const currentService = this.selectedServices.find(service => service.name === serviceName);
     if (currentService) {
       if (price.toString() === '' && (currentService.isChosen === true)) {
         currentService.price = 0;
@@ -166,7 +166,7 @@ export class DoctorRegistrationComponent implements OnInit {
       }
     } else {
       const newService = {name: serviceName, price: Number(price), isChosen: false};
-      this.chosenServices.push(newService);
+      this.selectedServices.push(newService);
     }
   }
 
@@ -178,7 +178,7 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   noServiceChecked(): boolean {
-    const currentService =  this.chosenServices.find(service => service.isChosen === true);
+    const currentService =  this.selectedServices.find(service => service.isChosen === true);
     if (currentService === undefined) {
       return true;
     } else {
@@ -187,7 +187,7 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   isPriceZero(): boolean {
-    const currentService =  this.chosenServices.find(service => service.price === 0);
+    const currentService =  this.selectedServices.find(service => service.price === 0);
     if (currentService === undefined) {
       return false;
     } else {
@@ -199,7 +199,7 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   isPriceNegative(): boolean {
-    const currentService =  this.chosenServices.find(service => service.price < 0);
+    const currentService =  this.selectedServices.find(service => service.price < 0);
     if (currentService === undefined) {
       return false;
     } else {
@@ -223,5 +223,21 @@ export class DoctorRegistrationComponent implements OnInit {
 
   onSelectCity(selectedCity: string): void {
     this.selectedCity = selectedCity;
+  }
+
+  isCitySelected(): boolean {
+    if (this.selectedCity === undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isSpecializationSelected(): boolean {
+    if (this.selectedSpecialization === undefined) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -12,6 +12,8 @@ export class DoctorRegistrationService {
       return ['badanie', 'konultacje'];
     } else if (value === 'kardiolog'){
       return ['badanie', 'konsultacje kardiolog', 'testy', 'proby  wysilkowe', 'alergeny'];
+    } else {
+      return [];
     }
   }
 }
