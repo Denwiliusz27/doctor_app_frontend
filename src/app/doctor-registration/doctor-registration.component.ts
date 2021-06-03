@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {DoctorRegistrationService} from "../services/doctor-registration.service";
+import {Router} from '@angular/router';
 
 interface DoctorRegistration {
   name: string;
@@ -83,7 +84,7 @@ export class DoctorRegistrationComponent implements OnInit {
     description: new FormControl()
   });
 
-  constructor(private readonly doctorRegistrationService: DoctorRegistrationService) { }
+  constructor(private readonly doctorRegistrationService: DoctorRegistrationService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -104,6 +105,8 @@ export class DoctorRegistrationComponent implements OnInit {
       console.log(!this.isServiceFormValid());
 
       const doctorRegistration = this.prepareDoctorObject();
+
+      this.router.navigateByUrl('/doktor-strona-główna');
       console.log(doctorRegistration);
     } else {
       console.log('!!!nie jest git?');

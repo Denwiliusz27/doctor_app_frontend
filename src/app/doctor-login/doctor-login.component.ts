@@ -51,6 +51,8 @@ export class DoctorLoginComponent implements OnInit {
 
     const doctorLogin: DoctorLogin = {email: this.loginFormGroup.value.email, password: this.loginFormGroup.value.password};
 
+    this.router.navigateByUrl('/doktor-strona-główna');
+
     console.log('kliknięto');
   }
 

@@ -12,13 +12,15 @@ import { DoctorRegistrationComponent } from './doctor-registration/doctor-regist
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
+import { DoctorHomepageComponent } from './doctor-homepage/doctor-homepage.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent},
   { path: 'doktor-login', component: DoctorLoginComponent},
   { path: 'pacjent-login', component: PatientLoginComponent},
   { path: 'pacjent-rejestracja', component: PatientRegistrationComponent},
-  { path: 'doktor-rejestracja', component: DoctorRegistrationComponent}
+  { path: 'doktor-rejestracja', component: DoctorRegistrationComponent},
+  { path: 'doktor-strona-główna', component: DoctorHomepageComponent},
 ];
 
 @NgModule({
@@ -28,7 +30,8 @@ const routes: Routes = [
     DoctorLoginComponent,
     PatientLoginComponent,
     PatientRegistrationComponent,
-    DoctorRegistrationComponent
+    DoctorRegistrationComponent,
+    DoctorHomepageComponent
   ],
   imports: [
     MatFormFieldModule,

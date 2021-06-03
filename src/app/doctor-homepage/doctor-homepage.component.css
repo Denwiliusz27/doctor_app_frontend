@@ -1,0 +1,29 @@
+.backgroung-img {
+  background-image: url('doctor.png');
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  background-size: auto 103%;
+
+  -webkit-filter: blur(1px);
+  filter: blur(1px);
+  height: 100%;
+  width: 100%;
+
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  display: block;
+}
+
+.menu {
+  width: 20%;
+  height: 100%;
+  position: fixed;
+  background-color: #1342e8;
+  border-right: dimgray 10px;
+}
+
+.main-site {
+  margin-left: 20%;
+}
