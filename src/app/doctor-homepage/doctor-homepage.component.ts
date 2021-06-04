@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-doctor-homepage',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DoctorHomepageComponent implements OnInit {
 
+  @Output() public menuToggle = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onToggleSidenav() {
+    this.menuToggle.emit();
+  }
 }

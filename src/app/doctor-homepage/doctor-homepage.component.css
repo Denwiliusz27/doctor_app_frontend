@@ -2,7 +2,7 @@
   background-image: url('doctor.png');
   background-position: 100% 100%;
   background-repeat: no-repeat;
-  background-size: auto 103%;
+  background-size: auto 101%;
 
   -webkit-filter: blur(1px);
   filter: blur(1px);
@@ -16,14 +16,77 @@
   display: block;
 }
 
+.home-page-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.main_site_link {
+  font-size: 35px;
+  font-family: "Rage Italic", sans-serif;
+  font-style: italic;
+  text-decoration: none;
+  text-shadow: 3px 3px 3px black;
+  color: white;
+
+  transition: all 0.4s ease 0s;
+}
+
 .menu {
-  width: 20%;
+  justify-content: center;
+  text-align: center;
+  padding: 15px 0 15px 0;
+  word-wrap: break-word;
+  width: 5%;
   height: 100%;
   position: fixed;
   background-color: #1342e8;
-  border-right: dimgray 10px;
+  display: flex;
+}
+
+.menu:hover {
+  width: 20%;
+}
+
+.menu-content {
+  width: 80%;
 }
 
 .main-site {
+  width: 80%;
   margin-left: 20%;
+}
+
+
+mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 250px;
+}
+
+main {
+  padding: 10px;
+}
+
+.item-link {
+  text-decoration: none;
+  color: white;
+}
+
+.item-link:hover, .item-link:active {
+  color: beige;
+}
+
+.menu-items {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+mat-toolbar {
+  border-radius: 3px;
 }

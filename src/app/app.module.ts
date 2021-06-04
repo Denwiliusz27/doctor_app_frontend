@@ -13,6 +13,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 import { DoctorHomepageComponent } from './doctor-homepage/doctor-homepage.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent},
@@ -37,6 +41,10 @@ const routes: Routes = [
     MatFormFieldModule,
     BrowserModule,
     ReactiveFormsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatSidenavModule,
     RouterModule.forRoot(
       routes,
       {enableTracing: true} // <-- debugging purposes only

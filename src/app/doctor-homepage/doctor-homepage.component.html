@@ -1,11 +1,51 @@
 <div class="backgroung-img"></div>
 
-<div class="main-component">
-  <div class="menu">
-    <p>elo</p>
-  </div>
+<div class="home-page-content">
+  <!--<div class="menu">
+    <div class="menu-content">
+      <a class="main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
+      <p>elo</p>
+    </div>
+
+  </div>-->
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+      <mat-toolbar color="primary" >
+        <div>
+          <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+
+        <div>
+          <a class="main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
+        </div>
+
+        <div fxFlex fxLayout fxLayoutAlign="end">
+          <ul class="menu-items" fxLayout fxLayoutGap="15px">
+            <li>
+              <a class="item-link">pierwsze</a>
+            </li>
+            <li>
+              <a class="item-link">drugie</a>
+            </li>
+          </ul>
+        </div>
+      </mat-toolbar>
+
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 
   <div class="main-site">
     <p>witamy</p>
+
   </div>
 </div>
