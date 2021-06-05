@@ -1,51 +1,40 @@
 <div class="backgroung-img"></div>
 
 <div class="home-page-content">
-  <!--<div class="menu">
-    <div class="menu-content">
-      <a class="main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
-      <p>elo</p>
-    </div>
-
-  </div>-->
 
   <mat-sidenav-container>
-    <mat-sidenav #sidenav role="navigation">
-
+    <mat-sidenav fixedInViewport="false" role="navigation">
+      <mat-toolbar color="primary">Menu</mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item>pierwsze</a>
+        <a mat-list-item>drugie</a>
+        <a mat-list-item>trzecie</a>
+      </mat-nav-list>
     </mat-sidenav>
+
     <mat-sidenav-content>
-
       <mat-toolbar color="primary" >
-        <div>
-          <button mat-icon-button (click)="onToggleSidenav()">
-            <mat-icon>menu</mat-icon>
-          </button>
-        </div>
-
-        <div>
-          <a class="main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
-        </div>
-
-        <div fxFlex fxLayout fxLayoutAlign="end">
-          <ul class="menu-items" fxLayout fxLayoutGap="15px">
-            <li>
-              <a class="item-link">pierwsze</a>
-            </li>
-            <li>
-              <a class="item-link">drugie</a>
-            </li>
-          </ul>
-        </div>
+        <button mat-icon-button (click)="onToggleSidenav()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <a class="main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
       </mat-toolbar>
-
-      <main>
-        <router-outlet></router-outlet>
-      </main>
+      <ng-component></ng-component>
     </mat-sidenav-content>
   </mat-sidenav-container>
 
   <div class="main-site">
-    <p>witamy</p>
+    <div class="main-site-content">
+      <h1>strona główna</h1>
+
+      <div class="option-box">
+        <div id="{{option}}" *ngFor="let option of options" (click)="redirect(option)">
+          <p *ngIf="option === 'wyniki'">wyniki badań</p>
+          <p *ngIf="option !== 'wyniki'">{{option}}</p>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 </div>
