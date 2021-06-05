@@ -66,16 +66,14 @@
 }
 
 h1 {
-  font-size: 65px;
+  font-size: 80px;
   font-weight: lighter;
   color: #1342e8;
-  text-shadow: 2px 2px 5px black;
+  text-shadow: 3px 3px 3px black;
   margin: 6% 0 2% 0;
-  font-style: italic;
   font-family: "Arial", sans-serif;
   text-align: center;
 }
-
 
 .option-box {
   display: flex;
@@ -155,13 +153,12 @@ h1 {
 
 
 
-mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+mat-sidenav-container {
   height: 100%;
 }
 
 mat-sidenav {
   width: 250px;
-  background-color: #1342e8;
 }
 
 main {

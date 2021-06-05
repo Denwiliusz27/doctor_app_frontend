@@ -1,5 +1,6 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
+import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-doctor-homepage',
@@ -8,8 +9,10 @@ import {Router} from '@angular/router';
 })
 export class DoctorHomepageComponent implements OnInit {
   options: string[] = ['kalendarz', 'wizyty', 'wyniki'];
+  opened = false;
 
   @Output() public menuToggle = new EventEmitter();
+  @ViewChild('sidenav') sidenav: MatSidenav;
 
   constructor(private router: Router) { }
 
@@ -17,7 +20,7 @@ export class DoctorHomepageComponent implements OnInit {
   }
 
   onToggleSidenav(): void {
-    this.menuToggle.emit();
+    this.sidenav.close();
   }
 
   redirect(option: string): void {
