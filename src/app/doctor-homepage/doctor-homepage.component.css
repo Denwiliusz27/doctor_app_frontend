@@ -2,7 +2,7 @@
   background-image: url('doctor.png');
   background-position: 100% 100%;
   background-repeat: no-repeat;
-  background-size: auto 95%;
+  background-size: auto 101%;
 
   -webkit-filter: blur(1px);
   filter: blur(1px);
@@ -30,7 +30,6 @@
   text-decoration: none;
   text-shadow: 3px 3px 3px black;
   color: white;
-  padding-left: 20px;
 }
 
 .menu {
@@ -38,31 +37,36 @@
   text-align: center;
   padding: 15px 0 15px 0;
   word-wrap: break-word;
-  width: 5%;
+  width: 250px;
   height: 100%;
   position: fixed;
-  background-color: #1342e8;
+  background: rgb(2,0,36);
+  background: linear-gradient(180deg, #0c3ee8 0%, #305de7 100%);
   display: flex;
 }
 
-.menu:hover {
-  width: 20%;
-}
-
 .menu-content {
-  width: 80%;
+  width: 95%;
 }
 
+.top-menu {
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  border-bottom: 2px solid dimgray;
+}
 
 
 .main-site {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   padding: 0 0 20px 0;
+  margin-left: 250px;
 }
 
 .main-site-content {
-  width: 90%;
+  width: 95%;
 }
 
 h1 {
@@ -80,7 +84,7 @@ h1 {
   justify-content: center;
   align-items: center;
   position: relative;
-  padding-top: 50px;
+  padding-top: 100px;
   flex-wrap: wrap;
 }
 
@@ -88,7 +92,7 @@ h1 {
   padding: 10px;
   position: relative;
   margin: 20px 20px 0 20px;
-  flex-basis: 350px;
+  flex-basis: 330px;
   height: 300px;
   border: 7px solid mediumblue;
   border-radius: 20px;
@@ -113,7 +117,6 @@ h1 {
   top: -7px;
   cursor: pointer;
 }
-
 
 .option-box #blur:hover {
   left: 0;
@@ -144,7 +147,6 @@ h1 {
 .option-box #wizyty {
   background-image: url(https://ocdn.eu/pulscms-transforms/1/m5vk9kuTURBXy8zNzljZDJiMC05NDBkLTQyZjEtODc0ZS1lZmEzMTIxNjA5OGUuanBlZ5KVAwAVzQPozQIzkwXNAwLNAZCBoTAF);
 }
-
 
 .option-box #wyniki  {
   background-image: url(https://www.zikodlazdrowia.org/wp-content/uploads/2017/09/shutterstock_159015314.jpg);

@@ -2,15 +2,17 @@ import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/c
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {DoctorRegistrationService} from "../services/doctor-registration.service";
 import {Router} from '@angular/router';
+import {CitiesService, City} from '../services/cities.service';
+import {Observable} from 'rxjs';
 
-interface DoctorRegistration {
+export interface DoctorRegistrationModel {
   name: string;
   surname: string;
   email: string;
   password: string;
   specialization: string;
   services: DoctorService[];
-  city: string;
+  city: number;
   address: string;
   phoneNumber: string;
   description: string;
@@ -35,8 +37,8 @@ export class DoctorRegistrationComponent implements OnInit {
   specializations: string[] = ['kardiolog', 'dentysta'];
   selectedSpecialization: string;
   selectedServices: DoctorService[] = [];
-  cities: string[] = ['Kraków', 'Warszawa', 'Gdańsk'];
-  selectedCity: string;
+  cities: Observable<City[]> = this.cityService.getCities();
+  selectedCityId: number;
   imageFile = null;
 
   registrationFormGroup = new FormGroup({
@@ -84,7 +86,9 @@ export class DoctorRegistrationComponent implements OnInit {
     description: new FormControl()
   });
 
-  constructor(private readonly doctorRegistrationService: DoctorRegistrationService, private router: Router) { }
+  constructor(private cityService: CitiesService, private readonly doctorRegistrationService: DoctorRegistrationService, private router: Router) {
+    cityService.getCities();
+  }
 
   ngOnInit(): void {
   }
@@ -104,7 +108,8 @@ export class DoctorRegistrationComponent implements OnInit {
       console.log(this.registrationFormGroup.valid);
       console.log(!this.isServiceFormValid());
 
-      const doctorRegistration = this.prepareDoctorObject();
+      const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
+      // this.doctorRegistrationService.addDoctor(doctorRegistration);
 
       this.router.navigateByUrl('/doktor-strona-główna');
       console.log(doctorRegistration);
@@ -115,7 +120,7 @@ export class DoctorRegistrationComponent implements OnInit {
     }
   }
 
-  prepareDoctorObject(): DoctorRegistration {
+  prepareDoctorObject(): DoctorRegistrationModel {
     this.selectedServices = this.selectedServices.filter(service => service.isChosen === true);
     return {
       name: this.registrationFormGroup.value.name,
@@ -124,7 +129,7 @@ export class DoctorRegistrationComponent implements OnInit {
       password: this.registrationFormGroup.value.password,
       specialization: this.selectedSpecialization,
       services: this.selectedServices,
-      city: this.selectedCity,
+      city: this.selectedCityId,
       address: this.registrationFormGroup.value.address,
       description: this.registrationFormGroup.value.description,
       phoneNumber: this.registrationFormGroup.value.phoneNumber,
@@ -224,12 +229,12 @@ export class DoctorRegistrationComponent implements OnInit {
     });
   }
 
-  onSelectCity(selectedCity: string): void {
-    this.selectedCity = selectedCity;
+  onSelectCity(selectedCity: City): void {
+    this.selectedCityId = selectedCity.cityId;
   }
 
   isCitySelected(): boolean {
-    if (this.selectedCity === undefined) {
+    if (this.selectedCityId === undefined) {
       return true;
     } else {
       return false;
@@ -242,5 +247,27 @@ export class DoctorRegistrationComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  printDoctor() {
+    const doctor: DoctorRegistrationModel = {
+      name: 'Jan',
+      surname: 'Man',
+      email: 'jane@op.pl',
+      password: 'Janeczek123',
+      specialization: 'kardiolog',
+      services: [{
+        name: 'badanie',
+        price: 300,
+        isChosen: true
+      }],
+      city: 1,
+      address: 'Biedszcasd 2',
+      description: '',
+      phoneNumber: '',
+      image: null
+    };
+
+    this.doctorRegistrationService.addDoctor(doctor);
   }
 }

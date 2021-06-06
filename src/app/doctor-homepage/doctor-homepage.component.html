@@ -1,7 +1,13 @@
 <div class="backgroung-img"></div>
-<!--
-<div class="home-page-content">-->
 
+<div class="home-page-content">
+
+  <div class="menu">
+    <div class="menu-content">
+      <a class="main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
+    </div>
+  </div>
+<!--
   <mat-sidenav-container>
     <mat-sidenav [(opened)]="opened">
       <mat-toolbar color="primary">Menu</mat-toolbar>
@@ -19,12 +25,28 @@
         </button>
         <a class="main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
       </mat-toolbar>
-
       <ng-component></ng-component>
     </mat-sidenav-content>
   </mat-sidenav-container>
+-->
 
+  <div class="main-site">
+    <div class="top-menu">
+      <p> no elo </p>
+    </div>
+    <div class="main-site-content">
+      <h1>strona główna</h1>
 
+      <div class="option-box">
+        <div id="{{option}}" *ngFor="let option of options" (click)="redirect(option)">
+          <p *ngIf="option === 'wyniki'">wyniki badań</p>
+          <p *ngIf="option !== 'wyniki'">{{option}}</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
 <!--
   <mat-sidenav-container>
     <mat-sidenav [(opened)]="opened">menu</mat-sidenav>
@@ -48,7 +70,7 @@
 
       </div>
     </mat-sidenav-content>
-  </mat-sidenav-container>
+  </mat-sidenav-container>-->
 
 
-</div>-->
+</div>

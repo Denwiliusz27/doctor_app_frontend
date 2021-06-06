@@ -18,6 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent},
@@ -40,6 +41,7 @@ const routes: Routes = [
   ],
   imports: [
     MatFormFieldModule,
+    HttpClientModule,
     BrowserModule,
     ReactiveFormsModule,
     MatIconModule,
@@ -50,7 +52,7 @@ const routes: Routes = [
     MatListModule,
     RouterModule.forRoot(
       routes,
-      {enableTracing: true} // <-- debugging purposes only
+      {enableTracing: false} // <-- debugging purposes only
     ),
     BrowserAnimationsModule,
     MatSelectModule,
