@@ -70,7 +70,7 @@
         <select (change)="onSelectSpecialization($event.target.value)" formControlName="specialization" id="specializations"
                 [class.error-red-border]="(submitted && isSpecializationSelected())">
           <option class="disabled-option" disabled selected value>specjalizacja</option>
-          <option *ngFor="let specialization of specializations">{{specialization}}</option>
+          <option *ngFor="let specialization of specializations | async">{{specialization.specializationName}}</option>
         </select>
       </label>
 

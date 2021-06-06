@@ -4,6 +4,7 @@ import {DoctorRegistrationService} from "../services/doctor-registration.service
 import {Router} from '@angular/router';
 import {CitiesService, City} from '../services/cities.service';
 import {Observable} from 'rxjs';
+import {Specialization, SpecializationService} from '../services/specialization.service';
 
 export interface DoctorRegistrationModel {
   name: string;
@@ -34,7 +35,7 @@ interface DoctorService {
 export class DoctorRegistrationComponent implements OnInit {
   submitted = false;
   services: string[];
-  specializations: string[] = ['kardiolog', 'dentysta'];
+  specializations: Observable<Specialization[]> = this.specializationService.getSpecializations();
   selectedSpecialization: string;
   selectedServices: DoctorService[] = [];
   cities: Observable<City[]> = this.cityService.getCities();
@@ -86,7 +87,8 @@ export class DoctorRegistrationComponent implements OnInit {
     description: new FormControl()
   });
 
-  constructor(private cityService: CitiesService, private readonly doctorRegistrationService: DoctorRegistrationService, private router: Router) {
+  constructor(private specializationService: SpecializationService, private cityService: CitiesService,
+              private readonly doctorRegistrationService: DoctorRegistrationService, private router: Router) {
     cityService.getCities();
   }
 
