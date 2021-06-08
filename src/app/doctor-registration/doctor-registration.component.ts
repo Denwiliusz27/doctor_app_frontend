@@ -5,14 +5,15 @@ import {Router} from '@angular/router';
 import {CitiesService, City} from '../services/cities.service';
 import {Observable} from 'rxjs';
 import {Specialization, SpecializationService} from '../services/specialization.service';
+import {Service, ServiceService} from '../services/service.service';
 
 export interface DoctorRegistrationModel {
   name: string;
   surname: string;
   email: string;
   password: string;
-  specialization: string;
-  services: DoctorService[];
+  specialization: number;
+  // services: DoctorService[];
   city: number;
   address: string;
   phoneNumber: string;
@@ -21,7 +22,7 @@ export interface DoctorRegistrationModel {
 }
 
 interface DoctorService {
-  name: string;
+  id: number;
   price: number;
   isChosen?: boolean;
 }
@@ -34,15 +35,13 @@ interface DoctorService {
 
 export class DoctorRegistrationComponent implements OnInit {
   submitted = false;
-  services: string[];
+  services: Observable<Service[]>;
   specializations: Observable<Specialization[]> = this.specializationService.getSpecializations();
-  selectedSpecialization: string;
+  selectedSpecializationId: number;
   selectedServices: DoctorService[] = [];
   cities: Observable<City[]> = this.cityService.getCities();
   selectedCityId: number;
   imageFile = null;
-  selectedCity: City;
-  disableOption = 'miasto';
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -89,8 +88,9 @@ export class DoctorRegistrationComponent implements OnInit {
     description: new FormControl()
   });
 
-  constructor(private specializationService: SpecializationService, private cityService: CitiesService,
-              private readonly doctorRegistrationService: DoctorRegistrationService, private router: Router) {
+  constructor(private serviceService: ServiceService, private specializationService: SpecializationService,
+              private cityService: CitiesService, private readonly doctorRegistrationService: DoctorRegistrationService,
+              private router: Router) {
     cityService.getCities();
   }
 
@@ -113,9 +113,9 @@ export class DoctorRegistrationComponent implements OnInit {
       console.log(!this.isServiceFormValid());
 
       const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
-      // this.doctorRegistrationService.addDoctor(doctorRegistration);
+      this.doctorRegistrationService.addDoctor(doctorRegistration);
 
-      this.router.navigateByUrl('/doktor-strona-główna');
+      // this.router.navigateByUrl('/doktor-strona-główna');
       console.log(doctorRegistration);
     } else {
       console.log('!!!nie jest git?');
@@ -131,8 +131,7 @@ export class DoctorRegistrationComponent implements OnInit {
       surname: this.registrationFormGroup.value.surname,
       email: this.registrationFormGroup.value.email,
       password: this.registrationFormGroup.value.password,
-      specialization: this.selectedSpecialization,
-      services: this.selectedServices,
+      specialization: this.selectedSpecializationId,
       city: this.selectedCityId,
       address: this.registrationFormGroup.value.address,
       description: this.registrationFormGroup.value.description,
@@ -143,16 +142,17 @@ export class DoctorRegistrationComponent implements OnInit {
 
   onSelectSpecialization(specializationName: string): void {
     this.selectedServices = [];
-    this.services = this.doctorRegistrationService.getServicesBySpecialization(specializationName);
-    this.selectedSpecialization = specializationName;
-    this.uncheckAllServices();
+    console.log(this.selectedSpecializationId);
+    this.services = this.serviceService.getServicesBySpecializationId(this.selectedSpecializationId);
+    // this.selectedSpecializationId = specializationName;
+    // this.uncheckAllServices();
   }
 
-  addService(serviceName: string, isChosen: boolean): void {
-    const currentService = this.selectedServices.find(service => service.name === serviceName); // return service or undefined
+  addService(serviceId: number, isChosen: boolean): void {
+    const currentService = this.selectedServices.find(service => service.id === serviceId); // return service or undefined
     if (isChosen){
       if (currentService === undefined) {
-        this.selectedServices.push({name: serviceName, price: 0, isChosen: true});
+        this.selectedServices.push({id: serviceId, price: 0, isChosen: true});
       } else {
         currentService.isChosen = true;
       }
@@ -168,8 +168,8 @@ export class DoctorRegistrationComponent implements OnInit {
     this.imageFile = event.target.files[0];
   }
 
-  onPriceInput(serviceName: string, price: number): void {
-    const currentService = this.selectedServices.find(service => service.name === serviceName);
+  onPriceInput(serviceId: number, price: number): void {
+    const currentService = this.selectedServices.find(service => service.id === serviceId);
     if (currentService) {
       if (price.toString() === '' && (currentService.isChosen === true)) {
         currentService.price = 0;
@@ -177,7 +177,7 @@ export class DoctorRegistrationComponent implements OnInit {
         currentService.price = Number(price);
       }
     } else {
-      const newService = {name: serviceName, price: Number(price), isChosen: false};
+      const newService = {id: serviceId, price: Number(price), isChosen: false};
       this.selectedServices.push(newService);
     }
   }
@@ -246,7 +246,7 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   isSpecializationSelected(): boolean {
-    if (this.selectedSpecialization === undefined) {
+    if (this.selectedSpecializationId === undefined) {
       return true;
     } else {
       return false;
@@ -259,12 +259,7 @@ export class DoctorRegistrationComponent implements OnInit {
       surname: 'Man',
       email: 'jane@op.pl',
       password: 'Janeczek123',
-      specialization: 'kardiolog',
-      services: [{
-        name: 'badanie',
-        price: 300,
-        isChosen: true
-      }],
+      specialization: 2,
       city: 1,
       address: 'Biedszcasd 2',
       description: '',

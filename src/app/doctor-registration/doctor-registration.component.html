@@ -66,22 +66,28 @@
         </div>
       </label>
 
+
+
+
+
       <label for="specializations">
-        <select (change)="onSelectSpecialization($event.target.value)" formControlName="specialization" id="specializations"
+        <select [(ngModel)]="selectedSpecializationId" (ngModelChange)="onSelectSpecialization($event)" formControlName="specialization" id="specializations"
                 [class.error-red-border]="(submitted && isSpecializationSelected())">
-          <option class="disabled-option" disabled selected value>specjalizacja</option>
-          <option *ngFor="let specialization of specializations | async">{{specialization.specializationName}}</option>
+          <option class="disabled-option" disabled selected value="undefined">specjalizacja</option>
+          <option *ngFor="let specialization of specializations | async" [ngValue]="specialization.specializationId">
+            {{specialization.specializationName}}
+          </option>
         </select>
       </label>
 
       <div class="checkbox" [class.error-red-border]="(submitted && isServiceFormValid())"
            title="Należy zaznaczyć co najmniej jedną usługę" *ngIf="(!isSpecializationSelected())">
         <p class="services_txt">Usługi:</p>
-        <label class="in_box" for="services" *ngFor="let service of services">
+        <label class="in_box" for="services" *ngFor="let service of services | async">
           <input type="checkbox" required
-                 (change)="addService(service, $event.target.checked)" #serviceCheckboxes/>{{service}}
+                 (change)="addService(service.serviceId, $event.target.checked)" #serviceCheckboxes/>{{service.serviceName}}
           <input class="price-service" type="number" value=0 title="Cena powinna być większa od zera"
-                 (keyup)="onPriceInput(service, $event.target.value)" #priceInputs>
+                 (keyup)="onPriceInput(service.serviceId, $event.target.value)" #priceInputs>
         </label>
       </div>
       <div class="error" *ngIf="submitted && noServiceChecked()">
@@ -93,6 +99,7 @@
       <div class="error" *ngIf="submitted && isPriceNegative()">
         <p>cena nie może być ujemna</p>
       </div>
+
 
 
 
