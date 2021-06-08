@@ -41,6 +41,8 @@ export class DoctorRegistrationComponent implements OnInit {
   cities: Observable<City[]> = this.cityService.getCities();
   selectedCityId: number;
   imageFile = null;
+  selectedCity: City;
+  disableOption = 'miasto';
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -231,8 +233,8 @@ export class DoctorRegistrationComponent implements OnInit {
     });
   }
 
-  onSelectCity(selectedCity: City): void {
-    this.selectedCityId = selectedCity.cityId;
+  onSelectCity(selectedCity: any): void {
+    console.log(this.selectedCityId);
   }
 
   isCitySelected(): boolean {

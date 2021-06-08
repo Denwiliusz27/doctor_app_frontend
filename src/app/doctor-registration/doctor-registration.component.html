@@ -94,16 +94,22 @@
         <p>cena nie może być ujemna</p>
       </div>
 
+
+
+
       <label>
-        <select (change)="onSelectCity($event.target.value)" [class.error-red-border]="(submitted && isCitySelected())"
+        <select [(ngModel)]="selectedCityId" (ngModelChange)="onSelectCity($event)" [class.error-red-border]="(submitted && isCitySelected())"
                 formControlName="city" id="city">
-          <option class="disabled-option" disabled selected value>miasto</option>
-          <option *ngFor="let city of cities | async">{{city.cityName}}</option>
+          <option class="disabled-option" disabled selected value="undefined">miasto</option>
+          <option *ngFor="let city of cities | async" [ngValue]="city.cityId">{{city.cityName}}</option>
         </select>
       </label>
       <div class="error" *ngIf="submitted && isCitySelected()">
         <p>nie wybrano żadnego pola</p>
       </div>
+
+
+
 
       <!--<label>
         <input title="Powinno zaczynać się od dużej litery i nie zawierać cyfr" type="text" formControlName="city"
