@@ -8,17 +8,16 @@ import {Specialization, SpecializationService} from '../services/specialization.
 import {Service, ServiceService} from '../services/service.service';
 
 export interface DoctorRegistrationModel {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-  specialization: number;
-  // services: DoctorService[];
-  city: number;
-  address: string;
-  phoneNumber: string;
+  doctorName: string;
+  doctorSurname: string;
+  doctorEmailAddress: string;
+  doctorPassword: string;
+  specializationId: number;
+  cityId: number;
+  doctorAddress: string;
+  phoneNr: string;
   description: string;
-  image: File;
+  doctorPicture: Blob;
 }
 
 interface DoctorService {
@@ -127,16 +126,16 @@ export class DoctorRegistrationComponent implements OnInit {
   prepareDoctorObject(): DoctorRegistrationModel {
     this.selectedServices = this.selectedServices.filter(service => service.isChosen === true);
     return {
-      name: this.registrationFormGroup.value.name,
-      surname: this.registrationFormGroup.value.surname,
-      email: this.registrationFormGroup.value.email,
-      password: this.registrationFormGroup.value.password,
-      specialization: this.selectedSpecializationId,
-      city: this.selectedCityId,
-      address: this.registrationFormGroup.value.address,
+      doctorName: this.registrationFormGroup.value.name,
+      doctorSurname: this.registrationFormGroup.value.surname,
+      doctorEmailAddress: this.registrationFormGroup.value.email,
+      doctorPassword: this.registrationFormGroup.value.password,
+      specializationId: this.selectedSpecializationId,
+      cityId: this.selectedCityId,
+      doctorAddress: this.registrationFormGroup.value.address,
       description: this.registrationFormGroup.value.description,
-      phoneNumber: this.registrationFormGroup.value.phoneNumber,
-      image: this.imageFile
+      phoneNr: this.registrationFormGroup.value.phoneNumber,
+      doctorPicture: null // this.imageFile
     };
   }
 
@@ -251,22 +250,5 @@ export class DoctorRegistrationComponent implements OnInit {
     } else {
       return false;
     }
-  }
-
-  printDoctor() {
-    const doctor: DoctorRegistrationModel = {
-      name: 'Jan',
-      surname: 'Man',
-      email: 'jane@op.pl',
-      password: 'Janeczek123',
-      specialization: 2,
-      city: 1,
-      address: 'Biedszcasd 2',
-      description: '',
-      phoneNumber: '',
-      image: null
-    };
-
-    this.doctorRegistrationService.addDoctor(doctor);
   }
 }
