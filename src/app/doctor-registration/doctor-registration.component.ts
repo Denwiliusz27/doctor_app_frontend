@@ -42,6 +42,9 @@ export class DoctorRegistrationComponent implements OnInit {
   selectedCityId: number;
   imageFile = null;
 
+  doctor: DoctorRegistrationModel;
+
+
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -102,6 +105,9 @@ export class DoctorRegistrationComponent implements OnInit {
     return this.registrationFormGroup.controls;
   }
 
+
+
+
   register(): void {
     this.submitted = true;
     this.registrationFormGroup.updateValueAndValidity();
@@ -113,6 +119,14 @@ export class DoctorRegistrationComponent implements OnInit {
 
       const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
       this.doctorRegistrationService.addDoctor(doctorRegistration);
+
+      console.log('email: ' + doctorRegistration.doctorEmailAddress);
+      let doctor: DoctorRegistrationModel;
+      this.getDoctorByDoctorEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(doctor =>  = );
+
+
+
+
 
       // this.router.navigateByUrl('/doktor-strona-główna');
       console.log(doctorRegistration);
@@ -137,6 +151,10 @@ export class DoctorRegistrationComponent implements OnInit {
       phoneNr: this.registrationFormGroup.value.phoneNumber,
       doctorPicture: null // this.imageFile
     };
+  }
+
+  getDoctorByDoctorEmailAddress(email: string): Observable<DoctorRegistrationModel>{
+    return this.doctorRegistrationService.getDoctorByEmailAddress(email);
   }
 
   onSelectSpecialization(specializationName: string): void {
