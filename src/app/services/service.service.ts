@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
+
+/*
+model usług dla danej specjalizacji
+ */
 export interface Service {
   serviceId: number;
   serviceName: string;

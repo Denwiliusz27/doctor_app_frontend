@@ -42,12 +42,16 @@
 
       <label>
         <input title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'" type="text" formControlName="email"
-               required [class.error-red-border]="submitted && currentFormControls.email.errors" placeholder="e-mail*">
+               required [class.error-red-border]="submitted && currentFormControls.email.errors ||  emailExists" placeholder="e-mail*">
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
           <p>niepoprawny adres e-mail</p>
+        </div>
+        {{emailExists}}
+        <div class="error" *ngIf=emailExists>
+          <p>taki email istnieje</p>
         </div>
       </label>
 
@@ -71,7 +75,7 @@
 
 
       <label for="specializations">
-        <select [(ngModel)]="selectedSpecializationId" (ngModelChange)="onSelectSpecialization($event)" formControlName="specialization" id="specializations"
+        <select [(ngModel)]="selectedSpecializationId" (ngModelChange)="onSelectSpecialization()" formControlName="specialization" id="specializations"
                 [class.error-red-border]="(submitted && isSpecializationSelected())">
           <option class="disabled-option" disabled selected value="undefined">specjalizacja</option>
           <option *ngFor="let specialization of specializations | async" [ngValue]="specialization.specializationId">
@@ -160,6 +164,8 @@
           <p>nie dodano zdjęcia</p>
         </div>
       </label>
+
+      <button (click)="printDoctor()"></button>
 
       <button type="submit">zarejestruj się</button>
 

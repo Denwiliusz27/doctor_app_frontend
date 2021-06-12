@@ -1,11 +1,13 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {DoctorRegistrationService} from "../services/doctor-registration.service";
+import {DoctorRegistrationService} from '../services/doctor-registration.service';
 import {Router} from '@angular/router';
 import {CitiesService, City} from '../services/cities.service';
 import {Observable} from 'rxjs';
 import {Specialization, SpecializationService} from '../services/specialization.service';
 import {Service, ServiceService} from '../services/service.service';
+import {DoctorService, DoctorServiceService} from '../services/doctor-service.service';
+import {coerceNumberProperty} from '@angular/cdk/coercion';
 
 export interface DoctorRegistrationModel {
   doctorName: string;
@@ -20,11 +22,12 @@ export interface DoctorRegistrationModel {
   doctorPicture: Blob;
 }
 
-interface DoctorService {
+export interface SelectedServices {
   id: number;
   price: number;
   isChosen?: boolean;
 }
+
 
 @Component({
   selector: 'app-doctor-registration',
@@ -37,10 +40,11 @@ export class DoctorRegistrationComponent implements OnInit {
   services: Observable<Service[]>;
   specializations: Observable<Specialization[]> = this.specializationService.getSpecializations();
   selectedSpecializationId: number;
-  selectedServices: DoctorService[] = [];
+  selectedServices: SelectedServices[] = [];
   cities: Observable<City[]> = this.cityService.getCities();
   selectedCityId: number;
   imageFile = null;
+  emailExists = false;
 
   doctor: DoctorRegistrationModel;
 
@@ -58,7 +62,7 @@ export class DoctorRegistrationComponent implements OnInit {
     ]),
     email: new FormControl('', [
       Validators.required,
-     // Validators.email(),
+      // Validators.email(),
       Validators.pattern('^[a-z\\d]+[\\w\\d.-]*@(?:[a-z\\d]+[a-z\\d-]+\\.){1,5}[a-z]{2,6}$')
     ]),
     password: new FormControl('', [
@@ -106,31 +110,39 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
 
-
-
   register(): void {
     this.submitted = true;
     this.registrationFormGroup.updateValueAndValidity();
 
-    if ((this.registrationFormGroup.valid && !this.isServiceFormValid()) === true){
+    if ((this.registrationFormGroup.valid && !this.isServiceFormValid()) === true) {
       console.log('w ifie - jest git');
       console.log(this.registrationFormGroup.valid);
       console.log(!this.isServiceFormValid());
 
       const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
-      this.doctorRegistrationService.addDoctor(doctorRegistration);
 
-      console.log('email: ' + doctorRegistration.doctorEmailAddress);
-      let doctor: DoctorRegistrationModel;
-      this.getDoctorByDoctorEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(doctor =>  = );
+      this.doctorRegistrationService.getDoctorByEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(odpowiedz => {
+        if (odpowiedz === null){
+          this.doctorRegistrationService.addDoctor(doctorRegistration, this.selectedServices, this.emailExists);
+          console.log(doctorRegistration);
+        }
+        this.emailExists = true;
+      });
+
+
 
 
 
 
 
       // this.router.navigateByUrl('/doktor-strona-główna');
-      console.log(doctorRegistration);
-    } else {
+
+    } else {  // opakować w metodę
+      const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
+      this.doctorRegistrationService.getDoctorByEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(odpowiedz => {
+        if (odpowiedz !== null){
+          this.emailExists = true;
+      }});
       console.log('!!!nie jest git?');
       console.log(this.registrationFormGroup.valid);
       console.log(!this.isServiceFormValid());
@@ -153,11 +165,8 @@ export class DoctorRegistrationComponent implements OnInit {
     };
   }
 
-  getDoctorByDoctorEmailAddress(email: string): Observable<DoctorRegistrationModel>{
-    return this.doctorRegistrationService.getDoctorByEmailAddress(email);
-  }
 
-  onSelectSpecialization(specializationName: string): void {
+  onSelectSpecialization(): void {
     this.selectedServices = [];
     console.log(this.selectedSpecializationId);
     this.services = this.serviceService.getServicesBySpecializationId(this.selectedSpecializationId);
@@ -167,7 +176,7 @@ export class DoctorRegistrationComponent implements OnInit {
 
   addService(serviceId: number, isChosen: boolean): void {
     const currentService = this.selectedServices.find(service => service.id === serviceId); // return service or undefined
-    if (isChosen){
+    if (isChosen) {
       if (currentService === undefined) {
         this.selectedServices.push({id: serviceId, price: 0, isChosen: true});
       } else {
@@ -207,7 +216,7 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   noServiceChecked(): boolean {
-    const currentService =  this.selectedServices.find(service => service.isChosen === true);
+    const currentService = this.selectedServices.find(service => service.isChosen === true);
     if (currentService === undefined) {
       return true;
     } else {
@@ -216,11 +225,11 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   isPriceZero(): boolean {
-    const currentService =  this.selectedServices.find(service => service.price === 0);
+    const currentService = this.selectedServices.find(service => service.price === 0);
     if (currentService === undefined) {
       return false;
     } else {
-      if (currentService.isChosen === true){
+      if (currentService.isChosen === true) {
         return true;
       }
       return false;
@@ -228,11 +237,11 @@ export class DoctorRegistrationComponent implements OnInit {
   }
 
   isPriceNegative(): boolean {
-    const currentService =  this.selectedServices.find(service => service.price < 0);
+    const currentService = this.selectedServices.find(service => service.price < 0);
     if (currentService === undefined) {
       return false;
     } else {
-      if (currentService.isChosen === true){
+      if (currentService.isChosen === true) {
         return true;
       }
       return false;
@@ -241,6 +250,7 @@ export class DoctorRegistrationComponent implements OnInit {
 
   @ViewChildren('serviceCheckboxes') checkboxes: QueryList<ElementRef>;
   @ViewChildren('priceInputs') priceCheckboxes: QueryList<ElementRef>;
+
   uncheckAllServices(): void {
     this.checkboxes.forEach((element) => {
       element.nativeElement.checked = false;
@@ -269,4 +279,23 @@ export class DoctorRegistrationComponent implements OnInit {
       return false;
     }
   }
+
+
+  printDoctor() {
+    const doctor: DoctorRegistrationModel = {
+      doctorName: 'Januszek',
+      doctorSurname: 'Mariuszek',
+      doctorEmailAddress: 'janeczuszek@op.pl',
+      doctorPassword: 'Janeczek123',
+      specializationId: 4,
+      cityId: 3,
+      doctorAddress: 'Biedszcasd 2',
+      description: '',
+      phoneNr: '',
+      doctorPicture: null
+    };
+    //this.doctorRegistrationService.addDoctor(doctor);
+  }
+
+
 }
