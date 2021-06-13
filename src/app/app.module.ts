@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
+import { PatientHomepageComponent } from './patient-homepage/patient-homepage.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'pacjent-rejestracja', component: PatientRegistrationComponent},
   { path: 'doktor-rejestracja', component: DoctorRegistrationComponent},
   { path: 'doktor-strona-główna', component: DoctorHomepageComponent},
+  { path: 'pacjent-strona-główna', component: PatientHomepageComponent},
 ];
 
 @NgModule({
@@ -38,7 +40,8 @@ const routes: Routes = [
     PatientLoginComponent,
     PatientRegistrationComponent,
     DoctorRegistrationComponent,
-    DoctorHomepageComponent
+    DoctorHomepageComponent,
+    PatientHomepageComponent
   ],
   imports: [
     MatFormFieldModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PatientRegistrationService} from '../services/patient-registration.service';
+import {Router} from '@angular/router';
 
 export interface PatientRegistration {
   patientName: string;
@@ -48,7 +49,7 @@ export class PatientRegistrationComponent implements OnInit {
     ]),
   });
 
-  constructor(private patientRegistrationService: PatientRegistrationService) {}
+  constructor(private router: Router, private patientRegistrationService: PatientRegistrationService) {}
 
   ngOnInit(): void {
   }
@@ -66,18 +67,15 @@ export class PatientRegistrationComponent implements OnInit {
     if (this.registrationFormGroup.valid){
       console.log('jest git');
 
-      this.checkIfEmailExists(patientRegistration);
+      this.checkIfEmailExistsAndAdd(patientRegistration);
 
       console.log('zarejestrowano');
       console.log(patientRegistration);
 
-      //return;
     } else {
       console.log('nie jest git');
       this.checkIfEmailExists(patientRegistration);
     }
-
-
   }
 
   preparePatientObject(): PatientRegistration {
@@ -90,7 +88,7 @@ export class PatientRegistrationComponent implements OnInit {
     };
   }
 
-  checkIfEmailExists(patientRegistration: PatientRegistration){
+  checkIfEmailExistsAndAdd(patientRegistration: PatientRegistration){
     console.log('sprawdzam czy email ' + patientRegistration.patientEmailAddress + ' istnieje');
     if (patientRegistration.patientEmailAddress !== ''){
       this.patientRegistrationService.getPatientByEmailAddress(patientRegistration.patientEmailAddress).subscribe(odpowiedz => {
@@ -101,6 +99,23 @@ export class PatientRegistrationComponent implements OnInit {
         else {
           this.emailExist = false;
           this.patientRegistrationService.addPatient(patientRegistration, this.emailExist);
+          this.router.navigateByUrl('/pacjent-strona-główna');
+          console.log('NIE');
+        }
+      });
+    }
+  }
+
+  checkIfEmailExists(patientRegistration: PatientRegistration){
+    console.log('sprawdzam czy email ' + patientRegistration.patientEmailAddress + ' istnieje');
+    if (patientRegistration.patientEmailAddress !== ''){
+      this.patientRegistrationService.getPatientByEmailAddress(patientRegistration.patientEmailAddress).subscribe(odpowiedz => {
+        if (odpowiedz !== null) {
+          this.emailExist = true;
+          console.log('TAK');
+        }
+        else {
+          this.emailExist = false;
           console.log('NIE');
         }
       });

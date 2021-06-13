@@ -118,7 +118,7 @@ export class DoctorRegistrationComponent implements OnInit {
 
     } else {
       const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
-      this.checkIfEmailExistsAndAdd(doctorRegistration);
+      this.checkIfEmailExists(doctorRegistration);
       console.log('!!!nie jest git?');
       console.log(this.registrationFormGroup.valid);
       console.log(!this.isServiceFormValid());
@@ -150,7 +150,20 @@ export class DoctorRegistrationComponent implements OnInit {
         else{
           this.emailExists = false;
           this.doctorRegistrationService.addDoctor(doctorRegistration, this.selectedServices, this.emailExists);
-          this.router.navigateByUrl('/doktor-strona-główna');
+         // this.router.navigateByUrl('/doktor-strona-główna');
+        } });
+    }
+  }
+
+  checkIfEmailExists(doctorRegistration: DoctorRegistrationModel){
+    if (doctorRegistration.doctorEmailAddress !== ''){
+      this.doctorRegistrationService.getDoctorByEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(odpowiedz => {
+        if (odpowiedz !== null){
+          this.emailExists = true;
+        }
+        else{
+          this.emailExists = false;
+          console.log('jest zle');
         } });
     }
   }
