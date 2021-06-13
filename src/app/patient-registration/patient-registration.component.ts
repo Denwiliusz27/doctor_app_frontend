@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {PatientRegistrationService} from '../services/patient-registration.service';
 
-interface PatientRegistration {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
+export interface PatientRegistration {
+  patientName: string;
+  patientSurname: string;
+  patientPesel: string;
+  patientEmailAddress: string;
+  patientPassword: string;
 }
 
 @Component({
@@ -15,6 +17,7 @@ interface PatientRegistration {
 })
 export class PatientRegistrationComponent implements OnInit {
   submitted = false;
+  emailExist = false;
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -37,10 +40,15 @@ export class PatientRegistrationComponent implements OnInit {
       Validators.required,
       Validators.minLength(8),
       Validators.pattern('(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')
-    ])
+    ]),
+    pesel: new FormControl('', [
+      Validators.minLength(11),
+      Validators.maxLength(11),
+      Validators.pattern('^.*[0-9]')
+    ]),
   });
 
-  constructor() { }
+  constructor(private patientRegistrationService: PatientRegistrationService) {}
 
   ngOnInit(): void {
   }
@@ -53,16 +61,50 @@ export class PatientRegistrationComponent implements OnInit {
 
   register(): void {
     this.submitted = true;
+    const patientRegistration: PatientRegistration = this.preparePatientObject();
 
-    if (this.registrationFormGroup.invalid){
-      return;
+    if (this.registrationFormGroup.valid){
+      console.log('jest git');
+
+      this.checkIfEmailExists(patientRegistration);
+
+      console.log('zarejestrowano');
+      console.log(patientRegistration);
+
+      //return;
+    } else {
+      console.log('nie jest git');
+      this.checkIfEmailExists(patientRegistration);
     }
 
-    const patientRegistration: PatientRegistration = {name: this.registrationFormGroup.value.name,
-      surname: this.registrationFormGroup.value.surname,
-      email: this.registrationFormGroup.value.email,
-      password: this.registrationFormGroup.value.password};
 
-    console.log('zarejestrowano');
   }
+
+  preparePatientObject(): PatientRegistration {
+    return {
+      patientName: this.registrationFormGroup.value.name,
+      patientSurname: this.registrationFormGroup.value.surname,
+      patientPesel: this.registrationFormGroup.value.pesel,
+      patientEmailAddress: this.registrationFormGroup.value.email,
+      patientPassword: this.registrationFormGroup.value.password
+    };
+  }
+
+  checkIfEmailExists(patientRegistration: PatientRegistration){
+    console.log('sprawdzam czy email ' + patientRegistration.patientEmailAddress + ' istnieje');
+    if (patientRegistration.patientEmailAddress !== ''){
+      this.patientRegistrationService.getPatientByEmailAddress(patientRegistration.patientEmailAddress).subscribe(odpowiedz => {
+        if (odpowiedz !== null) {
+          this.emailExist = true;
+          console.log('TAK');
+        }
+        else {
+          this.emailExist = false;
+          this.patientRegistrationService.addPatient(patientRegistration, this.emailExist);
+          console.log('NIE');
+        }
+      });
+    }
+  }
+
 }

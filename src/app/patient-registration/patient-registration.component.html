@@ -39,14 +39,37 @@
         </div>
       </label>
 
+
+      <label>
+        <input title="Powinien składać się wyłącznie z cyfr" type="text" formControlName="pesel"
+               required [class.error-red-border] = "submitted && currentFormControls.pesel.errors" placeholder="pesel*">
+        <div class="error" *ngIf="submitted && currentFormControls.pesel.errors?.required" >
+          <p>nie wpisano peselu</p>
+        </div>
+        <div class="error" *ngIf="submitted && currentFormControls.pesel.errors?.minlength" >
+          <p>pesel za krótki</p>
+        </div>
+        <div class="error" *ngIf="submitted && currentFormControls.pesel.errors?.maxlength" >
+          <p>pesel za długi</p>
+        </div>
+        <div class="error" *ngIf="submitted && currentFormControls.pesel.errors?.pattern" >
+          <p>pesel nie spełnia założeń</p>
+        </div>
+      </label>
+
+
       <label>
         <input title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'" type="text" formControlName="email"
-               required [class.error-red-border] = "submitted && currentFormControls.email.errors" placeholder="e-mail*">
+               required [class.error-red-border] = "submitted && currentFormControls.email.errors || submitted && emailExist"
+               placeholder="e-mail*">
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
           <p>niepoprawny adres e-mail</p>
+        </div>
+        <div class="error" *ngIf="submitted && emailExist">
+          <p>taki email istnieje</p>
         </div>
       </label>
 

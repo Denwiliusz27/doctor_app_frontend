@@ -13,7 +13,7 @@
 
       <label>
         <input title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery" type="text"
-               formControlName="name" required
+               formControlName="name" required [attr.disabled]="displayForms"
                [class.error-red-border]="submitted && currentFormControls.name.errors" placeholder="imie*">
         <div class="error" *ngIf="submitted && currentFormControls.name.errors?.required" >
           <p>nie wpisano imienia</p>
@@ -42,15 +42,15 @@
 
       <label>
         <input title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'" type="text" formControlName="email"
-               required [class.error-red-border]="submitted && currentFormControls.email.errors ||  emailExists" placeholder="e-mail*">
+               required [class.error-red-border]="submitted && currentFormControls.email.errors || submitted && emailExists"
+               (change)="emailExists = true" placeholder="e-mail*">
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
           <p>niepoprawny adres e-mail</p>
         </div>
-        {{emailExists}}
-        <div class="error" *ngIf=emailExists>
+        <div class="error" *ngIf="submitted && emailExists">
           <p>taki email istnieje</p>
         </div>
       </label>
@@ -69,10 +69,6 @@
           <p>hasło nie spełnia założeń</p>
         </div>
       </label>
-
-
-
-
 
       <label for="specializations">
         <select [(ngModel)]="selectedSpecializationId" (ngModelChange)="onSelectSpecialization()" formControlName="specialization" id="specializations"
@@ -104,12 +100,8 @@
         <p>cena nie może być ujemna</p>
       </div>
 
-
-
-
-
       <label>
-        <select [(ngModel)]="selectedCityId" (ngModelChange)="onSelectCity($event)" [class.error-red-border]="(submitted && isCitySelected())"
+        <select [(ngModel)]="selectedCityId" (ngModelChange)="onSelectCity()" [class.error-red-border]="(submitted && isCitySelected())"
                 formControlName="city" id="city">
           <option class="disabled-option" disabled selected value="undefined">miasto</option>
           <option *ngFor="let city of cities | async" [ngValue]="city.cityId">{{city.cityName}}</option>
@@ -118,20 +110,6 @@
       <div class="error" *ngIf="submitted && isCitySelected()">
         <p>nie wybrano żadnego pola</p>
       </div>
-
-
-
-
-      <!--<label>
-        <input title="Powinno zaczynać się od dużej litery i nie zawierać cyfr" type="text" formControlName="city"
-               required [class.error-red-border]="submitted && currentFormControls.city.errors" placeholder="miasto*">
-        <div class="error" *ngIf="submitted && currentFormControls.city.errors?.required" >
-          <p>nie wpisano miasta</p>
-        </div>
-        <div class="error" *ngIf="submitted && currentFormControls.city.errors?.pattern" >
-          <p>nazwa miasta nie spełnia wymagań</p>
-        </div>
-      </label>-->
 
       <label>
         <input title="Powinna zawierać nazwę oraz numer" type="text" formControlName="address" required
@@ -165,13 +143,13 @@
         </div>
       </label>
 
-      <button (click)="printDoctor()"></button>
-
       <button type="submit">zarejestruj się</button>
 
     </form>
 
+    <div class="email-error" *ngIf="submitted && emailExists">
+      <p>taki email istnieje</p>
+    </div>
   </div>
-
 </div>
 

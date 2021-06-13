@@ -45,6 +45,7 @@ export class DoctorRegistrationComponent implements OnInit {
   selectedCityId: number;
   imageFile = null;
   emailExists = false;
+  displayForms = false;
 
   doctor: DoctorRegistrationModel;
 
@@ -62,7 +63,6 @@ export class DoctorRegistrationComponent implements OnInit {
     ]),
     email: new FormControl('', [
       Validators.required,
-      // Validators.email(),
       Validators.pattern('^[a-z\\d]+[\\w\\d.-]*@(?:[a-z\\d]+[a-z\\d-]+\\.){1,5}[a-z]{2,6}$')
     ]),
     password: new FormControl('', [
@@ -71,14 +71,10 @@ export class DoctorRegistrationComponent implements OnInit {
       Validators.pattern('(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')
     ]),
     specialization: new FormControl('', [
-      // Validators.required
     ]),
     services: new FormControl('', [
-      // this.isChosen()
     ]),
     city: new FormControl('', [
-      /*Validators.required,
-      Validators.pattern('^[A-Z][a-ząćęįłńóżź]+(\-[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+)?$')*/
     ]),
     address: new FormControl('', [
       Validators.required,
@@ -102,13 +98,11 @@ export class DoctorRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
   get currentFormControls(): {
     [key: string]: AbstractControl;
   } {
     return this.registrationFormGroup.controls;
   }
-
 
   register(): void {
     this.submitted = true;
@@ -120,29 +114,11 @@ export class DoctorRegistrationComponent implements OnInit {
       console.log(!this.isServiceFormValid());
 
       const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
+      this.checkIfEmailExistsAndAdd(doctorRegistration);
 
-      this.doctorRegistrationService.getDoctorByEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(odpowiedz => {
-        if (odpowiedz === null){
-          this.doctorRegistrationService.addDoctor(doctorRegistration, this.selectedServices, this.emailExists);
-          console.log(doctorRegistration);
-        }
-        this.emailExists = true;
-      });
-
-
-
-
-
-
-
-      // this.router.navigateByUrl('/doktor-strona-główna');
-
-    } else {  // opakować w metodę
+    } else {
       const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
-      this.doctorRegistrationService.getDoctorByEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(odpowiedz => {
-        if (odpowiedz !== null){
-          this.emailExists = true;
-      }});
+      this.checkIfEmailExistsAndAdd(doctorRegistration);
       console.log('!!!nie jest git?');
       console.log(this.registrationFormGroup.valid);
       console.log(!this.isServiceFormValid());
@@ -165,6 +141,19 @@ export class DoctorRegistrationComponent implements OnInit {
     };
   }
 
+  checkIfEmailExistsAndAdd(doctorRegistration: DoctorRegistrationModel){
+    if (doctorRegistration.doctorEmailAddress !== ''){
+      this.doctorRegistrationService.getDoctorByEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(odpowiedz => {
+        if (odpowiedz !== null){
+          this.emailExists = true;
+        }
+        else{
+          this.emailExists = false;
+          this.doctorRegistrationService.addDoctor(doctorRegistration, this.selectedServices, this.emailExists);
+          this.router.navigateByUrl('/doktor-strona-główna');
+        } });
+    }
+  }
 
   onSelectSpecialization(): void {
     this.selectedServices = [];
@@ -248,7 +237,7 @@ export class DoctorRegistrationComponent implements OnInit {
     }
   }
 
-  @ViewChildren('serviceCheckboxes') checkboxes: QueryList<ElementRef>;
+/*  @ViewChildren('serviceCheckboxes') checkboxes: QueryList<ElementRef>;
   @ViewChildren('priceInputs') priceCheckboxes: QueryList<ElementRef>;
 
   uncheckAllServices(): void {
@@ -258,9 +247,9 @@ export class DoctorRegistrationComponent implements OnInit {
     this.priceCheckboxes.forEach((element) => {
       element.nativeElement.value = 0;
     });
-  }
+  }*/
 
-  onSelectCity(selectedCity: any): void {
+  onSelectCity(): void {
     console.log(this.selectedCityId);
   }
 
@@ -279,23 +268,4 @@ export class DoctorRegistrationComponent implements OnInit {
       return false;
     }
   }
-
-
-  printDoctor() {
-    const doctor: DoctorRegistrationModel = {
-      doctorName: 'Januszek',
-      doctorSurname: 'Mariuszek',
-      doctorEmailAddress: 'janeczuszek@op.pl',
-      doctorPassword: 'Janeczek123',
-      specializationId: 4,
-      cityId: 3,
-      doctorAddress: 'Biedszcasd 2',
-      description: '',
-      phoneNr: '',
-      doctorPicture: null
-    };
-    //this.doctorRegistrationService.addDoctor(doctor);
-  }
-
-
 }
