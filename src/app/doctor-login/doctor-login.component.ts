@@ -48,18 +48,12 @@ export class DoctorLoginComponent implements OnInit {
     const doctorLogin: DoctorLogin = this.prepareDoctorLoginObject();
     if (this.loginFormGroup.valid) {
       console.log('validacja poprawna');
-
       this.checkIfEmailExistsAndNavigate(doctorLogin);
 
     } else {
       console.log('validacja nie ok');
       this.checkIfEmailExists(doctorLogin);
     }
-
-
-   // this.router.navigateByUrl('/doktor-strona-główna');
-
-    console.log('kliknięto');
   }
 
   prepareDoctorLoginObject(): DoctorLogin{

@@ -12,6 +12,4 @@ export class DoctorLoginService {
   getDoctorByEmailAddress(email: string) {
     return this.http.get<DoctorRegistrationModel>(`http://localhost:8080/lekarz/email/${email}`);
   }
-
-  getDoctorBy
 }

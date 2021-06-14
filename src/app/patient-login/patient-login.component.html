@@ -12,22 +12,30 @@
     <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
 
       <label>
-        <input type="text" formControlName="email" required [class.error-red-border] = "submitted && currentFormControls.email.errors" placeholder="e-mail">
+        <input type="text" formControlName="email" required [class.error-red-border] = "submitted && currentFormControls.email.errors ||
+            submitted && !emailExist" placeholder="e-mail">
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
         <div class="error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
           <p>niepoprawny adres e-mail</p>
         </div>
+        <div class="error" *ngIf="submitted && !emailExist">
+          <p>konto o takim emailu nie istnieje</p>
+        </div>
       </label>
 
       <label>
-        <input type="password" formControlName="password" required [class.error-red-border] = "submitted && currentFormControls.password.errors" placeholder="hasło">
+        <input type="password" formControlName="password" required [class.error-red-border] = "submitted && currentFormControls.password.errors ||
+            submitted && !passwordCorrect" placeholder="hasło">
         <div class="error" *ngIf="submitted && currentFormControls.password.errors?.required" >
           <p>nie podano hasła</p>
         </div>
         <div class="error" *ngIf="submitted && currentFormControls.password.errors?.minlength" >
           <p>hasło za krótkie</p>
+        </div>
+        <div class="error" *ngIf="submitted && !passwordCorrect">
+          <p>niepoprawne hasło</p>
         </div>
       </label>
 

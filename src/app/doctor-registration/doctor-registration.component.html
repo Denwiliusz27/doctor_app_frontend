@@ -13,7 +13,7 @@
 
       <label>
         <input title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery" type="text"
-               formControlName="name" required [attr.disabled]="displayForms"
+               formControlName="name" required
                [class.error-red-border]="submitted && currentFormControls.name.errors" placeholder="imie*">
         <div class="error" *ngIf="submitted && currentFormControls.name.errors?.required" >
           <p>nie wpisano imienia</p>
