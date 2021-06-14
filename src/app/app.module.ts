@@ -7,7 +7,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { DoctorLoginComponent } from './doctor-login/doctor-login.component';
 import { PatientLoginComponent } from './patient-login/patient-login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PatientRegistrationComponent } from './patient-registration/patient-registration.component';
+// import {DialogOverviewExampleComponent, PatientRegistrationComponent} from './patient-registration/patient-registration.component';
 import { DoctorRegistrationComponent } from './doctor-registration/doctor-registration.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { PatientHomepageComponent } from './patient-homepage/patient-homepage.component';
+import {PatientRegistrationComponent} from './patient-registration/patient-registration.component';
 
 
 const routes: Routes = [
@@ -41,7 +42,8 @@ const routes: Routes = [
     PatientRegistrationComponent,
     DoctorRegistrationComponent,
     DoctorHomepageComponent,
-    PatientHomepageComponent
+    PatientHomepageComponent,
+    // DialogOverviewExampleComponent
   ],
   imports: [
     MatFormFieldModule,

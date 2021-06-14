@@ -69,7 +69,6 @@ export class PatientRegistrationComponent implements OnInit {
 
       this.checkIfEmailExistsAndAdd(patientRegistration);
 
-      console.log('zarejestrowano');
       console.log(patientRegistration);
 
     } else {
@@ -123,3 +122,35 @@ export class PatientRegistrationComponent implements OnInit {
   }
 
 }
+/*
+  openDialog(): void{
+    const dialogRef = this.dialog.open(DialogOverviewExampleComponent, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.disableForms = false;
+    });
+  }*/
+
+
+/*
+
+@Component({
+  selector: 'app-dialog-overview-example-dialog',
+  templateUrl: './dialog-overview-example-dialog.html',
+})
+export class DialogOverviewExampleComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleComponent>) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+*/
+
+

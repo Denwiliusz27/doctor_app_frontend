@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import {DoctorLoginService} from '../services/doctor-login.service';
 
 
 interface DoctorLogin {
-  email: string;
-  password: string;
-
+  doctorEmailAddress: string;
+  doctorPassword: string;
 }
 
 @Component({
@@ -15,13 +15,13 @@ interface DoctorLogin {
   styleUrls: ['./doctor-login.component.css']
 })
 export class DoctorLoginComponent implements OnInit {
-
   submitted = false;
+  emailExist = true;
+  passwordCorrect = true;
 
   loginFormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.required,
-      // Validators.email
       Validators.pattern('^[a-z\\d]+[\\w\\d.-]*@(?:[a-z\\d]+[a-z\\d-]+\\.){1,5}[a-z]{2,6}$')
     ]),
     password: new FormControl('', [
@@ -30,7 +30,7 @@ export class DoctorLoginComponent implements OnInit {
     ]),
   });
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private doctorLoginService: DoctorLoginService) {
   }
 
   ngOnInit(): void {
@@ -45,15 +45,66 @@ export class DoctorLoginComponent implements OnInit {
   login(): void {
     this.submitted = true;
 
-    if (this.loginFormGroup.invalid) {
-      return;
+    const doctorLogin: DoctorLogin = this.prepareDoctorLoginObject();
+    if (this.loginFormGroup.valid) {
+      console.log('validacja poprawna');
+
+      this.checkIfEmailExistsAndNavigate(doctorLogin);
+
+    } else {
+      console.log('validacja nie ok');
+      this.checkIfEmailExists(doctorLogin);
     }
 
-    const doctorLogin: DoctorLogin = {email: this.loginFormGroup.value.email, password: this.loginFormGroup.value.password};
 
-    this.router.navigateByUrl('/doktor-strona-główna');
+   // this.router.navigateByUrl('/doktor-strona-główna');
 
     console.log('kliknięto');
+  }
+
+  prepareDoctorLoginObject(): DoctorLogin{
+    return {
+      doctorEmailAddress: this.loginFormGroup.value.email,
+      doctorPassword: this.loginFormGroup.value.password
+    };
+  }
+
+  checkIfEmailExistsAndNavigate(doctorLogin: DoctorLogin) {
+    console.log('sprawdzam czy email ' + doctorLogin.doctorEmailAddress + ' istnieje');
+    if (doctorLogin.doctorEmailAddress !== ''){
+      this.doctorLoginService.getDoctorByEmailAddress(doctorLogin.doctorEmailAddress).subscribe(odpowiedz => {
+        if (odpowiedz != null) {
+          console.log('taki email istnieje');
+          this.emailExist = true;
+          if (odpowiedz.doctorPassword === doctorLogin.doctorPassword){
+            this.passwordCorrect = true;
+            console.log('haslo ' + doctorLogin.doctorPassword + ' poprawne');
+            this.router.navigateByUrl('/doktor-strona-główna');
+          } else {
+            this.passwordCorrect = false;
+            console.log('haslo ' + doctorLogin.doctorPassword + ' niepoprawne');
+          }
+        } else {
+          this.emailExist = false;
+          console.log('email nie istnieje');
+        }
+      });
+    }
+  }
+
+  checkIfEmailExists(doctorLogin: DoctorLogin) {
+    console.log('sprawdzam czy email ' + doctorLogin.doctorEmailAddress + ' istnieje');
+    if (doctorLogin.doctorEmailAddress !== ''){
+      this.doctorLoginService.getDoctorByEmailAddress(doctorLogin.doctorEmailAddress).subscribe(odpowiedz => {
+        if (odpowiedz != null) {
+          console.log('taki email istnieje');
+          this.emailExist = true;
+        } else {
+          this.emailExist = false;
+          console.log('email nie istnieje');
+        }
+      });
+    }
   }
 
   redirect(): void {
