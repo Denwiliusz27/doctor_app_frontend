@@ -16,57 +16,13 @@
   display: block;
 }
 
-.home-page-content {
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-}
-
-.main_site_link {
-  font-size: 35px;
-  font-family: "Rage Italic", sans-serif;
-  font-style: italic;
-  text-decoration: none;
-  text-shadow: 3px 3px 3px black;
-  color: white;
-}
-
-.menu {
-  justify-content: center;
-  text-align: center;
-  padding: 15px 0 15px 0;
-  word-wrap: break-word;
-  width: 250px;
-  height: 100%;
-  position: fixed;
-  background: rgb(2,0,36);
-  background: linear-gradient(180deg, #0c3ee8 0%, #305de7 100%);
-  display: flex;
-}
-
-.menu-content {
-  width: 95%;
-}
-
-.top-menu {
-  width: 100%;
-  height: 50px;
-  background-color: white;
-  border-bottom: 2px solid dimgray;
-}
 
 
-.main-site {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 0 20px 0;
-  margin-left: 250px;
-}
 
 .main-site-content {
   width: 95%;
+  margin-left: auto;
+  margin-right: auto
 }
 
 h1 {
@@ -79,7 +35,7 @@ h1 {
   text-align: center;
 }
 
-.option-box {
+.doctor-homepage-option-box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +44,7 @@ h1 {
   flex-wrap: wrap;
 }
 
-.option-box div {
+.doctor-homepage-option-box div {
   padding: 10px;
   position: relative;
   margin: 20px 20px 0 20px;
@@ -112,18 +68,18 @@ h1 {
   left: 0;
 }
 
-.option-box div:hover {
+.doctor-homepage-option-box div:hover {
   left: -7px;
   top: -7px;
   cursor: pointer;
 }
 
-.option-box #blur:hover {
+.doctor-homepage-option-box #blur:hover {
   left: 0;
   top: 0;
 }
 
-.option-box p {
+.doctor-homepage-option-box p {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -140,15 +96,15 @@ h1 {
   word-break: break-word;
 }
 
-.option-box #kalendarz {
+.doctor-homepage-option-box #kalendarz {
   background-image: url(http://tolwin.pl/wp-content/uploads/2015/11/k.jpg);
 }
 
-.option-box #wizyty {
+.doctor-homepage-option-box #wizyty {
   background-image: url(https://ocdn.eu/pulscms-transforms/1/m5vk9kuTURBXy8zNzljZDJiMC05NDBkLTQyZjEtODc0ZS1lZmEzMTIxNjA5OGUuanBlZ5KVAwAVzQPozQIzkwXNAwLNAZCBoTAF);
 }
 
-.option-box #wyniki  {
+.doctor-homepage-option-box #wyniki  {
   background-image: url(https://www.zikodlazdrowia.org/wp-content/uploads/2017/09/shutterstock_159015314.jpg);
 }
 

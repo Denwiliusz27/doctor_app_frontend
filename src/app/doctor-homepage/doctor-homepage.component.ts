@@ -25,7 +25,7 @@ export class DoctorHomepageComponent implements OnInit {
 
   redirect(option: string): void {
     if (option === 'kalendarz') {
-      this.router.navigateByUrl('/doktor-strona-główna');
+      this.router.navigateByUrl('/doktor-kalendarz');
     }
     else if (option === 'wizyty') {
       this.router.navigateByUrl('/doktor-strona-główna');

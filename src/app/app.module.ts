@@ -21,6 +21,7 @@ import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { PatientHomepageComponent } from './patient-homepage/patient-homepage.component';
 import {PatientRegistrationComponent} from './patient-registration/patient-registration.component';
+import { DoctorCalendarComponent } from './doctor-calendar/doctor-calendar.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'doktor-rejestracja', component: DoctorRegistrationComponent},
   { path: 'doktor-strona-główna', component: DoctorHomepageComponent},
   { path: 'pacjent-strona-główna', component: PatientHomepageComponent},
+  { path: 'doktor-kalendarz', component: DoctorCalendarComponent},
 ];
 
 @NgModule({
@@ -43,6 +45,7 @@ const routes: Routes = [
     DoctorRegistrationComponent,
     DoctorHomepageComponent,
     PatientHomepageComponent,
+    DoctorCalendarComponent,
     // DialogOverviewExampleComponent
   ],
   imports: [

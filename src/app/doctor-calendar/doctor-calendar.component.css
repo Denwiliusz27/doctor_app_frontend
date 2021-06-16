@@ -1,0 +1,18 @@
+
+
+
+.main-site-content {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto
+}
+
+h1 {
+  font-size: 80px;
+  font-weight: lighter;
+  color: #1342e8;
+  text-shadow: 3px 3px 3px black;
+  margin: 6% 0 2% 0;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+}
