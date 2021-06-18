@@ -28,6 +28,8 @@
 
 .option-box {
   display: flex;
+  /*flex-direction: column;*/
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -36,9 +38,9 @@
 .option-box div {
   padding: 10px;
   position: relative;
-  margin: 0 5% 0 5%;
+  margin: 40px 50px 0 50px;
   background-color: white;
-  width: 30%;
+  flex-basis: 430px;
   height: 300px;
   border: 7px solid mediumblue;
   border-radius: 20px;
@@ -103,6 +105,12 @@
   text-shadow: 3px 3px 4px black;
 }
 
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 25px;
+}
+
 a {
   font-size: 35px;
   font-family: "Rage Italic", sans-serif;
@@ -112,7 +120,6 @@ a {
   text-shadow: 3px 3px 3px black;
   color: white;
 }
-
 
 .main_text{
   text-align: center;

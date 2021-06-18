@@ -9,6 +9,9 @@ import {Service, ServiceService} from '../services/service.service';
 import {DoctorService, DoctorServiceService} from '../services/doctor-service.service';
 import {coerceNumberProperty} from '@angular/cdk/coercion';
 
+/*
+Reprezentuje obiekt lekarza z bd
+ */
 export interface DoctorRegistrationModel {
   doctorName: string;
   doctorSurname: string;
@@ -22,6 +25,9 @@ export interface DoctorRegistrationModel {
   doctorPicture: Blob;
 }
 
+/*
+Reprezentuje usługę z opłatą za nią. isChosen ustawiane na true jeśli została wybrana na stronie
+ */
 export interface SelectedServices {
   id: number;
   price: number;
@@ -35,20 +41,22 @@ export interface SelectedServices {
   styleUrls: ['./doctor-registration.component.css']
 })
 
+/*
+Służy do rejestracji i utworzenia konta dla lekarza
+ */
 export class DoctorRegistrationComponent implements OnInit {
   submitted = false;
-  services: Observable<Service[]>;
-  specializations: Observable<Specialization[]> = this.specializationService.getSpecializations();
-  selectedSpecializationId: number;
-  selectedServices: SelectedServices[] = [];
-  cities: Observable<City[]> = this.cityService.getCities();
-  selectedCityId: number;
+  services: Observable<Service[]>; // lista usług dla danej specjalizacji
+  specializations: Observable<Specialization[]> = this.specializationService.getSpecializations(); // lista specjalizacji
+  selectedSpecializationId: number; // id wybranej specjalizacji przez lekarza
+  selectedServices: SelectedServices[] = [];  // lista wybranych usług przez lekarza
+  cities: Observable<City[]> = this.cityService.getCities(); // lista miast
+  selectedCityId: number; // id wybranego miasta
   imageFile = null;
-  emailExists = false;
+  emailExists = false; // zmienna do sprawdzenia czy konto o wpisanym mailu już istnieje w bd
   displayForms = false;
 
-  doctor: DoctorRegistrationModel;
-
+  doctor: DoctorRegistrationModel;  // obiekt doktora
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -104,6 +112,12 @@ export class DoctorRegistrationComponent implements OnInit {
     return this.registrationFormGroup.controls;
   }
 
+  /*
+  Służy do rejestracji lekarza i utworzenia dla niego konta.
+
+  Jeśli wszystkie wymagane pola zostały wypełnione we właściwy sposób, zostaje utworzony obiekt doktora. Nastepnie sprawdzane jest,
+  czy dla podanego maila istnieje już konto - jeśli nie, konto zostaje utworzone
+   */
   register(): void {
     this.submitted = true;
     this.registrationFormGroup.updateValueAndValidity();
@@ -125,6 +139,11 @@ export class DoctorRegistrationComponent implements OnInit {
     }
   }
 
+  /*
+  Tworzy obiekt doktora.
+
+  W selectedSerwices znajdą się te uslugi, które zostały wybrane (isCHosen = true)
+   */
   prepareDoctorObject(): DoctorRegistrationModel {
     this.selectedServices = this.selectedServices.filter(service => service.isChosen === true);
     return {
@@ -141,6 +160,10 @@ export class DoctorRegistrationComponent implements OnInit {
     };
   }
 
+  /*
+  SPrawdza czy konto o podanym emailu juz istnieje.
+  Jeśli nie, tworzy nowe konto w bd i przekierowuje na stronę
+   */
   checkIfEmailExistsAndAdd(doctorRegistration: DoctorRegistrationModel){
     if (doctorRegistration.doctorEmailAddress !== ''){
       this.doctorRegistrationService.getDoctorByEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(odpowiedz => {
@@ -155,6 +178,9 @@ export class DoctorRegistrationComponent implements OnInit {
     }
   }
 
+  /*
+  Sprawdza czy konto o podanym mailu już istnieje
+   */
   checkIfEmailExists(doctorRegistration: DoctorRegistrationModel){
     if (doctorRegistration.doctorEmailAddress !== ''){
       this.doctorRegistrationService.getDoctorByEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(odpowiedz => {
@@ -168,6 +194,9 @@ export class DoctorRegistrationComponent implements OnInit {
     }
   }
 
+  /*
+  Przy zmianie specjalizacji, nadpisuje selectedSpecializationId i wyzerowuje liste wybranych wcześniej usług
+   */
   onSelectSpecialization(): void {
     this.selectedServices = [];
     console.log(this.selectedSpecializationId);
@@ -176,6 +205,9 @@ export class DoctorRegistrationComponent implements OnInit {
     // this.uncheckAllServices();
   }
 
+  /*
+  Dodaje usługę do listy wybranych usług
+   */
   addService(serviceId: number, isChosen: boolean): void {
     const currentService = this.selectedServices.find(service => service.id === serviceId); // return service or undefined
     if (isChosen) {
@@ -192,10 +224,16 @@ export class DoctorRegistrationComponent implements OnInit {
     console.log(this.selectedServices);
   }
 
+  /*
+  Dodaje zdjęcie do zmiennej imageFIle
+   */
   uploadImage(event): void {
     this.imageFile = event.target.files[0];
   }
 
+  /*
+  Służy do wpisania ceny dla konkretnej, wybranej usługi
+   */
   onPriceInput(serviceId: number, price: number): void {
     const currentService = this.selectedServices.find(service => service.id === serviceId);
     if (currentService) {
@@ -210,6 +248,9 @@ export class DoctorRegistrationComponent implements OnInit {
     }
   }
 
+  /*
+  Sprawdza czy została wybrana jakakolwiek usługa, czy cena została wpisana i czy jest większa od 0
+   */
   isServiceFormValid(): boolean {
     if (this.noServiceChecked() || this.isPriceZero() || this.isPriceNegative()) {
       return true;
@@ -217,6 +258,9 @@ export class DoctorRegistrationComponent implements OnInit {
     return false;
   }
 
+  /*
+  Sprawdza czy została wybrana choć jedna usługa
+   */
   noServiceChecked(): boolean {
     const currentService = this.selectedServices.find(service => service.isChosen === true);
     if (currentService === undefined) {
@@ -226,6 +270,9 @@ export class DoctorRegistrationComponent implements OnInit {
     }
   }
 
+  /*
+  Sprawdza czy wprowadzono cenę za usługę
+   */
   isPriceZero(): boolean {
     const currentService = this.selectedServices.find(service => service.price === 0);
     if (currentService === undefined) {
@@ -238,6 +285,9 @@ export class DoctorRegistrationComponent implements OnInit {
     }
   }
 
+  /*
+  Sprawdza czy wprowadzona cena jest mniejsza od 0
+   */
   isPriceNegative(): boolean {
     const currentService = this.selectedServices.find(service => service.price < 0);
     if (currentService === undefined) {
@@ -266,6 +316,9 @@ export class DoctorRegistrationComponent implements OnInit {
     console.log(this.selectedCityId);
   }
 
+  /*
+  Sprawdza czy miasto zostało wybrane
+   */
   isCitySelected(): boolean {
     if (this.selectedCityId === undefined) {
       return true;
@@ -274,6 +327,9 @@ export class DoctorRegistrationComponent implements OnInit {
     }
   }
 
+  /*
+  Sprawdza czy wybrano specjalizacje
+   */
   isSpecializationSelected(): boolean {
     if (this.selectedSpecializationId === undefined) {
       return true;

@@ -22,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PatientHomepageComponent } from './patient-homepage/patient-homepage.component';
 import {PatientRegistrationComponent} from './patient-registration/patient-registration.component';
 import { DoctorCalendarComponent } from './doctor-calendar/doctor-calendar.component';
-
+import { jqxSchedulerModule } from 'jqwidgets-ng/jqxscheduler';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent},
@@ -54,6 +54,7 @@ const routes: Routes = [
     BrowserModule,
     ReactiveFormsModule,
     MatIconModule,
+    jqxSchedulerModule,
     MatSelectModule,
     MatButtonModule,
     MatToolbarModule,

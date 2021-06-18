@@ -16,15 +16,6 @@
   display: block;
 }
 
-
-
-
-.main-site-content {
-  width: 95%;
-  margin-left: auto;
-  margin-right: auto
-}
-
 h1 {
   font-size: 80px;
   font-weight: lighter;
@@ -107,9 +98,6 @@ h1 {
 .doctor-homepage-option-box #wyniki  {
   background-image: url(https://www.zikodlazdrowia.org/wp-content/uploads/2017/09/shutterstock_159015314.jpg);
 }
-
-
-
 
 mat-sidenav-container {
   height: 100%;

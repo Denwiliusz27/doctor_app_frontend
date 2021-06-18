@@ -1,5 +1,23 @@
 <!--
 <button (click)="open()">button</button>
 <p>{{observable1 | async}}</p>
--->
+
 <router-outlet></router-outlet>
+-->
+
+<jqxScheduler #schedulerReference
+              (onAppointmentAdd)="AppointmentClick()"
+              [date]="date"
+              [width]="800"
+              [height]="600"
+              [source]="dataAdapter"
+              [showLegend]="true"
+              [editDialogCreate]="editDialogCreate"
+              [editDialogOpen]="editDialogOpen"
+              [editDialogClose]="editDialogClose"
+              [view]="'weekView'"
+              [appointmentDataFields]="appointmentDataFields"
+              [resources]="resources"
+              [views]="views"
+              >
+</jqxScheduler>

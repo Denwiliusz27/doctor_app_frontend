@@ -3,7 +3,9 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import { Router } from '@angular/router';
 import {DoctorLoginService} from '../services/doctor-login.service';
 
-
+/*
+Obiekt doktora posiadający email i hasło, które przekazywane są do bd
+ */
 interface DoctorLogin {
   doctorEmailAddress: string;
   doctorPassword: string;
@@ -14,10 +16,14 @@ interface DoctorLogin {
   templateUrl: './doctor-login.component.html',
   styleUrls: ['./doctor-login.component.css']
 })
+
+/*
+Komponent służący do logowania doktora na konto
+ */
 export class DoctorLoginComponent implements OnInit {
   submitted = false;
-  emailExist = true;
-  passwordCorrect = true;
+  emailExist = true;  // zmienna do sprawdzenia czy podany email istnieje w bd
+  passwordCorrect = true;  // zmienna do sprawdzenia czy dla podanego maila, wpisane hasło się zgadza
 
   loginFormGroup = new FormGroup({
     email: new FormControl('', [
@@ -42,6 +48,11 @@ export class DoctorLoginComponent implements OnInit {
     return this.loginFormGroup.controls;
   }
 
+  /*
+  Służy do zalogowania lekarza na konto:
+
+  Przygotowuje obiekt lekarza, a następnie sprawdza czy istnieje doktor o takim mailu oraz czy hasło się zgadza
+   */
   login(): void {
     this.submitted = true;
 
@@ -56,6 +67,9 @@ export class DoctorLoginComponent implements OnInit {
     }
   }
 
+  /*
+  Tworzy obiekt doktora potrzebny do logowania
+   */
   prepareDoctorLoginObject(): DoctorLogin{
     return {
       doctorEmailAddress: this.loginFormGroup.value.email,
@@ -63,6 +77,9 @@ export class DoctorLoginComponent implements OnInit {
     };
   }
 
+  /*
+  Sprawdza czy dla podanego maila istnieje konto w bd. Jeśli tak, przekierowuje na odpowiednią strone
+ */
   checkIfEmailExistsAndNavigate(doctorLogin: DoctorLogin) {
     console.log('sprawdzam czy email ' + doctorLogin.doctorEmailAddress + ' istnieje');
     if (doctorLogin.doctorEmailAddress !== ''){
@@ -86,6 +103,9 @@ export class DoctorLoginComponent implements OnInit {
     }
   }
 
+  /*
+  Sprawdza czy dla podanego maila istnieje konto w bd. Zmienna emailExist zostaje ustawiona na odpowiedni boolean
+   */
   checkIfEmailExists(doctorLogin: DoctorLogin) {
     console.log('sprawdzam czy email ' + doctorLogin.doctorEmailAddress + ' istnieje');
     if (doctorLogin.doctorEmailAddress !== ''){
@@ -101,6 +121,9 @@ export class DoctorLoginComponent implements OnInit {
     }
   }
 
+  /*
+  Przekierowuje na stronę główną lekarza
+   */
   redirect(): void {
     this.router.navigateByUrl('/doktor-rejestracja');
   }
