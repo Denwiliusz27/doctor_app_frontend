@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./patient-homepage.component.css']
 })
 export class PatientHomepageComponent implements OnInit {
+  cities: string[] = ['Kraków', 'Warszawa', 'Gdańsk'];
 
   constructor() { }
 

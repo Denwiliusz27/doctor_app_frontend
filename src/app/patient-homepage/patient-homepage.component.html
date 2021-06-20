@@ -1,1 +1,40 @@
-<p>patient-homepage works!</p>
+<div class="home-page-content">
+
+  <div class="menu-container">
+    <div class="menu-content">
+      <a class="menu-main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="homepage-main-site">
+    <div class="top-menu">
+      <p> no elo </p>
+    </div>
+    <div class="homepage-main-site-content">
+      <h1>strona główna</h1>
+
+      <div class="find-doctor-selectbox">
+        <select class="find-doctor-select-element">
+          <option class="disabled-option" disabled selected value="undefined">miasto</option>
+          <option *ngFor="let city of cities" >{{city}}</option>
+        </select>
+        <select class="find-doctor-select-element">
+          <option class="disabled-option" disabled selected value="undefined">miasto</option>
+          <option *ngFor="let city of cities" >{{city}}</option>
+        </select>
+        <button class="find-doctor-button">szukaj</button>
+      </div>
+
+
+
+
+    </div>
+  </div>
+
+
+</div>
+
