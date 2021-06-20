@@ -14,7 +14,7 @@ import {jqxSchedulerComponent} from 'jqwidgets-ng/jqxscheduler';
 export class AppComponent {
   printButton: any = null;
   myDate = new Date();
-  appointments = new Array();
+  appointments = [];
 
   @ViewChild('schedulerReference', { static: false }) scheduler: jqxSchedulerComponent;
   ngAfterViewInit(): void {

@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {jqxSchedulerComponent} from 'jqwidgets-ng/jqxscheduler';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -8,10 +9,25 @@ import {jqxSchedulerComponent} from 'jqwidgets-ng/jqxscheduler';
   styleUrls: ['./doctor-calendar.component.css']
 })
 export class DoctorCalendarComponent implements OnInit {
+  menuOptions: string[] = ['kalendarz', 'wizyty', 'wyniki'];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+
+  redirect(option: string): void {
+    if (option === 'kalendarz') {
+      this.router.navigateByUrl('/doktor-kalendarz');
+    }
+    else if (option === 'wizyty') {
+      this.router.navigateByUrl('/doktor-kalendarz');
+    }
+    else if (option === 'wyniki') {
+      this.router.navigateByUrl('/doktor-kalendarz');
+    }
+    console.log('przekierowuje do ' + option);
   }
 
 /*
@@ -230,8 +246,6 @@ export class DoctorCalendarComponent implements OnInit {
     console.log('dodaje');
   }
 */
-
-
 
 
 }

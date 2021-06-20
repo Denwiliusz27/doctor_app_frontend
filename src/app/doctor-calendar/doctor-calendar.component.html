@@ -1,8 +1,22 @@
 <div class="home-page-content">
 
-  <div class="doctor-menu">
-    <div class="doctor-menu-content">
+  <div class="menu-container">
+    <div class="menu-content">
       <a class="menu-main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+        <div class="menu-element" *ngFor="let option of menuOptions" (click)="redirect(option)">
+          <div id="blur"></div>
+          <p class="menu-element-text">{{option}}</p>
+        </div>
+      </div>
+
+
+      <!--<ul class="menu-list">
+        <li>zarezerwuj wizytę</li>
+        <li>wizyty</li>
+        <li>wyniki</li>
+      </ul>-->
     </div>
   </div>
 
