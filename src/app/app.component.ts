@@ -13,6 +13,8 @@ import {jqxSchedulerComponent} from 'jqwidgets-ng/jqxscheduler';
 
 export class AppComponent {
   printButton: any = null;
+  myDate = new Date();
+  appointments = new Array();
 
   @ViewChild('schedulerReference', { static: false }) scheduler: jqxSchedulerComponent;
   ngAfterViewInit(): void {
@@ -28,7 +30,7 @@ export class AppComponent {
 
   generateAppointments(): any {
     let appointments = new Array();
-    let appointment1 = {
+    /*let appointment1 = {
       id: 'id1',
       description: 'George brings projector for presentations.',
       location: '',
@@ -48,7 +50,7 @@ export class AppComponent {
     };
 
     appointments.push(appointment1);
-    appointments.push(appointment2);
+    appointments.push(appointment2);*/
 
     return appointments;
   };
@@ -57,9 +59,9 @@ export class AppComponent {
       dataType: 'array',
       dataFields: [
         { name: 'id', type: 'string' },
-       // { name: 'description', type: 'string' },
-       // { name: 'location', type: 'string' },
-       // { name: 'subject', type: 'string' },
+        { name: 'description', type: 'string' },
+        { name: 'location', type: 'string' },
+        { name: 'subject', type: 'string' },
        // { name: 'calendar', type: 'string' },
         { name: 'start', type: 'date' },
         { name: 'end', type: 'date' }
@@ -68,16 +70,16 @@ export class AppComponent {
       localData: this.generateAppointments()
     };
   dataAdapter: any = new jqx.dataAdapter(this.source);
-  date: any = new jqx.date(2020, 11, 23);
+  date: any = new jqx.date();
   appointmentDataFields: any =
     {
       from: 'start',
       to: 'end',
       id: 'id',
-      /*description: 'description',
+      description: 'description',
       location: 'location',
       subject: 'subject',
-      resourceId: 'calendar'*/
+      /* resourceId: 'calendar'*/
     };
   resources: any =
     {
@@ -86,8 +88,8 @@ export class AppComponent {
       source: new jqx.dataAdapter(this.source)
     };
   views: any[] =
-    [
-      { type: 'weekView', showWeekends: true, timeRuler: { hidden: false }, workTime:
+    [                                                           // quarterHour
+      { type: 'weekView', showWeekends: true, timeRuler: { scale: 'half-hour', formatString: 'HH:mm', hidden: false }, workTime:
           {
             fromDayOfWeek: 1,
             toDayOfWeek: 6,
@@ -96,20 +98,172 @@ export class AppComponent {
           } },
     ];
 
+  localization = {
+    // separator of parts of a date (e.g. '/' in 11/05/1955)
+    '/': '/',
+    // separator of parts of a time (e.g. ':' in 05:44 PM)
+    ':': ':',
+    // the first day of the week (0 = Sunday, 1 = Monday, etc)
+    firstDay: 1,
+    days: {
+      // full day names
+      names: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
+      // abbreviated day names
+      namesAbbr: ['Ndz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb'],
+      // shortest day names
+      namesShort: ['N', 'P', 'W', 'Ś', 'C', 'P', 'S']
+    },
+    months: {
+      // full month names (13 months for lunar calendards -- 13th month should be '' if not lunar)
+      names: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipic', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień', ''],
+      // abbreviated month names
+      namesAbbr: ['St', 'Lut', 'Mrz', 'Kw', 'Maj', 'Cz', 'Lip', 'Sier', 'Wrz', 'Paź', 'lis', 'Gr', '']
+    },
+    // AM and PM designators in one of these forms:
+    // The usual view, and the upper and lower case versions
+    //      [standard,lowercase,uppercase]
+    // The culture does not use AM or PM (likely all standard date formats use 24 hour time)
+    //      null
+    /*AM: ['AM', 'am', 'AM'],
+    PM: ['PM', 'pm', 'PM'],*/
+    eras: [
+      // eras in reverse chronological order.
+      // name: the name of the era in this culture (e.g. A.D., C.E.)
+      // start: when the era starts in ticks (gregorian, gmt), null if it is the earliest supported era.
+      // offset: offset in years from gregorian calendar
+      { 'name': 'A.D.', 'start': null, 'offset': 0 }
+    ],
+    twoDigitYearMax: 2029,
+    patterns: {
+      // short date pattern
+      d: 'M/d/yyyy',
+      // long date pattern
+      D: 'dddd, MMMM dd, yyyy',
+      // short time pattern
+      t: 'h:mm tt',
+      // long time pattern
+      T: 'h:mm:ss tt',
+      // long date, short time pattern
+      f: 'dddd, MMMM dd, yyyy h:mm tt',
+      // long date, long time pattern
+      F: 'dddd, MMMM dd, yyyy h:mm:ss tt',
+      // month/day pattern
+      M: 'MMMM dd',
+      // month/year pattern
+      Y: 'yyyy MMMM',
+      // S is a sortable format that does not lety by culture
+      S: 'yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss',
+      // formatting of dates in MySQL DataBases
+      ISO: 'yyyy-MM-dd hh:mm:ss',
+      ISO2: 'yyyy-MM-dd HH:mm:ss',
+      d1: 'dd.MM.yyyy',
+      d2: 'dd-MM-yyyy',
+      d3: 'dd-MMMM-yyyy',
+      d4: 'dd-MM-yy',
+      d5: 'H:mm',
+      d6: 'HH:mm',
+      d7: 'HH:mm tt',
+      d8: 'dd/MMMM/yyyy',
+      d9: 'MMMM-dd',
+      d10: 'MM-dd',
+      d11: 'MM-dd-yyyy'
+    },
+    backString: 'Wcześniejszy',
+    forwardString: 'Następny',
+    toolBarPreviousButtonString: 'Wcześniejszy',
+    toolBarNextButtonString: 'Następny',
+    emptyDataString: 'Brak daty',
+    loadString: 'Ładowanie...',
+    clearString: 'wyczyść',
+    todayString: 'dziś',
+    // timelineWeekViewString: 'Zeitleiste Woche',
+    loadingErrorMessage: 'ERROR',
+    /* editRecurringAppointmentDialogTitleString: 'Bearbeiten Sie wiederkehrenden Termin',
+    editRecurringAppointmentDialogContentString: 'Wollen Sie nur dieses eine Vorkommen oder die Serie zu bearbeiten ?',
+    editRecurringAppointmentDialogOccurrenceString: 'Vorkommen bearbeiten',
+    editRecurringAppointmentDialogSeriesString: 'Bearbeiten Die Serie',*/
+    editDialogTitleString: 'Usuwanie godzin dyspozycyjności',
+    editDialogCreateTitleString: 'Tworzenie nowych godzin dyspozycyjności',
+    contextMenuEditAppointmentString: 'Usuń dyspozycyjność',
+    contextMenuCreateAppointmentString: 'Ustaw dyspozycyjność',
+    /*editDialogSubjectString: 'Subjekt',
+    editDialogLocationString: 'Ort',
+    editDialogFromString: 'Von',
+    editDialogToString: 'Bis',
+    editDialogAllDayString: 'Den ganzen Tag',
+    editDialogExceptionsString: 'Ausnahmen',
+    editDialogResetExceptionsString: 'Zurücksetzen auf Speichern',
+    editDialogDescriptionString: 'Bezeichnung',
+    editDialogResourceIdString: 'Kalender',
+    editDialogStatusString: 'Status',
+    editDialogColorString: 'Farbe',
+    editDialogColorPlaceHolderString: 'Farbe wählen',
+    editDialogTimeZoneString: 'Zeitzone',
+    editDialogSelectTimeZoneString: 'Wählen Sie Zeitzone',*/
+    editDialogSaveString: 'Ustaw',
+    editDialogDeleteString: 'Usuń',
+    editDialogCancelString: 'Anuluj',
+    editDialogRepeatString: 'Powtórz',
+    editDialogRepeatEveryString: 'Dzisiaj',
+    /*editDialogRepeatEveryWeekString: 'Tydzień(n)',
+    editDialogRepeatEveryYearString: 'Jahr (en)',*/
+    editDialogRepeatEveryDayString: 'Dzień (e)',
+    editDialogRepeatNeverString: 'Nie',
+    editDialogRepeatDailyString: 'Codziennie',
+    editDialogRepeatWeeklyString: 'Cotygodniowo',
+    editDialogRepeatMonthlyString: 'Comiesięcznie',
+    editDialogRepeatYearlyString: 'Corocznie',
+    editDialogRepeatEveryMonthString: 'Miesiąc (n)',
+    editDialogRepeatEveryMonthDayString: 'Dzień',
+    editDialogRepeatFirstString: 'pierwszy',
+    editDialogRepeatSecondString: 'drugi',
+    editDialogRepeatThirdString: 'trzeci',
+    editDialogRepeatFourthString: 'czwarty',
+    editDialogRepeatLastString: 'ostatni',
+    editDialogRepeatEndString: 'koniec',
+    /*editDialogRepeatAfterString: 'Do',
+    editDialogRepeatOnString: 'Am',
+    editDialogRepeatOfString: 'von',
+    editDialogRepeatOccurrencesString: 'Eintritt (e)',
+    editDialogRepeatSaveString: 'Vorkommen Speichern',
+    editDialogRepeatSaveSeriesString: 'Save Series',
+    editDialogRepeatDeleteString: 'Vorkommen löschen',
+    editDialogRepeatDeleteSeriesString: 'Series löschen',*/
+    editDialogStatuses:
+      {
+        free: 'Wolny',
+        tentative: 'wstępnie',
+        busy: 'zatrudniony',
+        outOfOffice: 'poza gabinetem'
+      }
+  };
+
+
+
+
+
+
   editDialogCreate = (dialog, fields, editAppointment) => {
     // hide repeat option
     console.log(fields);
+    console.log(this.myDate);
     fields.repeatContainer.hide();
-    // hide timeZone option
     fields.timeZoneContainer.hide();
-    // hide color option
     fields.colorContainer.hide();
     fields.subjectContainer.hide();
+    fields.repeatContainer.hide();
+    fields.locationContainer.hide();
+    fields.fromContainer.hide();
+    fields.toContainer.hide();
+    fields.resourceContainer.hide();
+    fields.allDayContainer.hide();
+    fields.descriptionContainer.hide();
 
-
-    fields.statusLabel.html('witam');
-    fields.status
+    fields.statusLabel.html('Czy chcesz dodać swoją dyspozycyjność?');
+    fields.status.hide(); // remove()
     console.log(fields.statusContainer);
+    const element = fields.statusLabel.style;
+
 
  /*   const child2: [] = fields.statusContainer.children;
     fields.statusContainer.remove(child2);*/
@@ -117,13 +271,8 @@ export class AppComponent {
     const dziecko = fields.statusContainer.style;
     console.log(dziecko);
 
+    const child = fields.statusContainer.children[0];
 
-    fields.locationContainer.hide();
-    fields.fromContainer.hide();
-    fields.toContainer.hide();
-    fields.resourceContainer.hide();
-    fields.allDayContainer.hide();
-    fields.descriptionContainer.hide();
     let buttonElement = document.createElement("BUTTON");
     buttonElement.innerText = 'Print';
     buttonElement.style.cssFloat = 'right';
@@ -208,6 +357,7 @@ export class AppComponent {
       this.printButton.setOptions({ disabled: true });
     }
     else if (editAppointment && this.printButton) {
+      fields.statusLabel.html('Czy na pewno chcesz usunąć dyspozycyjność?');
       this.printButton.setOptions({ disabled: false });
     }
   };
@@ -217,6 +367,10 @@ export class AppComponent {
     console.log(dialog);
     console.log(fields);
     console.log(editAppointment);
+    console.log(fields.subject.val());
+    console.log(fields.from.val());
+    console.log(fields.to.val());
+    console.log(this.appointments);
   };
 
   AppointmentAdd() {
