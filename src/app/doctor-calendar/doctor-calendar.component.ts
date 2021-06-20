@@ -22,10 +22,10 @@ export class DoctorCalendarComponent implements OnInit {
       this.router.navigateByUrl('/doktor-kalendarz');
     }
     else if (option === 'wizyty') {
-      this.router.navigateByUrl('/doktor-kalendarz');
+      this.router.navigateByUrl('/doktor-wizyty');
     }
     else if (option === 'wyniki') {
-      this.router.navigateByUrl('/doktor-kalendarz');
+      this.router.navigateByUrl('/doktor-wyniki-badań');
     }
     console.log('przekierowuje do ' + option);
   }

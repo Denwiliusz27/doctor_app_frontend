@@ -27,15 +27,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 250px;
   height: 100%;
   position: fixed;
-  background: rgb(2,0,36);
-  background: linear-gradient(180deg, #0c3ee8 0%, #021e74 100%);
+ /* background: rgb(2,0,36);*/
+  background-color: #0c3ee8 /* linear-gradient(180deg, #0c3ee8 0%, #021e74 100%)*/;
 }
 
 .top-menu {
   width: 100%;
   height: 70px;
-  background-color: white;
-  border-bottom: 2px solid dimgray;
+  background: linear-gradient(0deg, rgba(167, 167, 167, 1.0) 0%, #ffffff 100%);
+  border-bottom: 2px solid rgb(167, 167, 167);
   position: fixed;
   top: 0;
   z-index: 10;
@@ -71,10 +71,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+ /* justify-content: center;*/
 
   /* "to left" / "to right" - affects initial color */
-  background: linear-gradient(to left, rgba(58, 69, 102, 0.64) 50%, forestgreen 50%) right;
+  background: linear-gradient(to left, #5f6882 50%, forestgreen 50%) right;
+
   background-size: 200%;
   transition: .5s ease-out;
 }
@@ -83,10 +84,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   letter-spacing: 3px;
   background-position: left;
   width: 210px;
+  cursor: pointer;
 }
 
 .menu-element-text {
   margin-bottom: 0 !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.icon {
+  width: 50px;
 }
 
 .straight-line {
@@ -96,10 +104,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border: 2px solid white;
   border-radius: 10px;
 }
-
-
-
-
 
 
 

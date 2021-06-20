@@ -33,7 +33,7 @@ export class DoctorHomepageComponent implements OnInit {
     else if (option === 'wizyty') {
       this.router.navigateByUrl('/doktor-strona-główna');
     } else if (option === 'wyniki') {
-      this.router.navigateByUrl('/doktor-strona-główna');
+      this.router.navigateByUrl('/doktor-wyniki-badań');
     }
     console.log('przekierowuje do ' + option);
   }
