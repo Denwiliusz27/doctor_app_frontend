@@ -72,7 +72,7 @@ export class PatientLoginComponent implements OnInit {
           if (odpowiedz.patientPassword === patientLogin.patientPassword){
             this.passwordCorrect = true;
             console.log('haslo ' + patientLogin.patientPassword + ' poprawne');
-            // this.router.navigateByUrl('/pacjent-strona-główna');
+            this.router.navigateByUrl('/pacjent-strona-główna');
           } else {
             this.passwordCorrect = false;
             console.log('haslo ' + patientLogin.patientPassword + ' niepoprawne');

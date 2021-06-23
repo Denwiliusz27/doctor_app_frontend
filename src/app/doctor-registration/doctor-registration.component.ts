@@ -173,7 +173,7 @@ export class DoctorRegistrationComponent implements OnInit {
         else{
           this.emailExists = false;
           this.doctorRegistrationService.addDoctor(doctorRegistration, this.selectedServices, this.emailExists);
-         // this.router.navigateByUrl('/doktor-strona-główna');
+          this.router.navigateByUrl('/doktor-strona-główna');
         } });
     }
   }
