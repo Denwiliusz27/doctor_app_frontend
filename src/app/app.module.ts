@@ -25,6 +25,9 @@ import { DoctorCalendarComponent } from './doctor-calendar/doctor-calendar.compo
 import { jqxSchedulerModule } from 'jqwidgets-ng/jqxscheduler';
 import { DoctorFindingsComponent } from './doctor-findings/doctor-findings.component';
 import { DoctorVisitsComponent } from './doctor-visits/doctor-visits.component';
+import { PatientVisitsComponent } from './patient-visits/patient-visits.component';
+import { PatientFindingsComponent } from './patient-findings/patient-findings.component';
+import { PatientFindDoctorComponent } from './patient-find-doctor/patient-find-doctor.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent},
@@ -37,6 +40,10 @@ const routes: Routes = [
   { path: 'doktor-kalendarz', component: DoctorCalendarComponent},
   { path: 'doktor-wyniki-badań', component: DoctorFindingsComponent},
   { path: 'doktor-wizyty', component: DoctorVisitsComponent},
+  { path: 'pacjent-wizyty', component: PatientVisitsComponent},
+  { path: 'pacjent-wyniki-badań', component: PatientFindingsComponent},
+  { path: 'pacjent-znajdź-lekarza', component: PatientFindDoctorComponent},
+
 ];
 
 @NgModule({
@@ -52,6 +59,9 @@ const routes: Routes = [
     DoctorCalendarComponent,
     DoctorFindingsComponent,
     DoctorVisitsComponent,
+    PatientVisitsComponent,
+    PatientFindingsComponent,
+    PatientFindDoctorComponent,
     // DialogOverviewExampleComponent
   ],
   imports: [

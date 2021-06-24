@@ -4,17 +4,17 @@
 
   <div class="menu-container">
     <div class="menu-content">
-      <a class="menu-main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
+      <a class="menu-main_site_link" routerLink="/pacjent-strona-główna">przychodnia.pl</a>
       <div class="straight-line"></div>
       <div class="menu-list">
         <div class="menu-element" *ngFor="let option of options" (click)="redirect(option)">
           <div id="blur"></div>
           <div class="icon">
-            <mat-icon *ngIf="option == 'kalendarz'">calendar_today</mat-icon>
             <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
             <mat-icon *ngIf="option == 'wyniki'">description</mat-icon>
           </div>
-          <p class="menu-element-text">{{option}}</p>
+          <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>
+          <p class="menu-element-text" *ngIf="option !== 'wyniki'">{{option}}</p>
 
         </div>
       </div>
@@ -25,7 +25,7 @@
     <div class="top-menu">
       <p> no elo </p>
     </div>
-    <div class="patient-homepage-main-site-content">
+    <div class="patient-main-site-content">
       <h1 class="page-header">strona główna</h1>
 
       <div class="find-doctor-selectbox">
@@ -51,7 +51,8 @@
 
       <div class="homepage-text">
         <p>Strona przeznaczona jest dla osób poszukujących lekarzy oferujących usługi w największych miastach w
-          Polsce.</p>
+          Polsce. Wyszukiwanie lekarzy danej specjalizacji stacjonujących w danym mieście odbywa sie poprzez wybór
+        odpowiednich opcji u góry strony.</p>
         <p>W zakładce 'wizyty' pacjent ma możliwość przeglądania nadchodzących oraz odbytych wizyt.</p>
         <p>Natomiast w zakładce 'wyniki' pacjent może przeglądać wystawione przez lekarzy wyniki badań.</p>
       </div>

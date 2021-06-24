@@ -1,0 +1,42 @@
+<div class="backgroung-img"></div>
+
+<div class="home-page-content">
+
+  <div class="menu-container">
+    <div class="menu-content">
+      <a class="menu-main_site_link" routerLink="/pacjent-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+        <div class="menu-element" *ngFor="let option of options" (click)="redirect(option)">
+          <div id="blur"></div>
+          <div class="icon">
+            <mat-icon *ngIf="option == 'lekarze'">calendar_today</mat-icon>
+            <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
+            <mat-icon *ngIf="option == 'wyniki'">description</mat-icon>
+          </div>
+          <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>
+          <p class="menu-element-text" *ngIf="option == 'lekarze'">znajdź lekarza</p>
+          <p class="menu-element-text" *ngIf="option !== 'wyniki' && option !== 'lekarze'">{{option}}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="homepage-main-site">
+    <div class="top-menu">
+      <p> no elo </p>
+    </div>
+    <div class="patient-main-site-content">
+      <h1 class="page-header">wizyty</h1>
+
+      <div class="homepage-text">
+        <p>Zakładka 'wizyty' pozwala pacjentowi przeglądać nadchodzące wizyty oraz te, które już się odbyły, wraz z ich
+          opisem oraz przypisanymi do nich wynikami.</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

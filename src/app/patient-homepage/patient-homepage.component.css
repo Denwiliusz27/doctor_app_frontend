@@ -81,7 +81,7 @@ select {
   word-break: break-word;
 }
 
-.patient-homepage-main-site-content {
+.patient-main-site-content {
   width: 95%;
   margin-left: auto;
   margin-right: auto;
@@ -93,6 +93,7 @@ select {
 
 .homepage-text {
   width: 1000px;
+  line-height: 28px;
   position: fixed;
   bottom: 0;
   font-size: 24px;

@@ -23,7 +23,7 @@ export class PatientHomepageComponent implements OnInit {
 
   redirect(option: string): void {
     if (option === 'wizyty') {
-      this.router.navigateByUrl('/pacjent-strona-główna');
+      this.router.navigateByUrl('/pacjent-wizyty');
     } else if (option === 'wyniki') {
       this.router.navigateByUrl('/pacjent-wyniki-badań');
     }
