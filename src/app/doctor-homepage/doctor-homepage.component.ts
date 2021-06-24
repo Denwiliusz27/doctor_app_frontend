@@ -31,7 +31,7 @@ export class DoctorHomepageComponent implements OnInit {
       this.router.navigateByUrl('/doktor-kalendarz');
     }
     else if (option === 'wizyty') {
-      this.router.navigateByUrl('/doktor-strona-główna');
+      this.router.navigateByUrl('/doktor-wizyty');
     } else if (option === 'wyniki') {
       this.router.navigateByUrl('/doktor-wyniki-badań');
     }
