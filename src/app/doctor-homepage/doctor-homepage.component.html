@@ -36,13 +36,21 @@
       <p> no elo </p>
     </div>
     <div class="homepage-main-site-content">
-      <h1>strona główna</h1>
+      <h1 class="page-header">strona główna</h1>
 
       <div class="doctor-homepage-option-box">
         <div id="{{option}}" *ngFor="let option of options" (click)="redirect(option)">
           <p *ngIf="option === 'wyniki'">wyniki badań</p>
           <p *ngIf="option !== 'wyniki'">{{option}}</p>
         </div>
+      </div>
+
+      <div class="homepage-text">
+        <p>Strona główna przeznaczona jest dla lekarzy oferujących swoje usługi poprzez rejestracje internetową .</p>
+        <p>W zakładce 'kalendarz' lekarz może ustawić konkretne dni oraz godziny swojej dostępności.</p>
+        <p>W zakładce 'wizyty' lekarz ma możliwośc przeglądania zaplanowanych oraz odbytych wizyt, a także ich
+          akceptowania.</p>
+        <p>Natomiast w zakładce 'wyniki badań' lekarz może wystawić wyniki pacjentom oraz dodawać opisy do wizyt.</p>
       </div>
     </div>
 
