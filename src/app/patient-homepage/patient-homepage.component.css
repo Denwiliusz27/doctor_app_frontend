@@ -1,6 +1,6 @@
 .backgroung-img {
-  background-image: url('pacjent.png');
-  background-position: 62% 120%;
+  background-image: url('background.png');
+  background-position: 65% 120%;
   background-repeat: no-repeat;
   background-size: auto 65%;
 
@@ -88,13 +88,13 @@ select {
   display: flex;
   flex-direction: column;
   justify-content: center;
- /* align-items: center;*/
+  align-items: center;
 }
 
 .homepage-text {
   width: 1000px;
- /* position: fixed;
-  bottom: 0;*/
+  position: fixed;
+  bottom: 0;
   font-size: 24px;
   font-weight: bolder;
   font-family: Serif, sans-serif;
