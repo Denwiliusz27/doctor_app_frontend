@@ -5,6 +5,112 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.main-site-sticky-link {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 25px;
+}
+
+.login-and-registration-header {
+  font-size: 65px !important;
+  font-weight: 100;
+  color: #1342e8 !important;
+  text-shadow: 2px 2px 5px black !important;
+  margin: 80px 0 35px 0 !important;
+}
+
+
+.login-and-registration-main-site-link {
+  font-size: 35px;
+  font-family: "Rage Italic", sans-serif;
+  font-style: italic;
+  margin: 20px;
+  text-decoration: none;
+  text-shadow: 3px 3px 3px black;
+  color: white;
+}
+
+.login-and-registration-page-content {
+  margin: 15px 25px 15px 25px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.login-and-registration-form-container {
+  justify-content: center;
+  display: flex;
+  text-align: center;
+  padding: 0 0 5% 0;
+}
+
+.login-and-registration-form-input::placeholder {
+  color: dimgray;
+  font-style: italic;
+}
+
+.login-and-registration-form {
+  width: 70%;
+}
+
+.login-and-registration-form-label {
+  display: block;
+  margin: 35px 0 0 0;
+}
+
+.login-and-registration-form-input {
+  width: 60%;
+  padding: 15px;
+  font-size: 24px;
+  border: 3px solid #1342e8;
+  border-radius: 7px;
+}
+
+.login-and-registration-form-input:focus {
+  outline: none;
+  background-color: aliceblue;
+}
+
+.login-button {
+  margin: 3% 0 0 0;
+  height: 61px;
+  width: 63%;
+  color: white;
+  font-size: 24px;
+  font-style: italic;
+  border: 3px solid #1342e8;
+  border-radius: 40px;
+  background-color: #0363c9;
+
+  transition: all 0.4s ease 0s;
+}
+
+.login-button:hover {
+  border-radius: 7px;
+  cursor: pointer;
+  letter-spacing: 5px;
+}
+
+.login-and-registration-error {
+  justify-content: center;
+  display: flex;
+}
+
+.login-and-registration-error p{
+  margin: 0;
+  width: 60%;
+  font-size: 24px !important;
+  text-shadow: 2px 2px 2px black !important;
+  color: red !important;
+  font-weight: bold;
+  position: relative;
+}
+
+.login-and-registration-error-border {
+  border: 3px solid red !important;
+}
+
 .home-page-content {
   position: absolute;
   left: 0;

@@ -16,7 +16,7 @@
   bottom: 0;
   display: block;
 }
-
+/*
 .home-content {
   margin: 15px 25px 15px 25px;
   position: absolute;
@@ -30,15 +30,17 @@
   display: flex;
   text-align: center;
   padding: 0 0 5% 0
-}
+}*/
 
+/*
 .sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 25px;
 }
+*/
 
-.main_site_link {
+/*.main_site_link {
   font-size: 35px;
   font-family: "Rage Italic", sans-serif;
   font-style: italic;
@@ -59,17 +61,20 @@
   margin: 6% 0 2% 0;
   font-style: italic;
   font-family: "Arial", sans-serif;
-}
+}*/
 
+/*
 
 form {
   width: 70%;
 }
 
+
 label {
   display: block;
   margin: 3% 0 0 0;
 }
+
 
 input {
   width: 60%;
@@ -88,7 +93,7 @@ input:focus {
   color: dimgray;
   font-style: italic;
 }
-
+*/
 p {
   font-size: 32px;
   text-align: center;
@@ -118,6 +123,7 @@ button:hover {
   letter-spacing: 5px;
 }
 
+/*
 .error {
   justify-content: center;
   display: flex;
@@ -137,7 +143,7 @@ button:hover {
   border: 3px solid red;
 }
 
-/*
+
 .email-error {
   position: fixed;
   top: 200px;

@@ -1,144 +1,145 @@
 <div class="backgroung-img"></div>
 
-<div class="home-content">
+<div class="login-and-registration-page-content">
 
-  <div class="sticky">
-    <a class="main_site_link" routerLink="/">przychodnia.pl</a>
+  <div class="main-site-sticky-link">
+    <a class="login-and-registration-main-site-link" routerLink="/">przychodnia.pl</a>
   </div>
 
-    <p class="main_text">REJESTRACJA</p>
+    <p class="login-and-registration-header">REJESTRACJA</p>
 
-  <div class="form-container">
-    <form [formGroup]="registrationFormGroup" (ngSubmit)="register()">
+  <div class="login-and-registration-form-container">
+    <form class="login-and-registration-form" [formGroup]="registrationFormGroup" (ngSubmit)="register()">
 
-      <label>
-        <input title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery" type="text"
-               formControlName="name" required
-               [class.error-red-border]="submitted && currentFormControls.name.errors" placeholder="imie*">
-        <div class="error" *ngIf="submitted && currentFormControls.name.errors?.required" >
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery" type="text"
+               formControlName="name" required [class.login-and-registration-error-border]="submitted && currentFormControls.name.errors"
+               placeholder="imie*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.name.errors?.required" >
           <p>nie wpisano imienia</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.name.errors?.minlength" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.name.errors?.minlength" >
           <p>imie za krótkie</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.name.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.name.errors?.pattern" >
           <p>imie nie spełnia założeń</p>
         </div>
       </label>
 
-      <label>
-        <input title="Powinno zaczynać się od dużej litery i nie zawierać cyfr" type="text" formControlName="surname"
-               required [class.error-red-border]="submitted && currentFormControls.surname.errors" placeholder="nazwisko*">
-        <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.required" >
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Powinno zaczynać się od dużej litery i nie zawierać cyfr" type="text" formControlName="surname"
+               required [class.login-and-registration-error-border]="submitted && currentFormControls.surname.errors"
+               placeholder="nazwisko*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.surname.errors?.required" >
           <p>nie wpisano nazwiska</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.minlength" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.surname.errors?.minlength" >
           <p>nazwisko za krótkie</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.surname.errors?.pattern" >
           <p>nazwisko nie spełnia założeń</p>
         </div>
       </label>
 
-      <label>
-        <input title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'" type="text" formControlName="email"
-               required [class.error-red-border]="submitted && currentFormControls.email.errors || submitted && emailExists"
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'" type="text" formControlName="email"
+               required [class.login-and-registration-error-border]="submitted && currentFormControls.email.errors || submitted && emailExists"
                (change)="emailExists = true" placeholder="e-mail*">
-        <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
           <p>niepoprawny adres e-mail</p>
         </div>
-        <div class="error" *ngIf="submitted && emailExists">
+        <div class="login-and-registration-error" *ngIf="submitted && emailExists">
           <p>taki email istnieje</p>
         </div>
       </label>
 
-      <label>
-        <input title="Musi zawierać 8 znaków, jedną cyfrę, jedną małą i dużą literę" type="password"
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Musi zawierać 8 znaków, jedną cyfrę, jedną małą i dużą literę" type="password"
                formControlName="password" required
-               [class.error-red-border]="submitted && currentFormControls.password.errors" placeholder="hasło*">
-        <div class="error" *ngIf="submitted && currentFormControls.password.errors?.required" >
+               [class.login-and-registration-error-border]="submitted && currentFormControls.password.errors" placeholder="hasło*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.required" >
           <p>nie podano hasła</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.password.errors?.minlength" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.minlength" >
           <p>hasło za krótkie</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.password.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.pattern" >
           <p>hasło nie spełnia założeń</p>
         </div>
       </label>
 
-      <label for="specializations">
-        <select [(ngModel)]="selectedSpecializationId" (ngModelChange)="onSelectSpecialization()" formControlName="specialization" id="specializations"
-                [class.error-red-border]="(submitted && isSpecializationSelected())">
-          <option class="disabled-option" disabled selected value="undefined">specjalizacja</option>
+      <label class="login-and-registration-form-label" for="specializations">
+        <select [(ngModel)]="selectedSpecializationId" (ngModelChange)="onSelectSpecialization()" formControlName="specialization"
+                id="specializations" [class.login-and-registration-error-border]="(submitted && isSpecializationSelected())">
+          <option class="input-disabled-option" disabled selected value="undefined">specjalizacja</option>
           <option *ngFor="let specialization of specializations | async" [ngValue]="specialization.specializationId">
             {{specialization.specializationName}}
           </option>
         </select>
       </label>
 
-      <div class="checkbox" [class.error-red-border]="(submitted && isServiceFormValid())"
+      <div class="service-checkbox" [class.login-and-registration-error-border]="(submitted && isServiceFormValid())"
            title="Należy zaznaczyć co najmniej jedną usługę" *ngIf="(!isSpecializationSelected())">
-        <p class="services_txt">Usługi:</p>
-        <label class="in_box" for="services" *ngFor="let service of services | async">
+        <p class="service-checkbox-header">Usługi:</p>
+        <label class="service-checkbox-label" for="services" *ngFor="let service of services | async">
           <input type="checkbox" required
                  (change)="addService(service.serviceId, $event.target.checked)" #serviceCheckboxes/>{{service.serviceName}}
-          <input class="price-service" type="number" value=0 title="Cena powinna być większa od zera"
+          <input class="service-checkbox-price-input" type="number" value=0 title="Cena powinna być większa od zera"
                  (keyup)="onPriceInput(service.serviceId, $event.target.value)" #priceInputs>
         </label>
       </div>
-      <div class="error" *ngIf="submitted && noServiceChecked()">
+      <div class="login-and-registration-error" *ngIf="submitted && noServiceChecked()">
         <p>nie wybrano żadnego pola</p>
       </div>
-      <div class="error" *ngIf="submitted && isPriceZero()">
+      <div class="login-and-registration-error" *ngIf="submitted && isPriceZero()">
         <p>należy wprowadzić cenę za usługę</p>
       </div>
-      <div class="error" *ngIf="submitted && isPriceNegative()">
+      <div class="login-and-registration-error" *ngIf="submitted && isPriceNegative()">
         <p>cena nie może być ujemna</p>
       </div>
 
-      <label>
-        <select [(ngModel)]="selectedCityId" (ngModelChange)="onSelectCity()" [class.error-red-border]="(submitted && isCitySelected())"
+      <label class="login-and-registration-form-label">
+        <select [(ngModel)]="selectedCityId" (ngModelChange)="onSelectCity()" [class.login-and-registration-error-border]="(submitted && isCitySelected())"
                 formControlName="city" id="city">
-          <option class="disabled-option" disabled selected value="undefined">miasto</option>
+          <option class="input-disabled-option" disabled selected value="undefined">miasto</option>
           <option *ngFor="let city of cities | async" [ngValue]="city.cityId">{{city.cityName}}</option>
         </select>
       </label>
-      <div class="error" *ngIf="submitted && isCitySelected()">
+      <div class="login-and-registration-error" *ngIf="submitted && isCitySelected()">
         <p>nie wybrano żadnego pola</p>
       </div>
 
-      <label>
-        <input title="Powinna zawierać nazwę oraz numer" type="text" formControlName="address" required
-               [class.error-red-border]="submitted && currentFormControls.address.errors" placeholder="adres*">
-        <div class="error" *ngIf="submitted && currentFormControls.address.errors?.required" >
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Powinna zawierać nazwę oraz numer" type="text" formControlName="address" required
+               [class.login-and-registration-error-border]="submitted && currentFormControls.address.errors" placeholder="adres*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.address.errors?.required" >
           <p>nie wpisano adresu</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.address.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.address.errors?.pattern" >
           <p>adres nie spełnia wymagań</p>
         </div>
       </label>
 
-      <label>
-        <input title="Powinien składać się wyłącznie z cyfr" type="tel" formControlName="phoneNumber"
-               [class.error-red-border]="submitted && currentFormControls.phoneNumber.errors" placeholder="numer telefonu">
-        <div class="error" *ngIf="submitted && currentFormControls.phoneNumber.errors?.pattern" >
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Powinien składać się wyłącznie z cyfr" type="tel" formControlName="phoneNumber"
+               [class.login-and-registration-error-border]="submitted && currentFormControls.phoneNumber.errors" placeholder="numer telefonu">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.phoneNumber.errors?.pattern" >
           <p>podany numer nie spełnia wymagań</p>
         </div>
       </label>
 
-      <label>
+      <label class="login-and-registration-form-label">
         <textarea title="Pare słów o Tobie" formControlName="description" type="text" placeholder="opis"></textarea>
       </label>
 
-      <label>
-        <input class="doc_image" type="file" accept="image/*" formControlName="image" required (change)="uploadImage($event)"
+      <label class="login-and-registration-form-label">
+        <input class="doctor-image-input" type="file" accept="image/*" formControlName="image" required (change)="uploadImage($event)"
                title="Plik powinien byc obiektem graficznym"
-               [class.error-red-border]="submitted && currentFormControls.image.errors" data-buttonText="Zdjecie">
-        <div class="error" *ngIf="submitted && currentFormControls.image.errors?.required" >
+               [class.login-and-registration-error-border]="submitted && currentFormControls.image.errors" data-buttonText="Zdjecie">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.image.errors?.required" >
           <p>nie dodano zdjęcia</p>
         </div>
       </label>

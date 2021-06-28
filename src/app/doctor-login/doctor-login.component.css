@@ -16,6 +16,7 @@
   bottom: 0;
   display: block;
 }
+/*
 
 .home-content {
   margin: 15px 25px 15px 25px;
@@ -59,6 +60,7 @@ input:focus {
   color: dimgray;
   font-style: italic;
 }
+*/
 
 p {
   font-size: 32px;
@@ -68,6 +70,7 @@ p {
   font-family: "Arial", sans-serif;
   text-shadow: 1px 1px 3px black;
 }
+/*
 
 button {
   margin: 3% 0 0 0;
@@ -107,6 +110,7 @@ button:hover {
 .error-red-border {
   border: 3px solid red;
 }
+*/
 
 .registration_link {
   margin: 0 auto;
@@ -137,6 +141,7 @@ button:hover {
   text-decoration: none;
   color: white;
 }
+/*
 
 .patient_txt {
   font-size: 65px;
@@ -163,3 +168,4 @@ button:hover {
 
   transition: all 0.4s ease 0s;
 }
+*/

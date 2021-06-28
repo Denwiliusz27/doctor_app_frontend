@@ -1,88 +1,92 @@
 <div class="backgroung-img"></div>
 
-<div class="home-content">
+<div class="login-and-registration-page-content">
 
-  <div class="sticky">
-    <a class="main_site_link" routerLink="/">przychodnia.pl</a>
+  <div class="main-site-sticky-link">
+    <a class="login-and-registration-main-site-link" routerLink="/">przychodnia.pl</a>
   </div>
 
-  <p class="main_text">REJESTRACJA</p>
+  <p class="login-and-registration-header">REJESTRACJA</p>
 
-  <div class="form-container">
-    <form [formGroup]="registrationFormGroup" (ngSubmit)="register()">
+  <div class="login-and-registration-form-container">
+    <form class="login-and-registration-form" [formGroup]="registrationFormGroup" (ngSubmit)="register()">
 
-      <label>
-        <input title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery" type="text" formControlName="name"
-               required [class.error-red-border] = "submitted && currentFormControls.name.errors" placeholder="imie*">
-        <div class="error" *ngIf="submitted && currentFormControls.name.errors?.required" >
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery"
+               type="text" formControlName="name" required [class.login-and-registration-error-border] = "submitted && currentFormControls.name.errors"
+               placeholder="imie*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.name.errors?.required" >
           <p>nie wpisano imienia</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.name.errors?.minlength" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.name.errors?.minlength" >
           <p>imie za krótkie</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.name.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.name.errors?.pattern" >
           <p>imie nie spełnia założeń</p>
         </div>
       </label>
 
-      <label>
-        <input title="Powinno zaczynać się od dużej litery i nie zawierać cyfr" type="text" formControlName="surname"
-               required [class.error-red-border] = "submitted && currentFormControls.surname.errors" placeholder="nazwisko*">
-        <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.required" >
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Powinno zaczynać się od dużej litery i nie zawierać cyfr"
+               type="text" formControlName="surname" required [class.login-and-registration-error-border] = "submitted && currentFormControls.surname.errors"
+               placeholder="nazwisko*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.surname.errors?.required" >
           <p>nie wpisano nazwiska</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.minlength" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.surname.errors?.minlength" >
           <p>nazwisko za krótkie</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.surname.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.surname.errors?.pattern" >
           <p>nazwisko nie spełnia założeń</p>
         </div>
       </label>
 
 
-      <label>
-        <input title="Powinien składać się wyłącznie z cyfr" type="text" formControlName="pesel"
-               required [class.error-red-border] = "submitted && currentFormControls.pesel.errors" placeholder="pesel*">
-        <div class="error" *ngIf="submitted && currentFormControls.pesel.errors?.required" >
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Powinien składać się wyłącznie z cyfr" type="text"
+               formControlName="pesel" required [class.login-and-registration-error-border] = "submitted && currentFormControls.pesel.errors"
+               placeholder="pesel*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.pesel.errors?.required" >
           <p>nie wpisano peselu</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.pesel.errors?.minlength" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.pesel.errors?.minlength" >
           <p>pesel za krótki</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.pesel.errors?.maxlength" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.pesel.errors?.maxlength" >
           <p>pesel za długi</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.pesel.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.pesel.errors?.pattern" >
           <p>pesel nie spełnia założeń</p>
         </div>
       </label>
 
 
-      <label>
-        <input title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'" type="text" formControlName="email"
-               required [class.error-red-border] = "submitted && currentFormControls.email.errors || submitted && emailExist"
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'"
+               type="text" formControlName="email" required [class.login-and-registration-error-border] = "submitted && currentFormControls.email.errors || submitted && emailExist"
                placeholder="e-mail*">
-        <div class="error" *ngIf="submitted && currentFormControls.email.errors?.required" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
           <p>niepoprawny adres e-mail</p>
         </div>
-        <div class="error" *ngIf="submitted && emailExist">
+        <div class="login-and-registration-error" *ngIf="submitted && emailExist">
           <p>taki email istnieje</p>
         </div>
       </label>
 
-      <label>
-        <input title="Musi zawierać 8 znaków, jedną cyfrę, jedną małą i dużą literę" type="password" formControlName="password"
-               required [class.error-red-border] = "submitted && currentFormControls.password.errors" placeholder="hasło*">
-        <div class="error" *ngIf="submitted && currentFormControls.password.errors?.required" >
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Musi zawierać 8 znaków, jedną cyfrę, jedną małą i dużą literę"
+               type="password" formControlName="password" required [class.login-and-registration-error-border] = "submitted && currentFormControls.password.errors"
+               placeholder="hasło*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.required" >
           <p>nie podano hasła</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.password.errors?.minlength" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.minlength" >
           <p>hasło za krótkie</p>
         </div>
-        <div class="error" *ngIf="submitted && currentFormControls.password.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.pattern" >
           <p>hasło nie spełnia założeń</p>
         </div>
       </label>

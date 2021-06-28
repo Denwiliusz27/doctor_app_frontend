@@ -18,6 +18,7 @@
   bottom: 0;
   display: block;
 }
+/*
 
 .home-content {
   margin: 15px 25px 15px 25px;
@@ -33,6 +34,7 @@
   text-align: center;
   padding: 0 0 5% 0
 }
+
 
 .sticky {
   position: -webkit-sticky;
@@ -90,6 +92,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+*/
 
 select {
   width: 63.5%;
@@ -99,17 +102,17 @@ select {
   border-radius: 7px;
 }
 
-.disabled-option {
-  color: dimgray;
-  background-color: darkgray;
-}
-
 select:focus {
   outline: none;
   background-color: aliceblue;
 }
 
-.checkbox {
+.input-disabled-option {
+   color: dimgray;
+   background-color: darkgray;
+ }
+
+.service-checkbox {
   width: 60%;
   margin: 3% auto 0 auto;
   padding: 15px;
@@ -119,7 +122,7 @@ select:focus {
   background-color: white;
 }
 
-.in_box {
+.service-checkbox-label {
   display: grid;
   align-items: center;
   grid-template-columns: 30px 60% auto;
@@ -129,25 +132,36 @@ select:focus {
   margin: 10px 0 10px 0;
 }
 
-.in_box input {
+.service-checkbox-label input {
   width: 20px;
   padding: 20px;
 }
 
-.services_txt {
+.service-checkbox-header {
   padding-bottom: 10px;
   font-style: normal;
 }
 
-.doc_image {
+.doctor-image-input {
+  width: 60%;
+  padding: 15px;
+  font-size: 24px;
+  border: 3px solid #1342e8;
+  border-radius: 7px;
   background-color: white;
 }
 
-.price-service {
+.service-checkbox-price-input {
   width: 70px !important;
   padding: 10px !important;
   font-size: 18px;
-  border: 2px solid #1342e8;
+  border: 2px solid #1342e8 !important;
+  border-radius: 7px;
+}
+
+.service-checkbox-price-input:focus {
+  outline: none;
+  background-color: aliceblue;
 }
 
 .text-for-checkbox {
@@ -175,11 +189,13 @@ textarea:focus {
   background-color: aliceblue;
   font-style: normal;
 }
+/*
 
 ::placeholder {
   color: dimgray;
   font-style: italic;
 }
+*/
 
 p {
   font-size: 32px;
@@ -209,6 +225,7 @@ button:hover {
   cursor: pointer;
   letter-spacing: 5px;
 }
+/*
 
 .error {
   justify-content: center;
@@ -228,6 +245,7 @@ button:hover {
 .error-red-border {
   border: 3px solid red;
 }
+*/
 
 .email-error {
   position: fixed;

@@ -30,11 +30,11 @@
 
       <div class="find-doctor-selectbox">
         <select class="find-doctor-select-element" [(ngModel)]="selectedCityId">
-          <option class="disabled-option" disabled selected value="undefined">miasto</option>
+          <option class="input-disabled-option" disabled selected value="undefined">miasto</option>
           <option *ngFor="let city of cities | async" [ngValue]="city.cityId">{{city.cityName}}</option>
         </select>
         <select class="find-doctor-select-element" [(ngModel)]="selectedSpecializationId">
-          <option class="disabled-option" disabled selected value="undefined">specjalizacja</option>
+          <option class="input-disabled-option" disabled selected value="undefined">specjalizacja</option>
           <option *ngFor="let specialization of specializations | async" [ngValue]="specialization.specializationId">
             {{specialization.specializationName}}
           </option>
