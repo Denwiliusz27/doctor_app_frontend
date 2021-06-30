@@ -1,0 +1,62 @@
+<div class="home-page-content">
+
+  <div class="menu-container">
+    <div class="menu-content">
+      <a class="menu-main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+        <div class="menu-element" *ngFor="let option of menuOptions" (click)="redirect(option)">
+          <div id="blur"></div>
+          <div class="icon">
+            <mat-icon *ngIf="option == 'kalendarz'">calendar_today</mat-icon>
+            <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
+            <mat-icon *ngIf="option == 'wyniki'">description</mat-icon>
+          </div>
+          <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>
+          <p class="menu-element-text" *ngIf="option !== 'wyniki'">{{option}}</p>
+
+        </div>
+      </div>
+
+
+      <!--<ul class="menu-list">
+        <li>zarezerwuj wizytę</li>
+        <li>wizyty</li>
+        <li>wyniki</li>
+      </ul>-->
+    </div>
+  </div>
+
+  <div class="homepage-main-site">
+    <div class="top-menu">
+      <p> no elo </p>
+    </div>
+    <div class="homepage-main-site-content">
+      <h1 class="page-header">kalendarz</h1>
+      <div class="calendar"><!--
+        <jqxScheduler #schedulerReference
+                      (onAppointmentAdd)="AppointmentClick()"
+                      [date]="date"
+                      [width]="800"
+                      [height]="500"
+                      [source]="dataAdapter"
+                      [showLegend]="true"
+                      [editDialogCreate]="editDialogCreate"
+                      [editDialogOpen]="editDialogOpen"
+                      [editDialogClose]="editDialogClose"
+                      [view]="'weekView'"
+                      [appointmentDataFields]="appointmentDataFields"
+                      [resources]="resources"
+                      [views]="views">
+        </jqxScheduler>-->
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+
+
+</div>
