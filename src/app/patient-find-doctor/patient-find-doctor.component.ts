@@ -26,4 +26,8 @@ export class PatientFindDoctorComponent implements OnInit {
     }
     console.log('przekierowuje do ' + option);
   }
+
+  logout() {
+    console.log('wylogowuje');
+  }
 }

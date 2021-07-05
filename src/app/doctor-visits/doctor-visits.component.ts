@@ -27,4 +27,7 @@ export class DoctorVisitsComponent implements OnInit {
     console.log('przekierowuje do ' + option);
   }
 
+  logout() {
+    console.log('wylogowuję');
+  }
 }

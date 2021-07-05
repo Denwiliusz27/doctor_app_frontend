@@ -1,3 +1,4 @@
+
 <div class="home-page-content">
 
   <div class="menu-container">
@@ -14,26 +15,36 @@
           </div>
           <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>
           <p class="menu-element-text" *ngIf="option !== 'wyniki'">{{option}}</p>
-
         </div>
       </div>
-
-
-      <!--<ul class="menu-list">
-        <li>zarezerwuj wizytę</li>
-        <li>wizyty</li>
-        <li>wyniki</li>
-      </ul>-->
     </div>
   </div>
 
   <div class="homepage-main-site">
     <div class="top-menu">
-      <p> no elo </p>
+      <div class="logout-button" (click)="logout()">
+        <p>wyloguj</p>
+      </div>
     </div>
     <div class="homepage-main-site-content">
       <h1 class="page-header">kalendarz</h1>
-      <div class="calendar"><!--
+      <div class="calendar">
+        <!--<mat-form-field>
+          <input matInput type="datetime-local" placeholder="start date">
+        </mat-form-field>-->
+
+        <ejs-schedule
+          [workDays]="workWeekDays"
+
+        >
+          <e-views>
+            <e-view option="WorkWeek"></e-view>
+          </e-views>
+
+        </ejs-schedule>
+
+        <!--
+
         <jqxScheduler #schedulerReference
                       (onAppointmentAdd)="AppointmentClick()"
                       [date]="date"
@@ -60,3 +71,23 @@
 
 
 </div>
+
+<!--
+<jqxScheduler #schedulerReference
+              (onAppointmentAdd)="AppointmentClick()"
+              [date]="date"
+              [width]="800"
+              [height]="500"
+              [source]="dataAdapter"
+              [showLegend]="true"
+              [editDialogCreate]="editDialogCreate"
+              [editDialogOpen]="editDialogOpen"
+              [editDialogClose]="editDialogClose"
+              [localization]="localization"
+              [view]="'weekView'"
+              [appointmentDataFields]="appointmentDataFields"
+              [resources]="resources"
+              [views]="views">
+</jqxScheduler>-->
+
+

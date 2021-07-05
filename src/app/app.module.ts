@@ -28,6 +28,7 @@ import { DoctorVisitsComponent } from './doctor-visits/doctor-visits.component';
 import { PatientVisitsComponent } from './patient-visits/patient-visits.component';
 import { PatientFindingsComponent } from './patient-findings/patient-findings.component';
 import { PatientFindDoctorComponent } from './patient-find-doctor/patient-find-doctor.component';
+import {ScheduleModule, RecurrenceEditorModule, DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService} from '@syncfusion/ej2-angular-schedule';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent},
@@ -70,6 +71,8 @@ const routes: Routes = [
     BrowserModule,
     ReactiveFormsModule,
     MatIconModule,
+    ScheduleModule,
+    RecurrenceEditorModule,
     jqxSchedulerModule,
     MatSelectModule,
     MatButtonModule,
@@ -84,7 +87,7 @@ const routes: Routes = [
     MatSelectModule,
     FormsModule
   ],
-  providers: [],
+  providers: [DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

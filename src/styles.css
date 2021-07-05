@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
 @import 'jqwidgets-ng/jqwidgets/styles/jqx.base.css';
 
 html, body { height: 100%; }
@@ -157,7 +157,46 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   position: fixed;
   top: 0;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  text-align: right;
 }
+
+.logout-button {
+  position: fixed;
+  width: 150px;
+  height: 40px;
+  border: 3px solid darkgreen;
+  /*margin: 10px 0 10px 0;*/
+  right: 30px;
+  border-radius: 15px;
+  background-color: forestgreen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.4s ease 0s;
+
+}
+
+.logout-button:hover {
+  border-radius: 7px;
+  letter-spacing: 5px;
+  cursor: pointer;
+}
+
+.logout-button p {
+  position: absolute;
+  font-size: 24px;
+  font-family: "Rage Italic", sans-serif;
+  text-shadow: none;
+  text-decoration: none;
+  font-style: italic;
+  color: white;
+  margin: auto;
+}
+
+
 
 .menu-content {
   width: 230px;

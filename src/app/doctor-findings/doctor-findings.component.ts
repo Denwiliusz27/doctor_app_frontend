@@ -25,4 +25,8 @@ export class DoctorFindingsComponent implements OnInit {
     }
     console.log('przekierowuje do ' + option);
   }
+
+  logout() {
+    console.log('wylogowuję');
+  }
 }

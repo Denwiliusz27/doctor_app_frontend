@@ -37,4 +37,8 @@ export class DoctorHomepageComponent implements OnInit {
     }
     console.log('przekierowuje do ' + option);
   }
+
+  logout() {
+    console.log('wylogowuję');
+  }
 }
