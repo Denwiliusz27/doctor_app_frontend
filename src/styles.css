@@ -176,7 +176,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   align-items: center;
 
   transition: all 0.4s ease 0s;
-
 }
 
 .logout-button:hover {
