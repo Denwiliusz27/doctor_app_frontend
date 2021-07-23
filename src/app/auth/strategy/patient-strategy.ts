@@ -12,7 +12,8 @@ export class PatientStrategy implements UserStrategy<Patient>{
   }
 
   createUser(request: CreateUserRequest): Observable<Patient> {
-    return this.http.post<Patient>(serverUrl, request);
+    return this.http.post<Patient>(`${serverUrl}/auth/create/patient`, request);
   }
+
 
 }

@@ -25,6 +25,7 @@
     "@syncfusion/ej2-material-theme": "19.2.44",
     "cldr-data": "^36.0.0",
     "jqwidgets-ng": "^12.1.0",
+    "ngx-webstorage-service": "^4.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

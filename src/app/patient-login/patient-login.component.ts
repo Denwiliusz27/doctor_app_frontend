@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import {PatientLoginService} from '../services/patient-login.service';
 
 interface PatientLogin {
   patientEmailAddress: string;
@@ -31,7 +30,7 @@ export class PatientLoginComponent implements OnInit {
     ]),
   });
 
-  constructor(private router: Router, private patientLoginService: PatientLoginService) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
   }
@@ -48,10 +47,8 @@ export class PatientLoginComponent implements OnInit {
     const patientLogin: PatientLogin = this.preparePatientLoginObject();
     if (this.loginFormGroup.valid) {
       console.log('validacja ok');
-      this.checkIfEmailExistsAndNavigate(patientLogin);
 
     } else {
-      this.checkIfEmailExists(patientLogin);
     }
   }
 
@@ -60,44 +57,6 @@ export class PatientLoginComponent implements OnInit {
       patientEmailAddress: this.loginFormGroup.value.email,
       patientPassword: this.loginFormGroup.value.password
     };
-  }
-
-  checkIfEmailExistsAndNavigate(patientLogin: PatientLogin) {
-    console.log('sprawdzam czy email ' + patientLogin.patientEmailAddress + ' istnieje');
-    if (patientLogin.patientEmailAddress !== ''){
-      this.patientLoginService.getPatientByEmailAddress(patientLogin.patientEmailAddress).subscribe(odpowiedz => {
-        if (odpowiedz != null) {
-          console.log('taki email istnieje');
-          this.emailExist = true;
-          if (odpowiedz.patientPassword === patientLogin.patientPassword){
-            this.passwordCorrect = true;
-            console.log('haslo ' + patientLogin.patientPassword + ' poprawne');
-            this.router.navigateByUrl('/pacjent-strona-główna');
-          } else {
-            this.passwordCorrect = false;
-            console.log('haslo ' + patientLogin.patientPassword + ' niepoprawne');
-          }
-        } else {
-          this.emailExist = false;
-          console.log('email nie istnieje');
-        }
-      });
-    }
-  }
-
-  checkIfEmailExists(patientLogin: PatientLogin) {
-    console.log('sprawdzam czy email ' + patientLogin.patientEmailAddress + ' istnieje');
-    if (patientLogin.patientEmailAddress !== ''){
-      this.patientLoginService.getPatientByEmailAddress(patientLogin.patientEmailAddress).subscribe(odpowiedz => {
-        if (odpowiedz != null) {
-          console.log('taki email istnieje');
-          this.emailExist = true;
-        } else {
-          this.emailExist = false;
-          console.log('email nie istnieje');
-        }
-      });
-    }
   }
 
   redirect(): void {

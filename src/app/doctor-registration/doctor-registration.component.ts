@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {DoctorRegistrationService} from '../services/doctor-registration.service';
 import {Router} from '@angular/router';
 import {CitiesService, City} from '../services/cities.service';
 import {Observable} from 'rxjs';
@@ -99,8 +98,7 @@ export class DoctorRegistrationComponent implements OnInit {
   });
 
   constructor(private serviceService: ServiceService, private specializationService: SpecializationService,
-              private cityService: CitiesService, private readonly doctorRegistrationService: DoctorRegistrationService,
-              private router: Router) {
+              private cityService: CitiesService, private router: Router) {
     cityService.getCities();
   }
 
@@ -128,11 +126,9 @@ export class DoctorRegistrationComponent implements OnInit {
       console.log(!this.isServiceFormValid());
 
       const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
-      this.checkIfEmailExistsAndAdd(doctorRegistration);
 
     } else {
       const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
-      this.checkIfEmailExists(doctorRegistration);
       console.log('!!!nie jest git?');
       console.log(this.registrationFormGroup.valid);
       console.log(!this.isServiceFormValid());
@@ -164,35 +160,6 @@ export class DoctorRegistrationComponent implements OnInit {
   SPrawdza czy konto o podanym emailu juz istnieje.
   Jeśli nie, tworzy nowe konto w bd i przekierowuje na stronę
    */
-  checkIfEmailExistsAndAdd(doctorRegistration: DoctorRegistrationModel){
-    if (doctorRegistration.doctorEmailAddress !== ''){
-      this.doctorRegistrationService.getDoctorByEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(odpowiedz => {
-        if (odpowiedz !== null){
-          this.emailExists = true;
-        }
-        else{
-          this.emailExists = false;
-          this.doctorRegistrationService.addDoctor(doctorRegistration, this.selectedServices, this.emailExists);
-          this.router.navigateByUrl('/doktor-strona-główna');
-        } });
-    }
-  }
-
-  /*
-  Sprawdza czy konto o podanym mailu już istnieje
-   */
-  checkIfEmailExists(doctorRegistration: DoctorRegistrationModel){
-    if (doctorRegistration.doctorEmailAddress !== ''){
-      this.doctorRegistrationService.getDoctorByEmailAddress(doctorRegistration.doctorEmailAddress).subscribe(odpowiedz => {
-        if (odpowiedz !== null){
-          this.emailExists = true;
-        }
-        else{
-          this.emailExists = false;
-          console.log('jest zle');
-        } });
-    }
-  }
 
   /*
   Przy zmianie specjalizacji, nadpisuje selectedSpecializationId i wyzerowuje liste wybranych wcześniej usług

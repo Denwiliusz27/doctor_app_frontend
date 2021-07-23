@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import {DoctorLoginService} from '../services/doctor-login.service';
 
 /*
 Obiekt doktora posiadający email i hasło, które przekazywane są do bd
@@ -36,7 +35,7 @@ export class DoctorLoginComponent implements OnInit {
     ]),
   });
 
-  constructor(private router: Router, private doctorLoginService: DoctorLoginService) {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
@@ -59,11 +58,9 @@ export class DoctorLoginComponent implements OnInit {
     const doctorLogin: DoctorLogin = this.prepareDoctorLoginObject();
     if (this.loginFormGroup.valid) {
       console.log('validacja poprawna');
-      this.checkIfEmailExistsAndNavigate(doctorLogin);
 
     } else {
       console.log('validacja nie ok');
-      this.checkIfEmailExists(doctorLogin);
     }
   }
 
@@ -80,46 +77,7 @@ export class DoctorLoginComponent implements OnInit {
   /*
   Sprawdza czy dla podanego maila istnieje konto w bd. Jeśli tak, przekierowuje na odpowiednią strone
  */
-  checkIfEmailExistsAndNavigate(doctorLogin: DoctorLogin) {
-    console.log('sprawdzam czy email ' + doctorLogin.doctorEmailAddress + ' istnieje');
-    if (doctorLogin.doctorEmailAddress !== ''){
-      this.doctorLoginService.getDoctorByEmailAddress(doctorLogin.doctorEmailAddress).subscribe(odpowiedz => {
-        if (odpowiedz != null) {
-          console.log('taki email istnieje');
-          this.emailExist = true;
-          if (odpowiedz.doctorPassword === doctorLogin.doctorPassword){
-            this.passwordCorrect = true;
-            console.log('haslo ' + doctorLogin.doctorPassword + ' poprawne');
-            this.router.navigateByUrl('/doktor-strona-główna');
-          } else {
-            this.passwordCorrect = false;
-            console.log('haslo ' + doctorLogin.doctorPassword + ' niepoprawne');
-          }
-        } else {
-          this.emailExist = false;
-          console.log('email nie istnieje');
-        }
-      });
-    }
-  }
 
-  /*
-  Sprawdza czy dla podanego maila istnieje konto w bd. Zmienna emailExist zostaje ustawiona na odpowiedni boolean
-   */
-  checkIfEmailExists(doctorLogin: DoctorLogin) {
-    console.log('sprawdzam czy email ' + doctorLogin.doctorEmailAddress + ' istnieje');
-    if (doctorLogin.doctorEmailAddress !== ''){
-      this.doctorLoginService.getDoctorByEmailAddress(doctorLogin.doctorEmailAddress).subscribe(odpowiedz => {
-        if (odpowiedz != null) {
-          console.log('taki email istnieje');
-          this.emailExist = true;
-        } else {
-          this.emailExist = false;
-          console.log('email nie istnieje');
-        }
-      });
-    }
-  }
 
   /*
   Przekierowuje na stronę główną lekarza

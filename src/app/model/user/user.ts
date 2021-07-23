@@ -1,4 +1,4 @@
-import {DoctorService} from '../doctor-services/doctor-service';
+import {DoctorService} from '../doctor-service/doctor-service';
 import {City} from '../city/city';
 import {Specialization} from '../specialization/specialization';
 
@@ -8,7 +8,7 @@ export interface User {
   name: string;
   surname: string;
   email: string;
-  userRole: UserRole ;
+  userRole: UserRole;
 }
 
 export type Patient = {
