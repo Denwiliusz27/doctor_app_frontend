@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import {AuthService} from '../auth/auth.service';
 
 /*
 Obiekt doktora posiadający email i hasło, które przekazywane są do bd
@@ -21,7 +22,7 @@ Komponent służący do logowania doktora na konto
  */
 export class DoctorLoginComponent implements OnInit {
   submitted = false;
-  emailExist = true;  // zmienna do sprawdzenia czy podany email istnieje w bd
+  emailNotExist = false;  // zmienna do sprawdzenia czy podany email istnieje w bd
   passwordCorrect = true;  // zmienna do sprawdzenia czy dla podanego maila, wpisane hasło się zgadza
 
   loginFormGroup = new FormGroup({
@@ -35,7 +36,7 @@ export class DoctorLoginComponent implements OnInit {
     ]),
   });
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -55,24 +56,13 @@ export class DoctorLoginComponent implements OnInit {
   login(): void {
     this.submitted = true;
 
-    const doctorLogin: DoctorLogin = this.prepareDoctorLoginObject();
     if (this.loginFormGroup.valid) {
-      console.log('validacja poprawna');
-
-    } else {
-      console.log('validacja nie ok');
+      this.authService.loginUser(this.loginFormGroup.getRawValue())
+        .subscribe(() => this.router.navigate(['doktor-strona-główna']),
+          () => this.emailNotExist = true);
     }
   }
 
-  /*
-  Tworzy obiekt doktora potrzebny do logowania
-   */
-  prepareDoctorLoginObject(): DoctorLogin{
-    return {
-      doctorEmailAddress: this.loginFormGroup.value.email,
-      doctorPassword: this.loginFormGroup.value.password
-    };
-  }
 
   /*
   Sprawdza czy dla podanego maila istnieje konto w bd. Jeśli tak, przekierowuje na odpowiednią strone

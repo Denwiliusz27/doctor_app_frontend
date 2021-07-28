@@ -1,28 +1,14 @@
-import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {CitiesService, City} from '../services/cities.service';
 import {Observable} from 'rxjs';
-import {Specialization, SpecializationService} from '../services/specialization.service';
 import {Service, ServiceService} from '../services/service.service';
-import {DoctorService, DoctorServiceService} from '../services/doctor-service.service';
-import {coerceNumberProperty} from '@angular/cdk/coercion';
-
-/*
-Reprezentuje obiekt lekarza z bd
- */
-export interface DoctorRegistrationModel {
-  doctorName: string;
-  doctorSurname: string;
-  doctorEmailAddress: string;
-  doctorPassword: string;
-  specializationId: number;
-  cityId: number;
-  doctorAddress: string;
-  phoneNr: string;
-  description: string;
-  doctorPicture: Blob;
-}
+import {SpecializationService} from '../services/specialization.service';
+import {CityService} from '../services/city.service';
+import {MedicalServices} from '../services/medical-services.service';
+import {CreateDoctorRequest} from '../model/user/dto/create-user';
+import {AuthService} from '../auth/auth.service';
+import {UserRole} from '../model/user/user';
 
 /*
 Reprezentuje usługę z opłatą za nią. isChosen ustawiane na true jeśli została wybrana na stronie
@@ -46,16 +32,16 @@ Służy do rejestracji i utworzenia konta dla lekarza
 export class DoctorRegistrationComponent implements OnInit {
   submitted = false;
   services: Observable<Service[]>; // lista usług dla danej specjalizacji
-  specializations: Observable<Specialization[]> = this.specializationService.getSpecializations(); // lista specjalizacji
+  readonly specializations$ = this.specializationService.specializations$; // lista specjalizacji
+  readonly cities$ = this.cityService.cities$; // lista specjalizacji
+  medicalServices$ = this.medicalService.medicalServices$; // lista specjalizacji
   selectedSpecializationId: number; // id wybranej specjalizacji przez lekarza
   selectedServices: SelectedServices[] = [];  // lista wybranych usług przez lekarza
-  cities: Observable<City[]> = this.cityService.getCities(); // lista miast
   selectedCityId: number; // id wybranego miasta
   imageFile = null;
   emailExists = false; // zmienna do sprawdzenia czy konto o wpisanym mailu już istnieje w bd
   displayForms = false;
 
-  doctor: DoctorRegistrationModel;  // obiekt doktora
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -77,11 +63,11 @@ export class DoctorRegistrationComponent implements OnInit {
       Validators.minLength(8),
       Validators.pattern('(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')
     ]),
-    specialization: new FormControl('', [
+    specializationId: new FormControl('', [
     ]),
     services: new FormControl('', [
     ]),
-    city: new FormControl('', [
+    cityId: new FormControl('', [
     ]),
     address: new FormControl('', [
       Validators.required,
@@ -91,15 +77,15 @@ export class DoctorRegistrationComponent implements OnInit {
     phoneNumber: new FormControl('', [
       Validators.pattern('^[0-9]{3}[0-9]{3}[0-9]{3}')
     ]),
-    image: new FormControl('', [
+    /*image: new FormControl('', [
       Validators.required
-    ]),
+    ]),*/
     description: new FormControl()
   });
 
   constructor(private serviceService: ServiceService, private specializationService: SpecializationService,
-              private cityService: CitiesService, private router: Router) {
-    cityService.getCities();
+              private cityService: CityService, private router: Router, private medicalService: MedicalServices,
+              private readonly authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -121,45 +107,15 @@ export class DoctorRegistrationComponent implements OnInit {
     this.registrationFormGroup.updateValueAndValidity();
 
     if ((this.registrationFormGroup.valid && !this.isServiceFormValid()) === true) {
-      console.log('w ifie - jest git');
-      console.log(this.registrationFormGroup.valid);
-      console.log(!this.isServiceFormValid());
-
-      const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
-
-    } else {
-      const doctorRegistration: DoctorRegistrationModel = this.prepareDoctorObject();
-      console.log('!!!nie jest git?');
-      console.log(this.registrationFormGroup.valid);
-      console.log(!this.isServiceFormValid());
+      const doctorRequest: CreateDoctorRequest = this.registrationFormGroup.getRawValue();
+      doctorRequest.medicalServices = this.selectedServices.filter(s => s.isChosen).map(s => ({
+        id: s.id, price: s.price
+      }));
+      this.authService.createUser(doctorRequest, UserRole.DOCTOR).subscribe(() => this.router.navigate(['doktor-strona-główna']));
     }
+
+
   }
-
-  /*
-  Tworzy obiekt doktora.
-
-  W selectedSerwices znajdą się te uslugi, które zostały wybrane (isCHosen = true)
-   */
-  prepareDoctorObject(): DoctorRegistrationModel {
-    this.selectedServices = this.selectedServices.filter(service => service.isChosen === true);
-    return {
-      doctorName: this.registrationFormGroup.value.name,
-      doctorSurname: this.registrationFormGroup.value.surname,
-      doctorEmailAddress: this.registrationFormGroup.value.email,
-      doctorPassword: this.registrationFormGroup.value.password,
-      specializationId: this.selectedSpecializationId,
-      cityId: this.selectedCityId,
-      doctorAddress: this.registrationFormGroup.value.address,
-      description: this.registrationFormGroup.value.description,
-      phoneNr: this.registrationFormGroup.value.phoneNumber,
-      doctorPicture: null // this.imageFile
-    };
-  }
-
-  /*
-  SPrawdza czy konto o podanym emailu juz istnieje.
-  Jeśli nie, tworzy nowe konto w bd i przekierowuje na stronę
-   */
 
   /*
   Przy zmianie specjalizacji, nadpisuje selectedSpecializationId i wyzerowuje liste wybranych wcześniej usług
@@ -167,7 +123,7 @@ export class DoctorRegistrationComponent implements OnInit {
   onSelectSpecialization(): void {
     this.selectedServices = [];
     console.log(this.selectedSpecializationId);
-    this.services = this.serviceService.getServicesBySpecializationId(this.selectedSpecializationId);
+    this.medicalServices$ = this.medicalService.findById(this.selectedSpecializationId);
     // this.selectedSpecializationId = specializationName;
     // this.uncheckAllServices();
   }

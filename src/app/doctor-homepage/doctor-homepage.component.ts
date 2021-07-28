@@ -1,6 +1,7 @@
 import {Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatSidenav} from '@angular/material/sidenav';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-doctor-homepage',
@@ -14,7 +15,7 @@ export class DoctorHomepageComponent implements OnInit {
   @Output() public menuToggle = new EventEmitter();
   @ViewChild('sidenav') sidenav: MatSidenav;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -39,6 +40,6 @@ export class DoctorHomepageComponent implements OnInit {
   }
 
   logout() {
-    console.log('wylogowuję');
+    this.authService.logout();
   }
 }

@@ -1,20 +1,23 @@
-import { Injectable } from '@angular/core';
-import {DoctorRegistrationModel} from '../doctor-registration/doctor-registration.component';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-
-export interface Specialization {
-  specializationId: number;
-  specializationName: string;
-}
+import {Observable} from 'rxjs';
+import {Specialization} from '../model/specialization/specialization';
+import {serverUrl} from '../../environments/environment';
+import {share, shareReplay} from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+   providedIn: 'root'
 })
 export class SpecializationService {
+  private _specializations$ = this.http.get<Specialization[]>(`${serverUrl}/specializations`)
+    .pipe(
+    shareReplay(1)
+    );
 
-  constructor(private http: HttpClient) { }
 
-  getSpecializations(){
-    return this.http.get<Specialization[]>('http://localhost:8080/specjalizacje/wszystkie');
+  get specializations$(): Observable<Specialization[]> {
+    return this._specializations$;
   }
+
+  constructor(private readonly http: HttpClient) { }
 }

@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import {AuthService} from '../auth/auth.service';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 interface PatientLogin {
   patientEmailAddress: string;
@@ -16,7 +19,7 @@ interface PatientLogin {
 
 export class PatientLoginComponent implements OnInit {
   submitted = false;
-  emailExist = true;
+  emailNotExist = true;
   passwordCorrect = true;
 
   loginFormGroup = new FormGroup({
@@ -30,7 +33,7 @@ export class PatientLoginComponent implements OnInit {
     ]),
   });
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
   }
@@ -44,19 +47,21 @@ export class PatientLoginComponent implements OnInit {
   login(): void {
     this.submitted = true;
 
-    const patientLogin: PatientLogin = this.preparePatientLoginObject();
     if (this.loginFormGroup.valid) {
-      console.log('validacja ok');
-
-    } else {
+      this.authService.loginUser(this.loginFormGroup.getRawValue())
+        .pipe(
+          catchError(error => {
+            console.log(error);
+            this.emailNotExist = true;
+            return of(null);
+          })
+        )
+        .subscribe(result => {
+          if (result){
+            this.router.navigate(['pacjent-strona-główna']);
+          }
+        });
     }
-  }
-
-  preparePatientLoginObject(): PatientLogin{
-    return {
-      patientEmailAddress: this.loginFormGroup.value.email,
-      patientPassword: this.loginFormGroup.value.password
-    };
   }
 
   redirect(): void {

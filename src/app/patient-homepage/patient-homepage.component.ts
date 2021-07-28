@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from 'rxjs';
-import {Specialization, SpecializationService} from '../services/specialization.service';
-import {CitiesService, City} from '../services/cities.service';
 import {Router} from '@angular/router';
+import {AuthService} from '../auth/auth.service';
+import {SpecializationService} from '../services/specialization.service';
+import {CityService} from '../services/city.service';
 
 @Component({
   selector: 'app-patient-homepage',
@@ -10,13 +10,14 @@ import {Router} from '@angular/router';
   styleUrls: ['./patient-homepage.component.css']
 })
 export class PatientHomepageComponent implements OnInit {
-  cities: Observable<City[]> = this.cityService.getCities(); // lista miast
+  readonly cities$ = this.cityService.cities$; // lista specjalizacji
   selectedSpecializationId: number;
-  specializations: Observable<Specialization[]> = this.specializationService.getSpecializations(); // lista specjalizacji
+  readonly specializations$ = this.specializationStrategy.specializations$; // lista specjalizacji
   selectedCityId: number;
   options: string[] = ['wizyty', 'wyniki'];
 
-  constructor(private router: Router, private specializationService: SpecializationService, private cityService: CitiesService) { }
+  constructor(private router: Router, private specializationStrategy: SpecializationService, private cityService: CityService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -31,6 +32,6 @@ export class PatientHomepageComponent implements OnInit {
   }
 
   logout() {
-    console.log('wylogowuje');
+    this.authService.logout();
   }
 }

@@ -1,5 +1,5 @@
 import {UserStrategy} from './user-strategy';
-import {Patient} from '../../model/user/user';
+import {LoginUser, Patient} from '../../model/user/user';
 import {CreateUserRequest} from '../../model/user/dto/create-user';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
@@ -14,6 +14,5 @@ export class PatientStrategy implements UserStrategy<Patient>{
   createUser(request: CreateUserRequest): Observable<Patient> {
     return this.http.post<Patient>(`${serverUrl}/auth/create/patient`, request);
   }
-
 
 }

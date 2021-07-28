@@ -28,3 +28,9 @@ export enum UserRole {
   PATIENT = 'PATIENT',
   DOCTOR = 'DOCTOR'
 }
+
+export interface LoginUser{
+  email: string;
+  password: string;
+}
+

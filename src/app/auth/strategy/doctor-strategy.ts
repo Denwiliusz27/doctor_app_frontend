@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Doctor} from '../../model/user/user';
+import {Doctor, LoginUser, Patient} from '../../model/user/user';
 import {UserStrategy} from './user-strategy';
 import {CreateUserRequest} from '../../model/user/dto/create-user';
 import {Observable} from 'rxjs';
@@ -15,4 +15,5 @@ export class DoctorStrategy implements UserStrategy<Doctor> {
   createUser(request: CreateUserRequest): Observable<Doctor> {
     return this.http.post<Doctor>(`${serverUrl}/auth/create/doctor`, request);
   }
+
 }

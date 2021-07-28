@@ -41,6 +41,8 @@ import {UserIsLoggedGuard} from './auth/guard/user-guard.service';
 import {AuthModule} from './auth/auth.module';
 import {UserIsNotLoggedGuard} from './auth/guard/user-is-not-logged';
 import {LOCAL_STORAGE, SESSION_STORAGE, StorageService} from 'ngx-webstorage-service';
+import {DoctorGuard} from './auth/guard/doctor.guard';
+import {PatientGuard} from './auth/guard/patient.guard';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [UserIsNotLoggedGuard]},
@@ -48,8 +50,8 @@ const routes: Routes = [
   {path: 'pacjent-login', component: PatientLoginComponent, canActivate: [UserIsNotLoggedGuard]},
   {path: 'pacjent-rejestracja', component: PatientRegistrationComponent, canActivate: [UserIsNotLoggedGuard]},
   {path: 'doktor-rejestracja', component: DoctorRegistrationComponent, canActivate: [UserIsNotLoggedGuard]},
-  {path: 'doktor-strona-główna', component: DoctorHomepageComponent, canActivate: [UserIsLoggedGuard]},
-  {path: 'pacjent-strona-główna', component: PatientHomepageComponent, canActivate: [UserIsLoggedGuard]},
+  {path: 'doktor-strona-główna', component: DoctorHomepageComponent, canActivate: [DoctorGuard]},
+  {path: 'pacjent-strona-główna', component: PatientHomepageComponent, canActivate: [PatientGuard]},
   {path: 'doktor-kalendarz', component: DoctorCalendarComponent, canActivate: [UserIsLoggedGuard]},
   {path: 'doktor-wyniki-badań', component: DoctorFindingsComponent, canActivate: [UserIsLoggedGuard]},
   {path: 'doktor-wizyty', component: DoctorVisitsComponent, canActivate: [UserIsLoggedGuard]},

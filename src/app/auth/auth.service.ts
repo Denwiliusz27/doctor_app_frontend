@@ -1,17 +1,15 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {User, UserRole} from '../model/user/user';
+import {LoginUser, Patient, User, UserRole} from '../model/user/user';
 import {CreateUserRequest} from '../model/user/dto/create-user';
 import {UserStrategy} from './strategy/user-strategy';
 import {PatientStrategy} from './strategy/patient-strategy';
 import {DoctorStrategy} from './strategy/doctor-strategy';
-import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
-/*
-import {MY_AWESOME_SERVICE_STORAGE} from '../app.module';
-*/
-import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
+import {Observable, of} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
 import {AppStorageService} from '../storage/app-storage.service';
+import {Router} from '@angular/router';
+import {serverUrl} from '../../environments/environment';
 
 @Injectable()
 export class AuthService{
@@ -29,7 +27,8 @@ export class AuthService{
   constructor(private readonly http: HttpClient,
               private readonly patientStrategy: PatientStrategy,
               private readonly doctorStrategy: DoctorStrategy,
-              private readonly appStorageService: AppStorageService){}
+              private readonly appStorageService: AppStorageService,
+              private readonly router: Router){}
 
 
   public createUser(userRequest: CreateUserRequest, role: UserRole): Observable<User>{
@@ -40,7 +39,15 @@ export class AuthService{
       );
   }
 
+  public loginUser(loginUser: LoginUser): Observable<User>{
+      return this.http.post<User>(`${serverUrl}/auth/login`, loginUser)
+      .pipe(
+        tap(user => this.appStorageService.setUser(user))
+      );
+  }
+
   public logout(): void{
     this.appStorageService.clearUser();
+    this.router.navigate(['']);
   }
 }

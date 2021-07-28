@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {SpecializationService} from '../services/specialization.service';
-import {CitiesService} from '../services/cities.service';
 
 @Component({
   selector: 'app-patient-find-doctor',

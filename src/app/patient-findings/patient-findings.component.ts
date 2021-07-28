@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {SpecializationService} from '../services/specialization.service';
-import {CitiesService} from '../services/cities.service';
+import {CityService} from '../services/city.service';
 
 @Component({
   selector: 'app-patient-findings',
@@ -11,7 +11,7 @@ import {CitiesService} from '../services/cities.service';
 export class PatientFindingsComponent implements OnInit {
   options: string[] = ['lekarze', 'wizyty', 'wyniki'];
 
-  constructor(private router: Router, private specializationService: SpecializationService, private cityService: CitiesService) { }
+  constructor(private router: Router, private specializationStrategy: SpecializationService, private cityService: CityService) { }
 
   ngOnInit(): void {
   }
