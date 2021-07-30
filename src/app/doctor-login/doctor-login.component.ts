@@ -2,14 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {AuthService} from '../auth/auth.service';
-
-/*
-Obiekt doktora posiadający email i hasło, które przekazywane są do bd
- */
-interface DoctorLogin {
-  doctorEmailAddress: string;
-  doctorPassword: string;
-}
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
+import {UserErrorResponse} from '../model/user/dto/user-error-response';
 
 @Component({
   selector: 'app-doctor-login',
@@ -48,30 +43,32 @@ export class DoctorLoginComponent implements OnInit {
     return this.loginFormGroup.controls;
   }
 
-  /*
-  Służy do zalogowania lekarza na konto:
-
-  Przygotowuje obiekt lekarza, a następnie sprawdza czy istnieje doktor o takim mailu oraz czy hasło się zgadza
-   */
   login(): void {
     this.submitted = true;
 
     if (this.loginFormGroup.valid) {
       this.authService.loginUser(this.loginFormGroup.getRawValue())
-        .subscribe(() => this.router.navigate(['doktor-strona-główna']),
-          () => this.emailNotExist = true);
+        .pipe(catchError(error => {
+          this.emailNotExist = false;
+          this.passwordCorrect = true;
+          switch (error.error) {
+            case UserErrorResponse.EMAIL_NOT_EXIST:
+              this.emailNotExist = true;
+              break;
+            case UserErrorResponse.INVALID_PASSWORD:
+              this.passwordCorrect = false;
+              break;
+          }
+          return of(null);
+        }))
+        .subscribe(response => {
+          if (response){
+            this.router.navigate(['doktor-strona-główna']);
+          }
+        });
     }
   }
 
-
-  /*
-  Sprawdza czy dla podanego maila istnieje konto w bd. Jeśli tak, przekierowuje na odpowiednią strone
- */
-
-
-  /*
-  Przekierowuje na stronę główną lekarza
-   */
   redirect(): void {
     this.router.navigateByUrl('/doktor-rejestracja');
   }

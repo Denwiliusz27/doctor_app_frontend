@@ -6,15 +6,15 @@
       <a class="menu-main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
       <div class="straight-line"></div>
       <div class="menu-list">
-        <div class="menu-element" *ngFor="let option of menuOptions" (click)="redirect(option)">
+        <div class="menu-element" *ngFor="let option of menuOptions" [routerLink]="option.url">
           <div id="blur"></div>
           <div class="icon">
-            <mat-icon *ngIf="option == 'kalendarz'">calendar_today</mat-icon>
-            <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
-            <mat-icon *ngIf="option == 'wyniki'">description</mat-icon>
+            <mat-icon *ngIf="option.name == 'kalendarz'">calendar_today</mat-icon>
+            <mat-icon *ngIf="option.name == 'wizyty'">assignment_turned_in</mat-icon>
+            <mat-icon *ngIf="option.name == 'wyniki'">description</mat-icon>
           </div>
-          <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>
-          <p class="menu-element-text" *ngIf="option !== 'wyniki'">{{option}}</p>
+          <p class="menu-element-text" *ngIf="option.name == 'wyniki'">wyniki badań</p>
+          <p class="menu-element-text" *ngIf="option.name !== 'wyniki'">{{option.name}}</p>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
           <input matInput type="datetime-local" placeholder="start date">
         </mat-form-field>-->
 
-        <ejs-schedule
+        <!--<ejs-schedule
           [workDays]="workWeekDays"
 
         >
@@ -42,29 +42,27 @@
           </e-views>
 
         </ejs-schedule>
-
-        <!--
-
-        <jqxScheduler #schedulerReference
-                      (onAppointmentAdd)="AppointmentClick()"
+-->
+        <app-tests></app-tests>
+       <!-- <jqxScheduler #schedulerReference
+                      (onAppointmentAdd)="onAdd($event)"
                       [date]="date"
                       [width]="800"
                       [height]="500"
                       [source]="dataAdapter"
                       [showLegend]="true"
-                      [editDialogCreate]="editDialogCreate"
-                      [editDialogOpen]="editDialogOpen"
-                      [editDialogClose]="editDialogClose"
                       [view]="'weekView'"
                       [appointmentDataFields]="appointmentDataFields"
                       [resources]="resources"
-                      [views]="views">
+                      [views]="views"
+                      [localization]="localization"
+                      [editDialogCreate]="editDialogCreate"
+                      [editDialogOpen]="editDialogOpen"
+                      [editDialogClose]="editDialogClose"
+                      [editDialogKeyDown]="editDialogKeyDown"
+                      >
         </jqxScheduler>-->
       </div>
-
-
-
-
 
     </div>
   </div>

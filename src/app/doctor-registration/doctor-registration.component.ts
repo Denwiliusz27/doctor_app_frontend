@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Service, ServiceService} from '../services/service.service';
 import {SpecializationService} from '../services/specialization.service';
 import {CityService} from '../services/city.service';
@@ -9,6 +9,7 @@ import {MedicalServices} from '../services/medical-services.service';
 import {CreateDoctorRequest} from '../model/user/dto/create-user';
 import {AuthService} from '../auth/auth.service';
 import {UserRole} from '../model/user/user';
+import {catchError, delay} from 'rxjs/operators';
 
 /*
 Reprezentuje usługę z opłatą za nią. isChosen ustawiane na true jeśli została wybrana na stronie
@@ -39,7 +40,7 @@ export class DoctorRegistrationComponent implements OnInit {
   selectedServices: SelectedServices[] = [];  // lista wybranych usług przez lekarza
   selectedCityId: number; // id wybranego miasta
   imageFile = null;
-  emailExists = false; // zmienna do sprawdzenia czy konto o wpisanym mailu już istnieje w bd
+  emailNotExist = false; // zmienna do sprawdzenia czy konto o wpisanym mailu już istnieje w bd
   displayForms = false;
 
 
@@ -111,11 +112,22 @@ export class DoctorRegistrationComponent implements OnInit {
       doctorRequest.medicalServices = this.selectedServices.filter(s => s.isChosen).map(s => ({
         id: s.id, price: s.price
       }));
-      this.authService.createUser(doctorRequest, UserRole.DOCTOR).subscribe(() => this.router.navigate(['doktor-strona-główna']));
+      this.authService.createUser(doctorRequest, UserRole.DOCTOR)
+        .pipe(
+          catchError(error => {
+            console.log(error);
+            this.emailNotExist = true;
+            return of(null);
+          })
+        )
+        .subscribe(result => {
+          if (result) {
+            this.router.navigate(['doktor-strona-główna']);
+          }
+        });
     }
-
-
   }
+
 
   /*
   Przy zmianie specjalizacji, nadpisuje selectedSpecializationId i wyzerowuje liste wybranych wcześniej usług
@@ -124,8 +136,6 @@ export class DoctorRegistrationComponent implements OnInit {
     this.selectedServices = [];
     console.log(this.selectedSpecializationId);
     this.medicalServices$ = this.medicalService.findById(this.selectedSpecializationId);
-    // this.selectedSpecializationId = specializationName;
-    // this.uncheckAllServices();
   }
 
   /*

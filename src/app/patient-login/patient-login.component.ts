@@ -2,14 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {AuthService} from '../auth/auth.service';
-import {catchError} from 'rxjs/operators';
-import {of} from 'rxjs';
-
-interface PatientLogin {
-  patientEmailAddress: string;
-  patientPassword: string;
-}
-
+import {catchError, delay} from 'rxjs/operators';
+import {of, throwError} from 'rxjs';
+import {UserErrorResponse} from '../model/user/dto/user-error-response';
 
 @Component({
   selector: 'app-patient-login',
@@ -49,13 +44,19 @@ export class PatientLoginComponent implements OnInit {
 
     if (this.loginFormGroup.valid) {
       this.authService.loginUser(this.loginFormGroup.getRawValue())
-        .pipe(
-          catchError(error => {
-            console.log(error);
+        .pipe(catchError(error => {
+        this.emailNotExist = false;
+        this.passwordCorrect = true;
+        switch (error.error) {
+          case UserErrorResponse.EMAIL_NOT_EXIST:
             this.emailNotExist = true;
-            return of(null);
-          })
-        )
+            break;
+          case UserErrorResponse.INVALID_PASSWORD:
+            this.passwordCorrect = false;
+            break;
+        }
+        return of(null);
+      }))
         .subscribe(result => {
           if (result){
             this.router.navigate(['pacjent-strona-główna']);

@@ -3,6 +3,8 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {UserRole} from '../model/user/user';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-patient-registration',
@@ -12,6 +14,7 @@ import {UserRole} from '../model/user/user';
 export class PatientRegistrationComponent implements OnInit {
   submitted = false;
   emailExist = false;
+  accountCreated = false;
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
@@ -56,10 +59,21 @@ export class PatientRegistrationComponent implements OnInit {
 
     if (this.registrationFormGroup.valid){
      this.authService.createUser(this.registrationFormGroup.getRawValue(), UserRole.PATIENT)
-       .subscribe(
-         () => this.router.navigate(['pacjent-strona-główna']),
-         () => this.emailExist = true
-       );
+       .pipe(
+         catchError(error => {
+           console.log(error);
+           this.emailExist = true;
+           return of(null);
+         })
+       )
+       .subscribe( result => {
+         if (result) {
+           this.accountCreated = true;
+           setTimeout(() => {
+             this.router.navigate(['pacjent-strona-główna']);
+           }, 1000);
+         }
+       });
     }
   }
 

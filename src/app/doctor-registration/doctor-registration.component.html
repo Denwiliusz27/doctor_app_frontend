@@ -43,15 +43,15 @@
 
       <label class="login-and-registration-form-label">
         <input class="login-and-registration-form-input" title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'" type="text" formControlName="email"
-               required [class.login-and-registration-error-border]="submitted && currentFormControls.email.errors || submitted && emailExists"
-               (change)="emailExists = true" placeholder="e-mail*">
+               required [class.login-and-registration-error-border]="submitted && currentFormControls.email.errors || submitted && emailNotExist"
+               (change)="emailNotExist = false" placeholder="e-mail*">
         <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
         <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
           <p>niepoprawny adres e-mail</p>
         </div>
-        <div class="login-and-registration-error" *ngIf="submitted && emailExists">
+        <div class="login-and-registration-error" *ngIf="submitted && emailNotExist">
           <p>taki email istnieje</p>
         </div>
       </label>
@@ -148,9 +148,9 @@
 
     </form>
 
-    <div class="email-error" *ngIf="submitted && emailExists">
+    <!--<div class="email-error" *ngIf="submitted && emailNotExist">
       <p>taki email istnieje</p>
-    </div>
+    </div>-->
   </div>
 </div>
 

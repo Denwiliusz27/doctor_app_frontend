@@ -95,6 +95,10 @@
 
     </form>
 
+    <div class="email-error" *ngIf="submitted && accountCreated">
+      <p>Utworzono pomyślnie</p>
+    </div>
+
    <!-- <div class="email-error" *ngIf="submitted && emailExist">
       <p>taki email istnieje</p>
       <div class="error-options">

@@ -22,7 +22,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {PatientHomepageComponent} from './patient-homepage/patient-homepage.component';
 import {PatientRegistrationComponent} from './patient-registration/patient-registration.component';
 import {DoctorCalendarComponent} from './doctor-calendar/doctor-calendar.component';
-import {jqxSchedulerModule} from 'jqwidgets-ng/jqxscheduler';
+
 import {DoctorFindingsComponent} from './doctor-findings/doctor-findings.component';
 import {DoctorVisitsComponent} from './doctor-visits/doctor-visits.component';
 import {PatientVisitsComponent} from './patient-visits/patient-visits.component';
@@ -43,6 +43,9 @@ import {UserIsNotLoggedGuard} from './auth/guard/user-is-not-logged';
 import {LOCAL_STORAGE, SESSION_STORAGE, StorageService} from 'ngx-webstorage-service';
 import {DoctorGuard} from './auth/guard/doctor.guard';
 import {PatientGuard} from './auth/guard/patient.guard';
+import { TestsComponent } from './tests/tests.component';
+import {jqxButtonModule} from 'jqwidgets-ng/jqxbuttons';
+import {jqxSchedulerModule} from 'jqwidgets-ng/jqxscheduler';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [UserIsNotLoggedGuard]},
@@ -80,6 +83,7 @@ const routes: Routes = [
     PatientVisitsComponent,
     PatientFindingsComponent,
     PatientFindDoctorComponent,
+    TestsComponent,
     // DialogOverviewExampleComponent
   ],
   imports: [
@@ -91,6 +95,7 @@ const routes: Routes = [
     ScheduleModule,
     RecurrenceEditorModule,
     jqxSchedulerModule,
+    jqxButtonModule,
     MatSelectModule,
     MatButtonModule,
     MatToolbarModule,
@@ -109,7 +114,7 @@ const routes: Routes = [
 /*
     {provide: MY_AWESOME_SERVICE_STORAGE, useExisting: LOCAL_STORAGE},
 */
-    DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService],
+   /* DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService*/],
   bootstrap: [AppComponent]
 })
 export class AppModule {
