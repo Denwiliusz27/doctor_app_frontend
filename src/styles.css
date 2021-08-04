@@ -42,7 +42,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   justify-content: center;
   display: flex;
   text-align: center;
-  padding: 0 0 5% 0;
+  padding: 0 0 40px 0;
 }
 
 .login-and-registration-form-input::placeholder {
@@ -109,6 +109,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .login-and-registration-error-border {
   border: 3px solid red !important;
+}
+
+.registration-accepted p{
+  padding: 40px 0 40px 0;
+  margin: 0;
+  font-size: 32px !important;
+  text-shadow: 2px 2px 2px black !important;
+  color: green !important;
+  font-weight: bold;
+  position: relative;
+}
+
+.login-accepted p {
+  padding: 30px 0 0 0;
+  margin: 0;
+  font-size: 32px !important;
+  text-shadow: 2px 2px 2px black !important;
+  color: #0363c9 !important;
+  font-weight: bold;
+  position: relative;
 }
 
 .home-page-content {

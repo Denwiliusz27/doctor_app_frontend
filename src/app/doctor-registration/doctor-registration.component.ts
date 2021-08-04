@@ -41,23 +41,23 @@ export class DoctorRegistrationComponent implements OnInit {
   selectedCityId: number; // id wybranego miasta
   imageFile = null;
   emailNotExist = false; // zmienna do sprawdzenia czy konto o wpisanym mailu już istnieje w bd
-  displayForms = false;
-
+  accountCreated = false;
 
   registrationFormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.pattern('^[A-Z][a-z-ąćęįłńóżź]*')
+      Validators.pattern('^[A-Z][a-z-ąśćęįłńóżź]*')
     ]),
     surname: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.pattern('^[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+(\-[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+)?$')
+      Validators.pattern('^[A-ZĄĆŚĘŁŃÓŻŹ][a-ząćśęįłńóżź]+(\-[A-ZĄĆŚĘŁŃÓŻŹ][a-ząćśęįłńóżź]+)?$')
     ]),
     email: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[a-z\\d]+[\\w\\d.-]*@(?:[a-z\\d]+[a-z\\d-]+\\.){1,5}[a-z]{2,6}$')
+      Validators.email
+      // Validators.pattern('^[a-z\\d]+[\\w\\d.-]*@(?:[a-z\\d]+[a-z\\d-]+\\.){1,5}[a-z]{2,6}$')
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -72,7 +72,7 @@ export class DoctorRegistrationComponent implements OnInit {
     ]),
     address: new FormControl('', [
       Validators.required,
-      Validators.pattern('^([A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+(\-[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+)? ){1,}' +
+      Validators.pattern('^([A-ZĄĆŚĘŁŃÓŻŹ][a-ząśćęįłńóżź]+(\-[A-ZĄĆŚĘŁŃÓŻŹ][a-ząćśęįłńóżź]+)? ){1,}' +
         '[0-9]{1,}(\/[0-9]{1,})*[a-zA-Z]{0,1}') // na początek: [u][l][.]
     ]),
     phoneNumber: new FormControl('', [
@@ -122,7 +122,11 @@ export class DoctorRegistrationComponent implements OnInit {
         )
         .subscribe(result => {
           if (result) {
-            this.router.navigate(['doktor-strona-główna']);
+            this.emailNotExist = false;
+            this.accountCreated = true;
+            setTimeout(() => {
+              this.router.navigate(['doktor-strona-główna']);
+            }, 2000);
           }
         });
     }

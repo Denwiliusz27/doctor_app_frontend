@@ -68,7 +68,7 @@
         <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
-        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.email" >
           <p>niepoprawny adres e-mail</p>
         </div>
         <div class="login-and-registration-error" *ngIf="submitted && emailExist">
@@ -93,11 +93,11 @@
 
       <button type="submit">zarejestruj się</button>
 
-    </form>
+      <div class="registration-accepted" *ngIf="submitted && accountCreated">
+        <p>zarejestrowano pomyślnie</p>
+      </div>
 
-    <div class="email-error" *ngIf="submitted && accountCreated">
-      <p>Utworzono pomyślnie</p>
-    </div>
+    </form>
 
    <!-- <div class="email-error" *ngIf="submitted && emailExist">
       <p>taki email istnieje</p>
@@ -112,5 +112,4 @@
     </div>-->
 
   </div>
-
 </div>

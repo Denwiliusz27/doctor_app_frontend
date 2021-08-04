@@ -13,12 +13,12 @@
 
       <label class="login-and-registration-form-label">
         <input class="login-and-registration-form-input" type="text" formControlName="email" required
-               [class.login-and-registration-error-border] = "submitted && currentFormControls.email.errors || submitted && !emailNotExist"
+               [class.login-and-registration-error-border] = "submitted && currentFormControls.email.errors || submitted && emailNotExist"
                placeholder="e-mail">
         <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.required">
           <p>nie podano adresu e-mail</p>
         </div>
-        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.pattern">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.email">
           <p>niepoprawny adres e-mail</p>
         </div>
         <div class="login-and-registration-error" *ngIf="submitted && emailNotExist">
@@ -29,7 +29,7 @@
       <label class="login-and-registration-form-label">
         <input class="login-and-registration-form-input" type="password" formControlName="password" required
                [class.login-and-registration-error-border] = "submitted && currentFormControls.password.errors || submitted && !passwordCorrect"
-               placeholder="hasło">
+               placeholder="hasło" (change)="passwordCorrect = true">
         <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.required">
           <p>nie podano hasła</p>
         </div>
@@ -42,6 +42,10 @@
       </label>
 
       <button class="login-button" type="submit" >zaloguj się</button>
+
+      <div class="login-accepted" *ngIf="submitted && loginAccepted">
+        <p>zalogowano pomyślnie</p>
+      </div>
 
     </form>
   </div>

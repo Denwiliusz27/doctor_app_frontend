@@ -20,12 +20,12 @@ export class PatientRegistrationComponent implements OnInit {
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.pattern('^[A-Z][a-z-ąćęįłńóżź]*')
+      Validators.pattern('^[A-Z][a-z-ąćśęįłńóżź]*')
     ]),
     surname: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.pattern('^[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+(\-[A-ZĄĆĘŁŃÓŻŹ][a-ząćęįłńóżź]+)?$')
+      Validators.pattern('^[A-ZĄĆŚĘŁŃÓŻŹ][a-ząćśęįłńóżź]+(\-[A-ZĄĆŚĘŁŃÓŻŹ][a-ząćśęįłńóżź]+)?$')
     ]),
     email: new FormControl('', [
       Validators.required,
@@ -69,45 +69,14 @@ export class PatientRegistrationComponent implements OnInit {
        .subscribe( result => {
          if (result) {
            this.accountCreated = true;
+           this.emailExist = false;
            setTimeout(() => {
              this.router.navigate(['pacjent-strona-główna']);
-           }, 1000);
+           }, 2000);
          }
        });
     }
   }
-
-
 }
-/*
-  openDialog(): void{
-    const dialogRef = this.dialog.open(DialogOverviewExampleComponent, {
-      width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.disableForms = false;
-    });
-  }*/
-
-
-/*
-
-@Component({
-  selector: 'app-dialog-overview-example-dialog',
-  templateUrl: './dialog-overview-example-dialog.html',
-})
-export class DialogOverviewExampleComponent {
-
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleComponent>) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-}
-*/
 
 

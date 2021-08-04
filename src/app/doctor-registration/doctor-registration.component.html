@@ -44,11 +44,11 @@
       <label class="login-and-registration-form-label">
         <input class="login-and-registration-form-input" title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'" type="text" formControlName="email"
                required [class.login-and-registration-error-border]="submitted && currentFormControls.email.errors || submitted && emailNotExist"
-               (change)="emailNotExist = false" placeholder="e-mail*">
+               placeholder="e-mail*">
         <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.required" >
           <p>nie podano adresu e-mail</p>
         </div>
-        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.pattern" >
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.email" >
           <p>niepoprawny adres e-mail</p>
         </div>
         <div class="login-and-registration-error" *ngIf="submitted && emailNotExist">
@@ -146,10 +146,17 @@
 
       <button type="submit">zarejestruj się</button>
 
-    </form>
+      <div class="registration-accepted" *ngIf="submitted && accountCreated">
+        <p>zarejestrowano pomyślnie</p>
+      </div>
 
-    <!--<div class="email-error" *ngIf="submitted && emailNotExist">
-      <p>taki email istnieje</p>
+      <!--<div class="login-and-registration-accepted" *ngIf="submitted && accountCreated">
+        <p>Zarejestrowano pomyślnie</p>
+      </div>-->
+
+    </form>
+    <!--<div class="email-error" *ngIf="submitted && accountCreated">
+      <p>Utworzono pomyślnie</p>
     </div>-->
   </div>
 </div>

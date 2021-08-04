@@ -14,13 +14,15 @@ import {UserErrorResponse} from '../model/user/dto/user-error-response';
 
 export class PatientLoginComponent implements OnInit {
   submitted = false;
-  emailNotExist = true;
+  emailNotExist = false;
   passwordCorrect = true;
+  loginAccepted = false;
 
   loginFormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[a-z\\d]+[\\w\\d.-]*@(?:[a-z\\d]+[a-z\\d-]+\\.){1,5}[a-z]{2,6}$')
+      Validators.email
+      // Validators.pattern('^[a-z\\d]+[\\w\\d.-]*@(?:[a-z\\d]+[a-z\\d-]+\\.){1,5}[a-z]{2,6}$')
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -59,7 +61,12 @@ export class PatientLoginComponent implements OnInit {
       }))
         .subscribe(result => {
           if (result){
-            this.router.navigate(['pacjent-strona-główna']);
+            this.passwordCorrect = true;
+            this.emailNotExist = false;
+            this.loginAccepted = true;
+            setTimeout(() => {
+              this.router.navigate(['pacjent-strona-główna']);
+            }, 2000);
           }
         });
     }
@@ -67,6 +74,10 @@ export class PatientLoginComponent implements OnInit {
 
   redirect(): void {
     this.router.navigateByUrl('/pacjent-rejestracja');
+  }
+
+  login_accepted() {
+    this.loginAccepted = true;
   }
 
 }

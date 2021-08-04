@@ -17,53 +17,6 @@
   display: block;
 }
 
-/*.home-content {
-  margin: 15px 25px 15px 25px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-}
-
-.form-container {
-  justify-content: center;
-  display: flex;
-  text-align: center;
-  padding: 0 0 5% 0;
-}
-
-form {
-  width: 70%;
-}
-
-label {
-  display: block;
-  margin: 35px 0 0 0;
-}
-
-
-input {
-  width: 60%;
-  padding: 15px;
-  font-size: 24px;
-  border: 3px solid #1342e8;
-  border-radius: 7px;
-}
-
-
-input:focus {
-  outline: none;
-  background-color: aliceblue;
-}
-*/
-/*
-
-::placeholder {
-  color: dimgray;
-  font-style: italic;
-}
-*/
-
 p {
   font-size: 32px;
   text-align: center;
@@ -72,48 +25,6 @@ p {
   font-family: "Arial", sans-serif;
   text-shadow: 1px 1px 3px black;
 }
-/*
-
-button {
-  margin: 3% 0 0 0;
-  height: 61px;
-  width: 63%;
-  color: white;
-  font-size: 24px;
-  font-style: italic;
-  border: 3px solid #1342e8;
-  border-radius: 40px;
-  background-color: #0363c9;
-
-  transition: all 0.4s ease 0s;
-}
-
-button:hover {
-  border-radius: 7px;
-  cursor: pointer;
-  letter-spacing: 5px;
-}
-
-
-.error {
-  justify-content: center;
-  display: flex;
-}
-
-.error p{
-  margin: 0;
-  width: 60%;
-  font-size: 24px;
-  text-shadow: 2px 2px 2px black;
-  color: red;
-  font-weight: bold;
-  position: relative;
-}
-
-.error-red-border {
-  border: 3px solid red;
-}
-*/
 
 .registration_link {
   margin: 0 auto;
@@ -144,33 +55,3 @@ button:hover {
   text-decoration: none;
   color: white;
 }
-/*
-.patient_txt {
-  font-size: 65px;
-  font-weight: 100;
-  color: #1342e8;
-  text-shadow: 2px 2px 5px black;
-  margin: 90px 0 35px 0;
-}
-
-
-.sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 25px;
-}
-
-
-
-.main_site_link {
-  font-size: 35px;
-  font-family: "Rage Italic", sans-serif;
-  font-style: italic;
-  margin: 20px;
-  text-decoration: none;
-  text-shadow: 3px 3px 3px black;
-  color: white;
-
-  transition: all 0.4s ease 0s;
-}
-*/

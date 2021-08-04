@@ -19,11 +19,13 @@ export class DoctorLoginComponent implements OnInit {
   submitted = false;
   emailNotExist = false;  // zmienna do sprawdzenia czy podany email istnieje w bd
   passwordCorrect = true;  // zmienna do sprawdzenia czy dla podanego maila, wpisane hasło się zgadza
+  loginAccepted = false;
 
   loginFormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[a-z\\d]+[\\w\\d.-]*@(?:[a-z\\d]+[a-z\\d-]+\\.){1,5}[a-z]{2,6}$')
+      Validators.email
+      // Validators.pattern('^[a-z\\d]+[\\w\\d.-]*@(?:[a-z\\d]+[a-z\\d-]+\\.){1,5}[a-z]{2,6}$')
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -63,7 +65,13 @@ export class DoctorLoginComponent implements OnInit {
         }))
         .subscribe(response => {
           if (response){
-            this.router.navigate(['doktor-strona-główna']);
+            this.passwordCorrect = true;
+            this.emailNotExist = false;
+            this.loginAccepted = true;
+            setTimeout(() => {
+              this.router.navigate(['doktor-strona-główna']);
+
+            }, 2000);
           }
         });
     }
