@@ -347,9 +347,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .calendar {
   padding-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
-
-
-
-

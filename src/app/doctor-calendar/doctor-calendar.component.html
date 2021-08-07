@@ -1,5 +1,7 @@
+<!--
 
 <div class="home-page-content">
+-->
 
   <div class="menu-container">
     <div class="menu-content">
@@ -43,32 +45,35 @@
 
         </ejs-schedule>
 -->
-        <app-tests></app-tests>
-       <!-- <jqxScheduler #schedulerReference
-                      (onAppointmentAdd)="onAdd($event)"
+
+        <jqxScheduler #schedulerReference
+                      (onAppointmentAdd)="AppointmentClick()"
                       [date]="date"
-                      [width]="800"
-                      [height]="500"
+                      [width]="1100"
+                      [height]="650"
                       [source]="dataAdapter"
                       [showLegend]="true"
-                      [view]="'weekView'"
-                      [appointmentDataFields]="appointmentDataFields"
-                      [resources]="resources"
-                      [views]="views"
-                      [localization]="localization"
                       [editDialogCreate]="editDialogCreate"
                       [editDialogOpen]="editDialogOpen"
                       [editDialogClose]="editDialogClose"
-                      [editDialogKeyDown]="editDialogKeyDown"
-                      >
-        </jqxScheduler>-->
+                      [view]="'weekView'"
+                      [localization]="localization"
+                      [appointmentDataFields]="appointmentDataFields"
+                      [resources]="resources"
+                      [views]="views"
+        >
+        </jqxScheduler>
+
+
       </div>
 
     </div>
   </div>
 
+<!--
 
 </div>
+-->
 
 <!--
 <jqxScheduler #schedulerReference
