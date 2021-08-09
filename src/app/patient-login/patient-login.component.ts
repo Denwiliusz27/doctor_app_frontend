@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
-import {catchError, delay} from 'rxjs/operators';
-import {of, throwError} from 'rxjs';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
 import {UserErrorResponse} from '../model/user/dto/user-error-response';
+import {UserRole} from '../model/user/user';
 
 @Component({
   selector: 'app-patient-login',
@@ -45,7 +46,10 @@ export class PatientLoginComponent implements OnInit {
     this.submitted = true;
 
     if (this.loginFormGroup.valid) {
-      this.authService.loginUser(this.loginFormGroup.getRawValue())
+      this.authService.loginUser( {
+        ...this.loginFormGroup.getRawValue(),
+        role: UserRole.PATIENT
+      })
         .pipe(catchError(error => {
         this.emailNotExist = false;
         this.passwordCorrect = true;

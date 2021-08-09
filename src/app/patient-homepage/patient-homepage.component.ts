@@ -3,6 +3,9 @@ import {Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {SpecializationService} from '../services/specialization.service';
 import {CityService} from '../services/city.service';
+import {DoctorStrategy} from '../auth/strategy/doctor-strategy';
+import {Doctor} from '../model/user/user';
+import {FindDoctorsService} from '../services/find-doctors.service';
 
 @Component({
   selector: 'app-patient-homepage',
@@ -15,9 +18,10 @@ export class PatientHomepageComponent implements OnInit {
   readonly specializations$ = this.specializationStrategy.specializations$; // lista specjalizacji
   selectedCityId: number;
   options: string[] = ['wizyty', 'wyniki'];
+  doctors: Doctor[] = [];
 
   constructor(private router: Router, private specializationStrategy: SpecializationService, private cityService: CityService,
-              private authService: AuthService) { }
+              private authService: AuthService, private doctorStrategy: DoctorStrategy, private findDoctorService: FindDoctorsService) { }
 
   ngOnInit(): void {
   }
@@ -33,5 +37,13 @@ export class PatientHomepageComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  findDoctors() {
+   /* this.doctorStrategy.findDoctorsByCityIdAndSpecializationId(this.selectedCityId, this.selectedSpecializationId).subscribe(
+      response => this.doctors = response
+    );*/
+    this.findDoctorService.searchDoctors(this.selectedCityId, this.selectedSpecializationId);
+    this.router.navigate(['znajdz-lekarzy']);
   }
 }

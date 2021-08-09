@@ -1,6 +1,12 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {jqxSchedulerComponent} from 'jqwidgets-ng/jqxscheduler';
 import {View} from '@syncfusion/ej2-angular-schedule';
+import {AuthService} from '../auth/auth.service';
+import {AvailabilityDoctorService} from '../services/availability-doctor.service';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
+import {AvailabilityDoctor} from '../model/availability-doctor/availability-doctor';
+import SchedulerAppointmentDataFields = jqwidgets.SchedulerAppointmentDataFields;
 
 
 @Component({
@@ -8,20 +14,19 @@ import {View} from '@syncfusion/ej2-angular-schedule';
   templateUrl: './doctor-calendar.component.html',
   styleUrls: ['./doctor-calendar.component.css']
 })
-export class DoctorCalendarComponent {
-  menuOptions: {name: string, url: string}[] = [{name: 'kalendarz', url: '/doktor-kalendarz' },
+export class DoctorCalendarComponent implements AfterViewInit, OnInit {
+  menuOptions: { name: string, url: string }[] = [
+    {name: 'kalendarz', url: '/doktor-kalendarz'},
     {name: 'wizyty', url: '/doktor-wizyty'},
-    {name: 'wyniki', url: '/doktor-wyniki-badań'}];
+    {name: 'wyniki', url: '/doktor-wyniki-badań'}
+  ];
 
-  printButton: any = null;
-  myDate = new Date();
-  appointments = new Array();
 
   @ViewChild('schedulerReference', { static: false }) scheduler: jqxSchedulerComponent;
 
+  addedAppointments: any;
   setView: View = 'Week';
   scheduleViews: View[] = ['Week', 'WorkWeek'];
-  workWeekDays: number[] = [1, 2, 3, 4, 5, 6];
   source: any =
     {
       dataType: 'array',
@@ -35,11 +40,11 @@ export class DoctorCalendarComponent {
         { name: 'end', type: 'date' }
       ],
       id: 'id',
-      localData: this.generateAppointments()
+      localData: []
     };
   dataAdapter: any = new jqx.dataAdapter(this.source);
   date: any = new jqx.date();
-  appointmentDataFields: any =
+  appointmentDataFields: jqwidgets.SchedulerAppointmentDataFields =
     {
       from: 'start',
       to: 'end',
@@ -47,9 +52,12 @@ export class DoctorCalendarComponent {
       description: 'description',
       location: 'location',
       subject: 'subject',
+      readOnly: true,
+      resizable: false,
+      draggable: false
       /* resourceId: 'calendar'*/
     };
-  resources: any =
+  resources: jqwidgets.SchedulerResources =
     {
       colorScheme: 'scheme05',
       dataField: 'calendar',
@@ -185,41 +193,40 @@ export class DoctorCalendarComponent {
       }
   };
 
+  constructor(private readonly authService: AuthService,
+              private readonly availabilityDoctorService: AvailabilityDoctorService) {
+  }
+
+  ngOnInit(): void {
+    this.availabilityDoctorService.getAllByDoctorId(this.authService.user.id)
+      .subscribe(response => {
+        response.map(this.buildAppointment).forEach(app => {
+          this.scheduler.addAppointment(app);
+          this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'resizable', false);
+          this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'draggable', false);
+          this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'readOnly', false);
+          this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'subject', 'Dostępny');
+        });
+      });
+  }
+
   ngAfterViewInit(): void {
-    this.scheduler.ensureAppointmentVisible('id1');
   }
 
-  generateAppointments(): any {
-    let appointments = new Array();
-    /*let appointment1 = {
-      id: 'id1',
-      description: 'George brings projector for presentations.',
-      location: '',
-      subject: 'Quarterly Project Review Meeting',
-      calendar: 'Room 1',
-      start: new Date(2020, 10, 23, 9, 0, 0),
-      end: new Date(2020, 10, 23, 16, 0, 0)
+  buildAppointment(availabilityDoctor: AvailabilityDoctor): any {
+    return {
+      subject: 'Dostępny',
+      start: new Date(availabilityDoctor.from),
+      end: new Date(availabilityDoctor.to),
+      resizable: false,
+      draggable: false,
+      readOnly: false,
+      description: availabilityDoctor.id.toString(),
     };
-    let appointment2 = {
-      id: 'id2',
-      description: '',
-      location: '',
-      subject: 'IT Group Mtg.',
-      calendar: 'Room 2',
-      start: new Date(2020, 10, 24, 10, 0, 0),
-      end: new Date(2020, 10, 24, 15, 0, 0)
-    };
-    appointments.push(appointment1);
-    appointments.push(appointment2);*/
-
-    return appointments;
   }
 
 
-  editDialogCreate = (dialog, fields, editAppointment) => {
-    // hide repeat option
-    console.log(fields);
-    console.log(this.myDate);
+  editDialogCreate = (dialog, fields) => {
     fields.repeatContainer.hide();
     fields.timeZoneContainer.hide();
     fields.colorContainer.hide();
@@ -231,131 +238,59 @@ export class DoctorCalendarComponent {
     fields.resourceContainer.hide();
     fields.allDayContainer.hide();
     fields.descriptionContainer.hide();
-
+    fields.repeatContainer.hide();
     fields.statusLabel.html('Czy chcesz dodać swoją dyspozycyjność?');
-    fields.status.hide(); // remove()
-    console.log(fields.statusContainer);
-    const element = fields.statusLabel.style;
-
-    /*   const child2: [] = fields.statusContainer.children;
-       fields.statusContainer.remove(child2);*/
-    console.log(fields.statusContainer);
-    const dziecko = fields.statusContainer.style;
-    console.log(dziecko);
-
-    const child = fields.statusContainer.children[0];
-
-    let buttonElement = document.createElement("BUTTON");
-    buttonElement.innerText = 'Print';
-    buttonElement.style.cssFloat = 'right';
-    buttonElement.style.marginLeft = '5px';
-    buttonElement.id = 'PrintButton';
-    fields.buttons[0].appendChild(buttonElement);
-    let printButton: jqwidgets.jqxButton = jqwidgets.createInstance('#PrintButton', 'jqxButton', {
-      width: 50,
-      height: 25
+    fields.saveButton.on('click', () => {
+      this.availabilityDoctorService.add({
+        doctorId: this.authService.user.id,
+        to: this.addedAppointments.to.toString(),
+        from: this.addedAppointments.from.toString()
+      }).pipe(
+        catchError(() => {
+          this.scheduler.deleteAppointment(this.addedAppointments.id);
+          return of(null);
+        })
+      ).subscribe(response => {
+          if (response) {
+            this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'resizable', false);
+            this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'draggable', false);
+            this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'readOnly', false);
+            this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'subject', 'Dostępny');
+            this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'description', response.id.toString());
+            this.scheduler.addAppointment(this.addedAppointments);
+          }
+      });
     });
-    this.printButton = printButton;
-    printButton.addEventHandler('click', function () {
-      let appointment = editAppointment;
-      if (!appointment && printButton.disabled) {
-        return;
-      }
-      let appointmentContent =
-        "<table class='printTable'>" +
-          "<tr>" +
-            "<td class='label'>Title</td>" +
-            "<td>" + fields.subject.val() + "</td>" +
-          "</tr>" +
-          "<tr>" +
-            "<td class='label'>Start</td>" +
-            "<td>" + fields.from.val() + "</td>" +
-          "</tr>" +
-          "<tr>" +
-            "<td class='label'>End</td>" +
-            "<td>" + fields.to.val() + "</td>" +
-          "</tr>" +
-          "<tr>" +
-            "<td class='label'>Where</td>" +
-            "<td>" + fields.location.val() + "</td>" +
-          "</tr>" +
-          "<tr>" +
-            "<td class='label'>Calendar</td>" +
-            "<td>" + fields.resource.val() + "</td>" +
-          "</tr>"
-        + "</table>";
-      let newWindow = window.open('', '', 'width=800, height=500, position: absolute'),
-        document = newWindow.document.open(),
-        pageContent =
-          '<!DOCTYPE html>\n' +
-          '<html>\n' +
-          '<head>\n' +
-            '<meta charset="utf-8" />\n' +
-            '<title>jQWidgets Scheduler</title>\n' +
-              '<style>\n' +
-              '.printTable {\n' +
-                'border-color: #aaa;\n' +
-                'position: absolute !important;' +
-                '}\n' +
-              '.printTable .label {\n' +
-                'font-weight: bold;\n' +
-                '}\n' +
-              '.printTable td{\n' +
-                'padding: 4px 3px;\n' +
-                'border: 1px solid #DDD;\n' +
-                'vertical-align: top;\n' +
-                '}\n' +
-              '</style>' +
-          '</head>\n' +
-          '<body>\n' + appointmentContent + '\n</body>\n</html>';
-      try {
-        document.write(pageContent);
-        document.close();
-      }
-      catch (error) {
-      }
-      newWindow.print();
-    });
-
+    fields.status.hide();
   };
-  /**
-   * called when the dialog is opened. Returning true as a result disables the built-in handler.
-   * @param {Object} dialog - jqxWindow's jQuery object.
-   * @param {Object} fields - Object with all widgets inside the dialog.
-   * @param {Object} the selected appointment instance or NULL when the dialog is opened from cells selection.
-   */
+
   editDialogOpen = (dialog, fields, editAppointment) => {
-    console.log('jestem tutaj');
-    if (!editAppointment && this.printButton) {
-      this.printButton.setOptions({ disabled: true });
-    }
-    else if (editAppointment && this.printButton) {
-      fields.statusLabel.html('Czy na pewno chcesz usunąć dyspozycyjność?');
-      this.printButton.setOptions({ disabled: false });
-    }
+    fields.repeatContainer.hide();
+    fields.statusLabel.html('Czy na pewno chcesz usunąć dyspozycyjność?');
   };
 
   editDialogClose = (dialog, fields, editAppointment) => {
-    console.log('wychodzę');
-    console.log(dialog);
-    console.log(fields);
-    console.log(editAppointment);
-    console.log(fields.subject.val());
-    console.log(fields.from.val());
-    console.log(fields.to.val());
-    console.log(this.appointments);
+    // console.log(dialog);
+    // console.log(editAppointment);
+    // console.log('dialog close');
+    // console.log(dialog);
+    // console.log(fields);
+    // console.log(editAppointment);
+    // console.log(fields.subject.val());
+    // console.log(fields.from.val());
+    // console.log(fields.to.val());
+    // console.log(this.appointments);
   };
 
-  AppointmentAdd() {
-    console.log('add');
+  onAppointmentAdd(obj): void {
+    this.addedAppointments = obj.args.appointment;
   }
 
-  AppointmentClick() {
-    console.log('dodaje');
+  logout(): void {
+    this.authService.logout();
   }
 
-  logout() {
-    console.log('wylogowuję');
+  onAppointmentDelete(obj): void {
+    this.availabilityDoctorService.deleteById(obj.args.appointment.description).subscribe(() => {});
   }
-
 }

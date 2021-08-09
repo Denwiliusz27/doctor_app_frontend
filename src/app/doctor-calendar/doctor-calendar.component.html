@@ -47,7 +47,8 @@
 -->
 
         <jqxScheduler #schedulerReference
-                      (onAppointmentAdd)="AppointmentClick()"
+                      (onAppointmentAdd)="onAppointmentAdd($event)"
+                      (onAppointmentDelete)="onAppointmentDelete($event)"
                       [date]="date"
                       [width]="1100"
                       [height]="650"

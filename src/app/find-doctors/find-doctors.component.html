@@ -28,7 +28,6 @@
       </div>
     </div>
     <div class="patient-main-site-content">
-      <h1 class="page-header">strona główna</h1>
 
       <div class="find-doctor-selectbox">
         <select class="find-doctor-select-element" [(ngModel)]="selectedCityId" >
@@ -41,23 +40,11 @@
             {{specialization.name}}
           </option>
         </select>
-        <button class="find-doctor-button"(click)="findDoctors()">szukaj</button>
+        <button class="find-doctor-button" (click)="findDoctors()">szukaj</button>
       </div>
 
-      <!--<div class="patient-homepage-option-box">
-        <div id="{{option}}" *ngFor="let option of options" (click)="redirect(option)">
-          <p *ngIf="option === 'wyniki'">wyniki badań</p>
-          <p *ngIf="option !== 'wyniki'">{{option}}</p>
-        </div>
-      </div>-->
 
-      <div class="homepage-text">
-        <p>Strona przeznaczona jest dla osób poszukujących lekarzy oferujących usługi w największych miastach w
-          Polsce. Wyszukiwanie lekarzy danej specjalizacji stacjonujących w danym mieście odbywa sie poprzez wybór
-        odpowiednich opcji u góry strony.</p>
-        <p>W zakładce 'wizyty' pacjent ma możliwość przeglądania nadchodzących oraz odbytych wizyt.</p>
-        <p>Natomiast w zakładce 'wyniki' pacjent może przeglądać wystawione przez lekarzy wyniki badań.</p>
-      </div>
+
 
     </div>
   </div>

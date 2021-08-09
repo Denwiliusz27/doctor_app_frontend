@@ -16,4 +16,8 @@ export class DoctorStrategy implements UserStrategy<Doctor> {
     return this.http.post<Doctor>(`${serverUrl}/auth/create/doctor`, request);
   }
 
+  findDoctorsByCityIdAndSpecializationId(cityId: number, specializationId: number): Observable<Doctor[]>{
+    return this.http.get<Doctor[]>(`${serverUrl}/doctors?cityId=${cityId}&specializationId=${specializationId}`);
+  }
+
 }

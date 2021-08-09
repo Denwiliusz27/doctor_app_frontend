@@ -46,6 +46,7 @@ import {PatientGuard} from './auth/guard/patient.guard';
 import { TestsComponent } from './tests/tests.component';
 import {jqxButtonModule} from 'jqwidgets-ng/jqxbuttons';
 import {jqxSchedulerModule} from 'jqwidgets-ng/jqxscheduler';
+import { FindDoctorsComponent } from './find-doctors/find-doctors.component';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [UserIsNotLoggedGuard]},
@@ -60,7 +61,10 @@ const routes: Routes = [
   {path: 'doktor-wizyty', component: DoctorVisitsComponent, canActivate: [UserIsLoggedGuard]},
   {path: 'pacjent-wizyty', component: PatientVisitsComponent, canActivate: [UserIsLoggedGuard]},
   {path: 'pacjent-wyniki-badań', component: PatientFindingsComponent, canActivate: [UserIsLoggedGuard]},
+/*
   {path: 'pacjent-znajdź-lekarza', component: PatientFindDoctorComponent, canActivate: [UserIsLoggedGuard]},
+*/
+  {path: 'znajdz-lekarzy', component: FindDoctorsComponent, canActivate: [PatientGuard]},
 
 ];
 
@@ -84,6 +88,7 @@ const routes: Routes = [
     PatientFindingsComponent,
     PatientFindDoctorComponent,
     TestsComponent,
+    FindDoctorsComponent,
     // DialogOverviewExampleComponent
   ],
   imports: [
