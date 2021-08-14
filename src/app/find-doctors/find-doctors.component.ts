@@ -34,8 +34,21 @@ export class FindDoctorsComponent implements OnInit, OnDestroy {
           this.selectedSpecializationId = specializationId;
           this.selectedCityId = cityId;
         }),
-        mergeMap(({cityId, specializationId}) => this.doctorStrategy.findDoctorsByCityIdAndSpecializationId(cityId, specializationId))
-      ).subscribe(
+        mergeMap(({cityId, specializationId}) => {
+          if (cityId && specializationId){
+            return this.doctorStrategy.findDoctorsByCityIdAndSpecializationId(cityId, specializationId);
+          } else if (specializationId) {
+            return this.doctorStrategy.findDoctorsBySpecializationId(specializationId);
+          } else if (cityId){
+            return this.doctorStrategy.findDoctorsByCityId(cityId);
+          } else {
+            return this.doctorStrategy.findAllDoctors();
+          }
+          }
+/*
+          ({cityId, specializationId}) => this.doctorStrategy.findDoctorsByCityIdAndSpecializationId(cityId, specializationId))
+*/
+      )).subscribe(
       response => {
         this.doctors = response;
       }
@@ -56,6 +69,7 @@ export class FindDoctorsComponent implements OnInit, OnDestroy {
   }
 
   findDoctors() {
+    this.findDoctorService.searchDoctors(this.selectedCityId, this.selectedSpecializationId);
   }
 
   ngOnDestroy(): void {

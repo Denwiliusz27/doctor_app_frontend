@@ -43,6 +43,7 @@ export class PatientHomepageComponent implements OnInit {
    /* this.doctorStrategy.findDoctorsByCityIdAndSpecializationId(this.selectedCityId, this.selectedSpecializationId).subscribe(
       response => this.doctors = response
     );*/
+
     this.findDoctorService.searchDoctors(this.selectedCityId, this.selectedSpecializationId);
     this.router.navigate(['znajdz-lekarzy']);
   }

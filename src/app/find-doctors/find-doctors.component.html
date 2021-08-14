@@ -1,4 +1,4 @@
-<div class="backgroung-img"></div>
+<div class="backgroung-img" xmlns="http://www.w3.org/1999/html"></div>
 
 <div class="home-page-content">
 
@@ -41,6 +41,27 @@
           </option>
         </select>
         <button class="find-doctor-button" (click)="findDoctors()">szukaj</button>
+      </div>
+
+      <div class="doctors-list">
+        <div class="doctor-overview-container" id="{{doctor}}" *ngFor="let doctor of doctors">
+          <div class="doctor-description-section">
+            <p id="name">{{doctor.name}} {{doctor.surname}}</p>
+            <br>
+            <p id="specialization">{{doctor.specialization.name}}</p>
+            <br>
+            <p id="address">{{doctor.city.name}}, ul. {{doctor.address}}</p>
+
+            <div class="doctor-page-button">
+              <p>odwiedź stronę lekarza</p>
+            </div>
+          </div>
+          <div class="vertical-line"></div>
+          <div class="doctor-availability-calendar">
+            <p>kalendarz</p>
+          </div>
+
+        </div>
       </div>
 
 
