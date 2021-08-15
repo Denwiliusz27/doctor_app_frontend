@@ -28,6 +28,7 @@
       </div>
     </div>
     <div class="patient-main-site-content">
+      <h1 class="page-header">znajdź lekarza</h1>
 
       <div class="find-doctor-selectbox">
         <select class="find-doctor-select-element" [(ngModel)]="selectedCityId" >
@@ -52,7 +53,7 @@
             <br>
             <p id="address">{{doctor.city.name}}, ul. {{doctor.address}}</p>
 
-            <div class="doctor-page-button">
+            <div class="doctor-page-button" (click)="displayDoctorSite(doctor)">
               <p>odwiedź stronę lekarza</p>
             </div>
           </div>

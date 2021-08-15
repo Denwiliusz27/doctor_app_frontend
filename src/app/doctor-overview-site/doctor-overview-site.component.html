@@ -1,0 +1,103 @@
+<div class="home-page-content">
+
+  <div class="menu-container">
+    <div class="menu-content">
+      <a class="menu-main_site_link" routerLink="/pacjent-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+        <div class="menu-element" *ngFor="let option of options" (click)="redirect(option)">
+          <div id="blur"></div>
+          <div class="icon">
+            <mat-icon *ngIf="option == 'lekarze'">calendar_today</mat-icon>
+            <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
+            <mat-icon *ngIf="option == 'wyniki'">description</mat-icon>
+          </div>
+          <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>
+          <p class="menu-element-text" *ngIf="option == 'lekarze'">znajdź lekarza</p>
+          <p class="menu-element-text" *ngIf="option !== 'wyniki' && option !== 'lekarze'">{{option}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="homepage-main-site">
+    <div class="top-menu">
+      <div class="logout-button" (click)="logout()">
+        <p>wyloguj</p>
+      </div>
+    </div>
+    <div class="patient-main-site-content">
+      <h1 class="page-header">strona lekarza</h1>
+
+      <div class="doctor-overview-site-content">
+        <div class="doctor-overview-site-details">
+          <div class="doctor-overview-site-basic-informations">
+            <p id="name">{{doctor.name}} {{doctor.surname}}</p>
+            <br>
+            <p id="specialization">{{doctor.specialization.name}}</p>
+          </div>
+
+          <div class="doctor-overview-site-other-informations">
+            <div class="doctor-overview-site-other-informations-container">
+              <div class="doctor-other-informations-header-section">
+                <div class="doctor-other-informations-header-text">
+                  <p>Adres</p>
+                </div>
+                <div class="doctor-other-informations-line"></div>
+              </div>
+              <div class="doctor-other-informations-details-text">
+                <p>{{doctor.city.name}}, {{doctor.address}}</p>
+              </div>
+            </div>
+
+            <div class="doctor-overview-site-other-informations-container" *ngIf="isPhoneNumberGiven">
+              <div class="doctor-other-informations-header-section">
+                <div class="doctor-other-informations-header-text">
+                  <p>Telefon</p>
+                </div>
+                <div class="doctor-other-informations-line"></div>
+              </div>
+              <div class="doctor-other-informations-details-text">
+                <p>{{doctor.phoneNumber}}</p>
+              </div>
+            </div>
+
+            <div class="doctor-overview-site-other-informations-container">
+              <div class="doctor-other-informations-header-section">
+                <div class="doctor-other-informations-header-text">
+                  <p>Oferowane usługi</p>
+                </div>
+                <div class="doctor-other-informations-line"></div>
+              </div>
+              <div class="doctor-other-informations-details-services" *ngFor="let medicalService of doctor.doctorServices">
+                <p>- {{medicalService.medicalService.name}} ({{medicalService.price}})</p>
+              </div>
+            </div>
+
+            <div class="doctor-overview-site-other-informations-container" *ngIf="isDescriptionGiven">
+              <div class="doctor-other-informations-header-section">
+                <div class="doctor-other-informations-header-text">
+                  <p>Opis</p>
+                </div>
+                <div class="doctor-other-informations-line"></div>
+              </div>
+              <div class="doctor-other-informations-details-description">
+                <p>{{doctor.description}}</p>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <div class="doctor-overview-site-calendar">
+          <p>tutaj bedzie kalendarz</p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+

@@ -13,7 +13,7 @@ import {FindDoctorsService} from '../services/find-doctors.service';
   styleUrls: ['./patient-homepage.component.css']
 })
 export class PatientHomepageComponent implements OnInit {
-  readonly cities$ = this.cityService.cities$; // lista specjalizacji
+  readonly cities$ = this.cityService.cities$; // lista miast
   selectedSpecializationId: number;
   readonly specializations$ = this.specializationStrategy.specializations$; // lista specjalizacji
   selectedCityId: number;
@@ -40,11 +40,7 @@ export class PatientHomepageComponent implements OnInit {
   }
 
   findDoctors() {
-   /* this.doctorStrategy.findDoctorsByCityIdAndSpecializationId(this.selectedCityId, this.selectedSpecializationId).subscribe(
-      response => this.doctors = response
-    );*/
-
     this.findDoctorService.searchDoctors(this.selectedCityId, this.selectedSpecializationId);
-    this.router.navigate(['znajdz-lekarzy']);
+    this.router.navigate(['znajdź-lekarzy']);
   }
 }

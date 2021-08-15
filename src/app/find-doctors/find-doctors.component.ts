@@ -8,6 +8,7 @@ import {FindDoctorsService} from '../services/find-doctors.service';
 import {filter, mergeMap, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {DisplayDoctorOverviewSiteService} from '../services/display-doctor-overview-site.service';
 
 @Component({
   selector: 'app-find-doctors',
@@ -24,7 +25,8 @@ export class FindDoctorsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private authService: AuthService, private cityService: CityService, private specializationService: SpecializationService,
-              private doctorStrategy: DoctorStrategy, private findDoctorService: FindDoctorsService, private router: Router) { }
+              private doctorStrategy: DoctorStrategy, private findDoctorService: FindDoctorsService, private router: Router,
+              private displayDoctorOverviewSiteService: DisplayDoctorOverviewSiteService) { }
 
   ngOnInit(): void {
     this.subscription = this.findDoctorService.searchParams$
@@ -44,10 +46,7 @@ export class FindDoctorsComponent implements OnInit, OnDestroy {
           } else {
             return this.doctorStrategy.findAllDoctors();
           }
-          }
-/*
-          ({cityId, specializationId}) => this.doctorStrategy.findDoctorsByCityIdAndSpecializationId(cityId, specializationId))
-*/
+        }
       )).subscribe(
       response => {
         this.doctors = response;
@@ -70,6 +69,11 @@ export class FindDoctorsComponent implements OnInit, OnDestroy {
 
   findDoctors() {
     this.findDoctorService.searchDoctors(this.selectedCityId, this.selectedSpecializationId);
+  }
+
+  displayDoctorSite(doctor: Doctor){
+    this.displayDoctorOverviewSiteService.displayDoctor(doctor);
+    this.router.navigateByUrl('/strona-lekarza');
   }
 
   ngOnDestroy(): void {

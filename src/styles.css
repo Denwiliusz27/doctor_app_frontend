@@ -417,6 +417,124 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   letter-spacing: 5px;
 }
 
+.doctor-overview-site-content {
+  margin: 50px 30px 50px 30px ;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+.doctor-overview-site-details {
+  width: 45%;
+}
+
+.doctor-overview-site-basic-informations {
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.doctor-overview-site-basic-informations p {
+  font-style: italic;
+  color: #1342e8;
+  margin: 0 !important;
+}
+
+.doctor-overview-site-basic-informations #name{
+  font-size: 28px !important;
+  font-weight: bolder;
+}
+
+.doctor-overview-site-basic-informations #specialization{
+  font-size: 24px !important;
+  font-weight: normal;
+}
+
+.doctor-overview-site-other-informations {
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.doctor-overview-site-other-informations-container {
+  margin: 10px 0 25px 0;
+}
+
+.doctor-other-informations-header-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.doctor-other-informations-header-text {
+  flex-grow: 1;
+  font-style: italic;
+  color: dimgray;
+  font-size: 32px !important;
+  font-weight: bolder;
+}
+
+.doctor-other-informations-header-text p {
+  margin: 0 !important;
+}
+
+.doctor-other-informations-details-text {
+  margin: 15px 0 15px 0;
+  line-height: 30px;
+  text-align: center;
+  font-style: italic;
+  color: #1342e8;
+  font-size: 26px !important;
+  font-weight: normal;
+}
+
+.doctor-other-informations-details-services {
+  margin: 15px auto 0 40px;
+  line-height: 28px;
+  font-style: italic;
+  color: #1342e8;
+  font-size: 26px !important;
+  font-weight: normal;
+}
+
+.doctor-other-informations-details-services p{
+  display: inline-block;
+  text-align: left;
+  margin: 0 !important;
+}
+
+.doctor-other-informations-details-description {
+  margin: 15px 40px 15px 40px;
+  line-height: 30px;
+  font-style: italic;
+  color: #1342e8;
+  font-size: 26px !important;
+  font-weight: normal;
+}
+
+.doctor-other-informations-line {
+  background-color: #1342e8;
+  border: 1px solid #1342e8;
+  height: 1px;
+  border-radius: 30px;
+  flex-grow: 5;
+}
+
+
+
+
+.doctor-overview-site-calendar {
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+  width: 45%;
+  padding: 20px;
+}
+
 .calendar {
   padding-top: 30px;
   margin-left: auto;
