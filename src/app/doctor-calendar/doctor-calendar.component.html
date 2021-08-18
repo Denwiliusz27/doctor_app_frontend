@@ -31,21 +31,6 @@
     <div class="homepage-main-site-content">
       <h1 class="page-header">kalendarz</h1>
       <div class="calendar">
-        <!--<mat-form-field>
-          <input matInput type="datetime-local" placeholder="start date">
-        </mat-form-field>-->
-
-        <!--<ejs-schedule
-          [workDays]="workWeekDays"
-
-        >
-          <e-views>
-            <e-view option="WorkWeek"></e-view>
-          </e-views>
-
-        </ejs-schedule>
--->
-
         <jqxScheduler #schedulerReference
                       (onAppointmentAdd)="onAppointmentAdd($event)"
                       (onAppointmentDelete)="onAppointmentDelete($event)"

@@ -46,7 +46,7 @@
                 <div class="doctor-other-informations-line"></div>
               </div>
               <div class="doctor-other-informations-details-text">
-                <p>{{doctor.city.name}}, {{doctor.address}}</p>
+                <p>{{doctor.city.name}}, ul. {{doctor.address}}</p>
               </div>
             </div>
 
@@ -70,7 +70,7 @@
                 <div class="doctor-other-informations-line"></div>
               </div>
               <div class="doctor-other-informations-details-services" *ngFor="let medicalService of doctor.doctorServices">
-                <p>- {{medicalService.medicalService.name}} ({{medicalService.price}})</p>
+                <p>- {{medicalService.medicalService.name}} ({{medicalService.price}} zł)</p>
               </div>
             </div>
 
@@ -86,16 +86,59 @@
               </div>
             </div>
 
-
-
           </div>
         </div>
 
         <div class="doctor-overview-site-calendar">
-          <p>tutaj bedzie kalendarz</p>
+          <p class="doctor-overview-site-calendar-header">Wolne terminy</p>
+          <div class="overwrite-div">
+            <jqxScheduler class="doctor-site-calendar" #schedulerReference
+                          (onAppointmentAdd)="onAppointmentAdd($event)"
+                          (onAppointmentDelete)="onAppointmentDelete($event)"
+                          [date]="date"
+                          [width]="550"
+                          [height]="450"
+                          [source]="dataAdapter"
+                          [showLegend]="true"
+                          [editDialogCreate]="editDialogCreate"
+                          [editDialogOpen]=""
+                          [editDialogClose]="editDialogClose"
+                          [view]="'weekView'"
+                          [localization]="localization"
+                          [appointmentDataFields]="appointmentDataFields"
+                          [resources]="resources"
+                          [views]="views"
+            >
+            </jqxScheduler>
+            <div class="doctor-calendar-overwrite-div"></div>
+          </div>
+
+          <div class="appointment-reservation-section">
+            <p>wybierz datę i godzinę wizyty:</p>
+            <div class="appointment-reservation-date-selectbox-section">
+              <select class="appointment-reservation-date-selectbox" >
+                <option class="input-disabled-option" disabled selected value="undefined">data</option>
+                <option></option>
+              </select>
+              <select class="appointment-reservation-date-selectbox" >
+                <option class="input-disabled-option" disabled selected value="undefined">godzina</option>
+                <option></option>
+              </select>
+            </div>
+            <p>wybierz rodzaj wizyty:</p>
+            <div class="appointment-reservation-service-selectbox-section" [(ngModel)]="selectedServiceId">
+              <select class="appointment-reservation-service-selectbox" >
+                <option class="input-disabled-option" disabled selected value="undefined">rodzaj wizyty</option>
+                <option *ngFor="let service of doctor.doctorServices">{{service.medicalService.name}} ({{service.price}} zł)</option>
+              </select>
+            </div>
+
+            <button class="appointment-reservation-button">zarezerwuj</button>
+
+          </div>
+
         </div>
       </div>
-
 
     </div>
   </div>

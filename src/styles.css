@@ -428,6 +428,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .doctor-overview-site-details {
   width: 45%;
+  min-width: 570px;
 }
 
 .doctor-overview-site-basic-informations {
@@ -457,6 +458,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border: 3px solid #1342e8;
   border-radius: 15px;
   padding: 20px;
+  min-height: 716px;
 }
 
 .doctor-overview-site-other-informations-container {
@@ -494,7 +496,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .doctor-other-informations-details-services {
-  margin: 15px auto 0 40px;
+  margin: 15px auto 0 auto;
+  width: 85%;
   line-height: 28px;
   font-style: italic;
   color: #1342e8;
@@ -509,8 +512,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .doctor-other-informations-details-description {
-  margin: 15px 40px 15px 40px;
+  margin: 15px auto 15px auto;
   line-height: 30px;
+  width: 85%;
   font-style: italic;
   color: #1342e8;
   font-size: 26px !important;
@@ -526,13 +530,123 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 
-
-
 .doctor-overview-site-calendar {
   border: 3px solid #1342e8;
   border-radius: 15px;
   width: 45%;
+  min-width: 570px;
+  min-height: 490px;
   padding: 20px;
+}
+
+.overwrite-div {
+  position: relative;
+  z-index: 1;
+}
+
+.doctor-site-calendar {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 2;
+}
+
+.doctor-calendar-overwrite-div {
+  position: absolute;
+  z-index: 9;
+  top: 55px;
+  right: 51.5%;
+  transform: translate(50%, 0);
+  width: 535px;
+  min-width: 535px;
+  height: 397px;
+  background-color: red;
+  opacity: 0.5;
+}
+
+.doctor-overview-site-calendar-header {
+  font-style: italic;
+  color: dimgray;
+  font-size: 32px !important;
+  font-weight: bolder;
+  text-align: center;
+  padding-bottom: 20px;
+  margin: 0 !important;
+}
+
+.appointment-reservation-section {
+  padding-top: 467px;
+}
+
+.appointment-reservation-section p {
+  text-align: center;
+  font-style: italic;
+  color: dimgray;
+  font-size: 26px !important;
+  font-weight: bolder;
+  margin: 10px 0 10px 0 !important;
+}
+
+.appointment-reservation-date-selectbox-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
+.appointment-reservation-date-selectbox {
+  width: 255px;
+  padding: 15px;
+  margin: 0 15px 0 15px;
+  font-size: 26px;
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+}
+
+.appointment-reservation-date-selectbox:focus {
+  outline: none;
+  background-color: aliceblue;
+}
+
+.appointment-reservation-service-selectbox-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
+.appointment-reservation-service-selectbox {
+  width: 540px;
+  padding: 15px;
+  font-size: 26px;
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+}
+
+.appointment-reservation-service-selectbox:focus {
+  outline: none;
+  background-color: aliceblue;
+}
+
+.appointment-reservation-button {
+  color: white;
+  margin: 0 5px 0 5px;
+  width: 170px;
+  font-size: 26px;
+  font-style: italic;
+  border: 3px solid darkgreen;
+  border-radius: 15px;
+  background-color: forestgreen;
+
+  transition: all 0.4s ease 0s;
+}
+
+.appointment-reservation-button:hover {
+  border-radius: 7px;
+  cursor: pointer;
+  letter-spacing: 3px;
 }
 
 .calendar {
