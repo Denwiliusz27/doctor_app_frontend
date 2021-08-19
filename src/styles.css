@@ -95,11 +95,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .login-and-registration-error {
   justify-content: center;
   display: flex;
+  line-height: 28px;
 }
 
 .login-and-registration-error p{
   margin: 0;
-  width: 60%;
   font-size: 24px !important;
   text-shadow: 2px 2px 2px black !important;
   color: red !important;
@@ -428,7 +428,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .doctor-overview-site-details {
   width: 45%;
-  min-width: 570px;
+  min-width: 610px;
 }
 
 .doctor-overview-site-basic-informations {
@@ -458,7 +458,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border: 3px solid #1342e8;
   border-radius: 15px;
   padding: 20px;
-  min-height: 716px;
+  min-height: 723px;
 }
 
 .doctor-overview-site-other-informations-container {
@@ -630,10 +630,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: aliceblue;
 }
 
+.appointment-reservation-button-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
 .appointment-reservation-button {
   color: white;
   margin: 0 5px 0 5px;
-  width: 170px;
+  padding: 15px;
+  width: 540px;
   font-size: 26px;
   font-style: italic;
   border: 3px solid darkgreen;
@@ -646,7 +655,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .appointment-reservation-button:hover {
   border-radius: 7px;
   cursor: pointer;
-  letter-spacing: 3px;
+  letter-spacing: 5px;
 }
 
 .calendar {

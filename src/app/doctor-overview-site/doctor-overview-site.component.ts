@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {of, Subscription} from 'rxjs';
-import {DisplayDoctorOverviewSiteService} from '../services/display-doctor-overview-site.service';
 import {catchError, filter, mergeMap, tap} from 'rxjs/operators';
 import {Doctor} from '../model/user/user';
 import {Router} from '@angular/router';
@@ -10,6 +9,7 @@ import {jqxSchedulerComponent} from 'jqwidgets-ng/jqxscheduler';
 import {View} from '@syncfusion/ej2-angular-schedule';
 import {AvailabilityDoctorService} from '../services/availability-doctor.service';
 import {AvailabilityDoctor} from '../model/availability-doctor/availability-doctor';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-doctor-overview-site',
@@ -17,14 +17,35 @@ import {AvailabilityDoctor} from '../model/availability-doctor/availability-doct
   styleUrls: ['./doctor-overview-site.component.css']
 })
 export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
   doctor: Doctor;
   isPhoneNumberGiven = false;
   isDescriptionGiven = false;
   options: string[] = ['lekarze', 'wizyty', 'wyniki'];
+
+  submitted = false;
   selectedServiceId: number;
+  selectedDate: string;
+  selectedHour: string;
+  dates: string[] = ['02.09', '04.09', '05.09'];
+  hours: string[] = ['10:30', '11:30', '12:00', '15:00'];
 
-
+  appointmentRegistrationFormGroup = new FormGroup({
+    dateFrom: new FormControl('', [
+      Validators.required
+    ]),
+    dateTo: new FormControl('', [
+      Validators.required
+    ]),
+    patientId: new FormControl('', [
+      Validators.required
+    ]),
+    doctorAvailabilityId: new FormControl('', [
+      Validators.required
+    ]),
+    serviceId: new FormControl('', [
+      Validators.required
+    ])
+  });
 
 
 
@@ -216,12 +237,12 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private router: Router, private displayDoctorOverviewSiteService: DisplayDoctorOverviewSiteService,
-              private authService: AuthService, private findDoctorService: FindDoctorsService,
+  constructor(private router: Router, private authService: AuthService, private findDoctorService: FindDoctorsService,
               private readonly availabilityDoctorService: AvailabilityDoctorService) {}
 
   ngOnInit(): void {
-    this.subscription = this.displayDoctorOverviewSiteService.displayParams$
+    this.doctor = this.authService.doctor;
+    /*this.subscription = this.displayDoctorOverviewSiteService.displayParams$
       .pipe(
         filter(Boolean),
         tap(({doctor}) => {
@@ -239,7 +260,13 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
         mergeMap(({doctor}) => {
           return doctor;
         })
-      ).subscribe();
+      ).subscribe();*/
+  }
+
+  get currentFormControls(): {
+    [key: string]: AbstractControl;
+  } {
+    return this.appointmentRegistrationFormGroup.controls;
   }
 
   redirect(option: string): void {
@@ -259,7 +286,10 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.authService.clearDoctor();
+/*
     this.subscription.unsubscribe();
+*/
   }
 
 
@@ -349,5 +379,55 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
 
   onAppointmentDelete(obj): void {
     this.availabilityDoctorService.deleteById(obj.args.appointment.description).subscribe(() => {});
+  }
+
+  onSelectDate(): void {
+    console.log(this.selectedDate);
+  }
+
+  isDateSelected(): boolean {
+    if (this.selectedDate === undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  onSelectHour(): void {
+    console.log(this.selectedHour);
+  }
+
+  isHourSelected(): boolean{
+    if (this.selectedHour === undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  onSelectService(): void {
+    console.log(this.selectedServiceId);
+  }
+
+  isServiceSelected(): boolean {
+    if (this.selectedServiceId === undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  registerAppointment(): void {
+    this.submitted = true;
+
+    if (!this.isServiceSelected() || !this.isDateSelected() || !this.isHourSelected()){
+      console.log('nie wypełniono poprawnie pól');
+      return;
+    }
+
+    console.log('rejestruje sie');
+    console.log(this.selectedDate);
+    console.log(this.selectedHour);
+    console.log(this.selectedServiceId);
   }
 }

@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {LoginUser, Patient, User, UserRole} from '../model/user/user';
+import {Doctor, LoginUser, Patient, User, UserRole} from '../model/user/user';
 import {CreateUserRequest} from '../model/user/dto/create-user';
 import {UserStrategy} from './strategy/user-strategy';
 import {PatientStrategy} from './strategy/patient-strategy';
@@ -22,6 +22,10 @@ export class AuthService{
 
   get user(): User {
     return this.appStorageService.user;
+  }
+
+  get doctor(): Doctor {
+    return this.appStorageService.doctor;
   }
 
   constructor(private readonly http: HttpClient,
@@ -46,8 +50,15 @@ export class AuthService{
       );
   }
 
+  public setSelectedDoctor(doctor: Doctor): void {
+    this.appStorageService.setDoctor(doctor);
+  }
+
+  public clearDoctor(): void {
+    this.appStorageService.clearDoctor();
+  }
+
   public logout(): void{
     this.appStorageService.clearUser();
-    this.router.navigate(['']);
   }
 }

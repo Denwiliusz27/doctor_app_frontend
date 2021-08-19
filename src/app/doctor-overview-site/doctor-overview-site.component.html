@@ -114,26 +114,59 @@
           </div>
 
           <div class="appointment-reservation-section">
-            <p>wybierz datę i godzinę wizyty:</p>
-            <div class="appointment-reservation-date-selectbox-section">
-              <select class="appointment-reservation-date-selectbox" >
-                <option class="input-disabled-option" disabled selected value="undefined">data</option>
-                <option></option>
-              </select>
-              <select class="appointment-reservation-date-selectbox" >
-                <option class="input-disabled-option" disabled selected value="undefined">godzina</option>
-                <option></option>
-              </select>
-            </div>
-            <p>wybierz rodzaj wizyty:</p>
-            <div class="appointment-reservation-service-selectbox-section" [(ngModel)]="selectedServiceId">
-              <select class="appointment-reservation-service-selectbox" >
-                <option class="input-disabled-option" disabled selected value="undefined">rodzaj wizyty</option>
-                <option *ngFor="let service of doctor.doctorServices">{{service.medicalService.name}} ({{service.price}} zł)</option>
-              </select>
-            </div>
+            <form [formGroup]="appointmentRegistrationFormGroup" (ngSubmit)="registerAppointment()">
+              <p>wybierz datę i godzinę wizyty:</p>
+                <div class="appointment-reservation-date-selectbox-section">
+                  <label>
+                    <select class="appointment-reservation-date-selectbox" [(ngModel)]="selectedDate"
+                            (ngModelChange)="onSelectDate()" [class.login-and-registration-error-border]="(submitted && !isDateSelected())"
+                            formControlName="dateFrom" id="dateFrom">
+                      <option class="input-disabled-option" disabled selected value="undefined">data</option>
+                      <option *ngFor="let date of dates">{{date}}</option>
+                    </select>
+                    <div class="login-and-registration-error" *ngIf="submitted && !isDateSelected()">
+                      <p>nie wybrano daty</p>
+                    </div>
+                  </label>
 
-            <button class="appointment-reservation-button">zarezerwuj</button>
+                  <label>
+                    <select class="appointment-reservation-date-selectbox" [(ngModel)]="selectedHour"
+                            (ngModelChange)="onSelectHour()" [class.login-and-registration-error-border]="(submitted && !isHourSelected())"
+                            formControlName="dateTo" id="dateTo">
+                      <option class="input-disabled-option" disabled selected value="undefined">godzina</option>
+                      <option *ngFor="let hour of hours">{{hour}}</option>
+                    </select>
+                    <div class="login-and-registration-error" *ngIf="submitted && !isHourSelected()">
+                      <p>nie wybrano godziny</p>
+                    </div>
+                  </label>
+
+                </div>
+
+
+              <p>wybierz rodzaj wizyty:</p>
+              <div class="appointment-reservation-service-selectbox-section">
+                <label>
+                  <select class="appointment-reservation-service-selectbox" [(ngModel)]="selectedServiceId"
+                          (ngModelChange)="onSelectService()" [class.login-and-registration-error-border]="(submitted && !isServiceSelected())"
+                          formControlName="serviceId" id="serviceId">
+                    <option class="input-disabled-option" disabled selected value="undefined">rodzaj wizyty</option>
+                    <option *ngFor="let service of doctor.doctorServices">{{service.medicalService.name}} ({{service.price}} zł)</option>
+                  </select>
+                  <div class="login-and-registration-error" *ngIf="submitted && !isServiceSelected()">
+                    <p>nie wybrano rodzaju usługi</p>
+                  </div>
+                </label>
+
+
+              </div>
+              <div class="appointment-reservation-button-section">
+                <button class="appointment-reservation-button" type="submit">zarezerwuj wizytę</button>
+              </div>
+
+            </form>
+
+
 
           </div>
 
