@@ -12,13 +12,14 @@ import {AvailabilityDoctor} from '../model/availability-doctor/availability-doct
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {VisitService} from '../services/visit.service';
 import {Visit} from '../model/visit/visit';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-doctor-overview-site',
   templateUrl: './doctor-overview-site.component.html',
   styleUrls: ['./doctor-overview-site.component.css']
 })
-export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
+export class DoctorOverviewSiteComponent implements OnInit {
   doctor: Doctor;
   isPhoneNumberGiven = false;
   isDescriptionGiven = false;
@@ -28,8 +29,10 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
   selectedServiceId: number;
   selectedDate: string;
   selectedVisit: number;
-  dates: string[] = ['02.09', '04.09', '05.09'];
-  hours: string[] = ['10:30', '11:30', '12:00', '15:00'];
+  visitMap = new Map<string, Visit[]>();
+  currentDate;
+  currentHour;
+  currentMinute;
 
   appointmentRegistrationFormGroup = new FormGroup({
     dateFrom: new FormControl('', [
@@ -48,7 +51,6 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
       Validators.required
     ])
   });
-
 
 
   @ViewChild('schedulerReference', { static: false }) scheduler: jqxSchedulerComponent;
@@ -223,24 +225,10 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
   };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-  visitMap = new Map<string, Visit[]>();
-
-
-
   constructor(private router: Router, private authService: AuthService, private findDoctorService: FindDoctorsService,
-              private readonly availabilityDoctorService: AvailabilityDoctorService, private visitService: VisitService) {}
+              private readonly availabilityDoctorService: AvailabilityDoctorService, private visitService: VisitService,
+              private datePipe: DatePipe) {
+  }
 
   ngOnInit(): void {
     this.doctor = this.authService.doctor;
@@ -251,13 +239,146 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
       this.isDescriptionGiven = true;
     }
 
+    this.setCurrentTime();
+
     this.visitService.getFreeVisitsByDoctorId(this.doctor.id).subscribe(visits => {
       visits.forEach(v => {
+        // console.log(v.from);
+
         const splitDate = v.from.split(' ')[0];
+
+ /*       // const splitDate = visit.from.split(' ')[0];
+        const splitTime = v.from.split(' ')[1];
+
+        const splittedDate = splitDate.split('-');
+        const splittedDay = splittedDate[2];
+        const splittedMonth = splittedDate[1];
+
+        const tempDate = this.currentDate.split('-');
+        const currentDay = tempDate[2];
+        const currentMonth = tempDate[1];
+
+        const splittedTime = splitTime.split(':');
+        const splittedHour = splittedTime[0];
+        const splittedMinute = splittedTime[1];
+
+        // let add: boolean;
+
+        const add = true;*/
+
+        // console.log(v.from);
+        // console.log(this.currentDate);
+        // console.log(v.from, ' > ', this.currentDate);
+
+
+
+        /*// if (v.from > this.currentDate){
+        console.log(v.from, ' > ', this.currentDate);
         const vs = this.visitMap.get(splitDate) ?? [];
+        console.log('dodaje: ', v.from);
         vs.push(v);
-        this.visitMap.set(splitDate, vs);
+        this.visitMap.set(splitDate, vs);*/
+        /*} else {
+          console.log('usuwam: ', v.from);
+          const index = visits.indexOf(v, 0);
+          if (index > -1) {
+            visits.splice(index, 1);
+          }
+        }*/
+
+
+
+
+
+
+
+        /*if (Number(splittedMonth) < Number(currentMonth)){
+          add = false;
+        } else if (Number(splittedMonth) === Number(currentMonth)){
+          if (Number(splittedDay) < Number(currentDay)){
+            add =  false;
+          } else if (Number(splittedDay) === Number(currentDay)){
+/!*
+            const splittedTime = splitTime.split(':');
+            const splittedHour = splittedTime[0];
+            const splittedMinute = splittedTime[1];*!/
+
+           //console.log('Day: ', splittedDay);
+
+            if (Number(splittedHour) < Number(this.currentHour)){
+              //console.log('odrzucam h ', splittedHour, ':', splittedMinute);
+              add =  false;
+            }
+            else if (Number(splittedHour) === Number(this.currentHour)){
+              if (Number(splittedMinute) <= Number(this.currentMinute)){
+               // console.log('odrzucam m ', splittedHour, ':', splittedMinute);
+                add =  false;
+              } else {
+                add =  true;
+              }
+            } else {
+              add =  true;
+            }
+
+
+            /!* return this.isVisitTimeFuture(splitTime);*!/
+          }
+          else {
+            add =  true;
+          }
+        } else {
+          add =  true;
+        }
+
+        if (add) {
+          const vs = this.visitMap.get(splitDate) ?? [];
+          //console.log('dodaje: ', v.from);
+          vs.push(v);
+          this.visitMap.set(splitDate, vs);
+        } else {
+         // console.log('usuwam: ', v.from);
+          const index = visits.indexOf(v, 0);
+          if (index > -1) {
+            visits.splice(index, 1);
+          }
+        }*/
+
+        /*
+
+
+
+
+        if (this.isVisitDateFuture(v)){
+          const vs = this.visitMap.get(splitDate) ?? [];
+          console.log('dodaje: ', v.from);
+          vs.push(v);
+          this.visitMap.set(splitDate, vs);
+        }
+        else {
+          console.log('usuwam: ', v.from);
+          const index = visits.indexOf(v, 0);
+          if (index > -1) {
+            visits.splice(index, 1);
+          }
+        }*/
+        if (v.from > this.currentDate){
+          const vs = this.visitMap.get(splitDate) ?? [];
+          vs.push(v);
+          this.visitMap.set(splitDate, vs);
+        }
       });
+
+      visits.forEach(v => {
+        if (v.from < this.currentDate){
+          const index = visits.indexOf(v, 0);
+          if (index > -1) {
+            visits.splice(index, 1);
+          }
+        } else {
+          console.log('zostaje: ', v.from);
+        }
+      });
+
       visits.map(this.buildAppointment).forEach(visit => {
         this.scheduler.addAppointment(visit);
       });
@@ -288,14 +409,6 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
-  ngOnDestroy(): void {
-    // this.authService.clearDoctor();
-  }
-
-
-  ngAfterViewInit(): void {
-  }
-
   buildAppointment(visit: Visit): any {
     return {
       subject: ' ',
@@ -305,64 +418,12 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
       draggable: false,
       readOnly: true,
       description: visit.id.toString(),
-    };
+      };
   }
 
+  onAppointmentAdd(obj): void {}
 
-  editDialogCreate = (dialog, fields) => {
-    fields.repeatContainer.hide();
-    fields.timeZoneContainer.hide();
-    fields.colorContainer.hide();
-    fields.subjectContainer.hide();
-    fields.repeatContainer.hide();
-    fields.locationContainer.hide();
-    fields.fromContainer.hide();
-    fields.toContainer.hide();
-    fields.resourceContainer.hide();
-    fields.allDayContainer.hide();
-    fields.descriptionContainer.hide();
-    fields.repeatContainer.hide();
-    fields.statusLabel.html('Czy chcesz dodać swoją dyspozycyjność?');
-    fields.saveButton.on('click', () => {
-      this.availabilityDoctorService.add({
-        doctorId: this.authService.user.id,
-        to: this.addedAppointments.to.toString(),
-        from: this.addedAppointments.from.toString()
-      }).pipe(
-        catchError(() => {
-          this.scheduler.deleteAppointment(this.addedAppointments.id);
-          return of(null);
-        })
-      ).subscribe(response => {
-        if (response) {
-          this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'resizable', false);
-          this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'draggable', false);
-          this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'readOnly', false);
-          this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'subject', 'Dostępny');
-          this.scheduler.setAppointmentProperty(this.addedAppointments.id, 'description', response.id.toString());
-          this.scheduler.addAppointment(this.addedAppointments);
-        }
-      });
-    });
-    fields.status.hide();
-  };
-
-  editDialogOpen = (dialog, fields, editAppointment) => {
-    fields.repeatContainer.hide();
-    fields.statusLabel.html('Czy na pewno chcesz usunąć dyspozycyjność?');
-  };
-
-  editDialogClose = (dialog, fields, editAppointment) => {
-  };
-
-  onAppointmentAdd(obj): void {
-    this.addedAppointments = obj.args.appointment;
-  }
-
-
-  onAppointmentDelete(obj): void {
-    this.availabilityDoctorService.deleteById(obj.args.appointment.description).subscribe(() => {});
-  }
+  onAppointmentDelete(obj): void {}
 
   isDateSelected(): boolean {
     if (this.selectedDate === undefined) {
@@ -388,6 +449,91 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
     }
   }
 
+  setCurrentTime(): void{
+    /*this.currentDate = '2021-08-26 09:15:00';
+    this.currentHour = 9;
+    this.currentMinute = 18;*/
+
+    this.currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss');
+    this.currentHour = new Date().getHours();
+    this.currentMinute = new Date().getMinutes();
+  }
+
+  /*
+    sprawdza czy wizyta ma przyszłą godzinę
+   */
+  isVisitTimeFuture(splitHour: string): boolean{
+    const splittedTime = splitHour.split(':');
+    const splittedHour = splittedTime[0];
+    const splittedMinute = splittedTime[1];
+
+    if (Number(splittedHour) < Number(this.currentHour)){
+      // console.log('odrzucam ', splittedHour, ':', splittedMinute);
+      return false;
+    }
+    else if (Number(splittedHour) === Number(this.currentHour)){
+      if (Number(splittedMinute) <= Number(this.currentMinute)){
+        // console.log('odrzucam ', splittedHour, ':', splittedMinute);
+        return false;
+      } else {
+        return true;
+      }
+    }
+    return true;
+  }
+
+  /*
+    sprawdza czy wizyta ma przyszłą datę
+   */
+  isVisitDateFuture(visit: Visit): boolean {
+    const splitDate = visit.from.split(' ')[0];
+    const splitTime = visit.from.split(' ')[1];
+
+    const splittedDate = splitDate.split('-');
+    const splittedDay = splittedDate[2];
+    const splittedMonth = splittedDate[1];
+
+    const tempDate = this.currentDate.split('-');
+    const currentDay = tempDate[2];
+    const currentMonth = tempDate[1];
+
+    if (Number(splittedMonth) < Number(currentMonth)){
+      return false;
+    } else if (Number(splittedMonth) === Number(currentMonth)){
+      if (Number(splittedDay) < Number(currentDay)){
+        return false;
+      } else if (Number(splittedDay) === Number(currentDay)){
+
+        const splittedTime = splitTime.split(':');
+        const splittedHour = splittedTime[0];
+        const splittedMinute = splittedTime[1];
+
+        if (Number(splittedHour) < Number(this.currentHour)){
+          // console.log('odrzucam ', splittedHour, ':', splittedMinute);
+          return false;
+        }
+        else if (Number(splittedHour) === Number(this.currentHour)){
+          if (Number(splittedMinute) <= Number(this.currentMinute)){
+            // console.log('odrzucam ', splittedHour, ':', splittedMinute);
+            return false;
+          } else {
+            return true;
+          }
+        }
+        return true;
+
+
+       /* return this.isVisitTimeFuture(splitTime);*/
+      }
+      else {
+        return true;
+      }
+    } else {
+      return true;
+    }
+  }
+
+
   registerAppointment(): void {
     this.submitted = true;
 
@@ -403,8 +549,6 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
     }).subscribe();
 
     console.log('rejestruje sie');
-    console.log(this.selectedDate);
-    console.log(this.selectedVisit);
-    console.log(this.selectedServiceId);
+
   }
 }

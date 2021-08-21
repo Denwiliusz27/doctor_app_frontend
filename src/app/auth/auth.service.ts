@@ -60,5 +60,6 @@ export class AuthService{
 
   public logout(): void{
     this.appStorageService.clearUser();
+    this.router.navigate(['']);
   }
 }

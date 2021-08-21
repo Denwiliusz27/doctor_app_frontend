@@ -50,6 +50,7 @@ import { FindDoctorsComponent } from './find-doctors/find-doctors.component';
 import { DoctorOverviewSiteComponent } from './doctor-overview-site/doctor-overview-site.component';
 import {CustomPipeDate} from './pipes/date.pipe';
 import {CustomPipeTime} from './pipes/time.pipe';
+import {DatePipe} from '@angular/common';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [UserIsNotLoggedGuard]},
@@ -119,10 +120,8 @@ const routes: Routes = [
     FormsModule
   ],
   providers: [
-/*
-    {provide: MY_AWESOME_SERVICE_STORAGE, useExisting: LOCAL_STORAGE},
-*/
-   /* DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService*/],
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
