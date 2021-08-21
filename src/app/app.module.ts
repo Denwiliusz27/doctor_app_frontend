@@ -48,6 +48,8 @@ import {jqxButtonModule} from 'jqwidgets-ng/jqxbuttons';
 import {jqxSchedulerModule} from 'jqwidgets-ng/jqxscheduler';
 import { FindDoctorsComponent } from './find-doctors/find-doctors.component';
 import { DoctorOverviewSiteComponent } from './doctor-overview-site/doctor-overview-site.component';
+import {CustomPipeDate} from './pipes/date.pipe';
+import {CustomPipeTime} from './pipes/time.pipe';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [UserIsNotLoggedGuard]},
@@ -89,6 +91,8 @@ const routes: Routes = [
     TestsComponent,
     FindDoctorsComponent,
     DoctorOverviewSiteComponent,
+    CustomPipeDate,
+    CustomPipeTime
   ],
   imports: [
     MatFormFieldModule,

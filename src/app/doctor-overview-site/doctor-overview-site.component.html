@@ -96,7 +96,7 @@
                           (onAppointmentAdd)="onAppointmentAdd($event)"
                           (onAppointmentDelete)="onAppointmentDelete($event)"
                           [date]="date"
-                          [width]="550"
+                          [width]="600"
                           [height]="450"
                           [source]="dataAdapter"
                           [showLegend]="true"
@@ -119,10 +119,10 @@
                 <div class="appointment-reservation-date-selectbox-section">
                   <label>
                     <select class="appointment-reservation-date-selectbox" [(ngModel)]="selectedDate"
-                            (ngModelChange)="onSelectDate()" [class.login-and-registration-error-border]="(submitted && !isDateSelected())"
+                            [class.login-and-registration-error-border]="(submitted && !isDateSelected())"
                             formControlName="dateFrom" id="dateFrom">
                       <option class="input-disabled-option" disabled selected value="undefined">data</option>
-                      <option *ngFor="let date of dates">{{date}}</option>
+                      <option *ngFor="let date of visitMap | keyvalue" [value]="date.key">{{date.key | customPipeDate}}</option>
                     </select>
                     <div class="login-and-registration-error" *ngIf="submitted && !isDateSelected()">
                       <p>nie wybrano daty</p>
@@ -130,11 +130,11 @@
                   </label>
 
                   <label>
-                    <select class="appointment-reservation-date-selectbox" [(ngModel)]="selectedHour"
-                            (ngModelChange)="onSelectHour()" [class.login-and-registration-error-border]="(submitted && !isHourSelected())"
+                    <select class="appointment-reservation-date-selectbox" [(ngModel)]="selectedVisit"
+                            [class.login-and-registration-error-border]="(submitted && !isHourSelected())"
                             formControlName="dateTo" id="dateTo">
                       <option class="input-disabled-option" disabled selected value="undefined">godzina</option>
-                      <option *ngFor="let hour of hours">{{hour}}</option>
+                      <option *ngFor="let v of visitMap.get(selectedDate)" [value]="v.id">{{v.from | customPipeTime}} - {{v.to | customPipeTime}}</option>
                     </select>
                     <div class="login-and-registration-error" *ngIf="submitted && !isHourSelected()">
                       <p>nie wybrano godziny</p>
@@ -148,10 +148,10 @@
               <div class="appointment-reservation-service-selectbox-section">
                 <label>
                   <select class="appointment-reservation-service-selectbox" [(ngModel)]="selectedServiceId"
-                          (ngModelChange)="onSelectService()" [class.login-and-registration-error-border]="(submitted && !isServiceSelected())"
+                          [class.login-and-registration-error-border]="(submitted && !isServiceSelected())"
                           formControlName="serviceId" id="serviceId">
                     <option class="input-disabled-option" disabled selected value="undefined">rodzaj wizyty</option>
-                    <option *ngFor="let service of doctor.doctorServices">{{service.medicalService.name}} ({{service.price}} zł)</option>
+                    <option *ngFor="let service of doctor.doctorServices" [value]="service.medicalService.id">{{service.medicalService.name}} ({{service.price}} zł)</option>
                   </select>
                   <div class="login-and-registration-error" *ngIf="submitted && !isServiceSelected()">
                     <p>nie wybrano rodzaju usługi</p>

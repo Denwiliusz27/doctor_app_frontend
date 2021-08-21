@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {of, Subscription} from 'rxjs';
 import {catchError, filter, mergeMap, tap} from 'rxjs/operators';
-import {Doctor} from '../model/user/user';
+import {Doctor, Patient} from '../model/user/user';
 import {Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {FindDoctorsService} from '../services/find-doctors.service';
@@ -10,6 +10,8 @@ import {View} from '@syncfusion/ej2-angular-schedule';
 import {AvailabilityDoctorService} from '../services/availability-doctor.service';
 import {AvailabilityDoctor} from '../model/availability-doctor/availability-doctor';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {VisitService} from '../services/visit.service';
+import {Visit} from '../model/visit/visit';
 
 @Component({
   selector: 'app-doctor-overview-site',
@@ -25,7 +27,7 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
   submitted = false;
   selectedServiceId: number;
   selectedDate: string;
-  selectedHour: string;
+  selectedVisit: number;
   dates: string[] = ['02.09', '04.09', '05.09'];
   hours: string[] = ['10:30', '11:30', '12:00', '15:00'];
 
@@ -94,7 +96,7 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
     [
       {
         type: 'weekView',
-        showWeekends: false,
+        showWeekends: true,
         timeRuler: {
           scale: 'half-hour', formatString: 'HH:mm',
           scaleStartHour: 8, scaleEndHour: 20,
@@ -102,7 +104,7 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
         }, workTime:
           {
             fromDayOfWeek: 1,
-            toDayOfWeek: 6,
+            toDayOfWeek: 5,
             fromHour: 7,
             toHour: 21
           }
@@ -233,34 +235,35 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
 
 
 
-
+  visitMap = new Map<string, Visit[]>();
 
 
 
   constructor(private router: Router, private authService: AuthService, private findDoctorService: FindDoctorsService,
-              private readonly availabilityDoctorService: AvailabilityDoctorService) {}
+              private readonly availabilityDoctorService: AvailabilityDoctorService, private visitService: VisitService) {}
 
   ngOnInit(): void {
     this.doctor = this.authService.doctor;
-    /*this.subscription = this.displayDoctorOverviewSiteService.displayParams$
-      .pipe(
-        filter(Boolean),
-        tap(({doctor}) => {
-          this.doctor = doctor;
-          console.log(doctor.phoneNumber);
-          console.log(doctor.description);
+    if (this.doctor.phoneNumber){
+      this.isPhoneNumberGiven = true;
+    }
+    if (this.doctor.description){
+      this.isDescriptionGiven = true;
+    }
 
-          if (doctor.phoneNumber){
-            this.isPhoneNumberGiven = true;
-          }
-          if (doctor.description){
-            this.isDescriptionGiven = true;
-          }
-        }),
-        mergeMap(({doctor}) => {
-          return doctor;
-        })
-      ).subscribe();*/
+    this.visitService.getFreeVisitsByDoctorId(this.doctor.id).subscribe(visits => {
+      visits.forEach(v => {
+        const splitDate = v.from.split(' ')[0];
+        const vs = this.visitMap.get(splitDate) ?? [];
+        vs.push(v);
+        this.visitMap.set(splitDate, vs);
+      });
+      visits.map(this.buildAppointment).forEach(visit => {
+        this.scheduler.addAppointment(visit);
+      });
+      console.log(this.visitMap);
+    });
+
   }
 
   get currentFormControls(): {
@@ -286,32 +289,22 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.authService.clearDoctor();
-/*
-    this.subscription.unsubscribe();
-*/
+    // this.authService.clearDoctor();
   }
-
-
-
-
-
-
-
 
 
   ngAfterViewInit(): void {
   }
 
-  buildAppointment(availabilityDoctor: AvailabilityDoctor): any {
+  buildAppointment(visit: Visit): any {
     return {
-      subject: 'Dostępny',
-      start: new Date(availabilityDoctor.from),
-      end: new Date(availabilityDoctor.to),
+      subject: ' ',
+      start: new Date(visit.from),
+      end: new Date(visit.to),
       resizable: false,
       draggable: false,
-      readOnly: false,
-      description: availabilityDoctor.id.toString(),
+      readOnly: true,
+      description: visit.id.toString(),
     };
   }
 
@@ -360,16 +353,6 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
   };
 
   editDialogClose = (dialog, fields, editAppointment) => {
-    // console.log(dialog);
-    // console.log(editAppointment);
-    // console.log('dialog close');
-    // console.log(dialog);
-    // console.log(fields);
-    // console.log(editAppointment);
-    // console.log(fields.subject.val());
-    // console.log(fields.from.val());
-    // console.log(fields.to.val());
-    // console.log(this.appointments);
   };
 
   onAppointmentAdd(obj): void {
@@ -381,10 +364,6 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
     this.availabilityDoctorService.deleteById(obj.args.appointment.description).subscribe(() => {});
   }
 
-  onSelectDate(): void {
-    console.log(this.selectedDate);
-  }
-
   isDateSelected(): boolean {
     if (this.selectedDate === undefined) {
       return false;
@@ -393,20 +372,12 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSelectHour(): void {
-    console.log(this.selectedHour);
-  }
-
   isHourSelected(): boolean{
-    if (this.selectedHour === undefined) {
+    if (this.selectedVisit === undefined) {
       return false;
     } else {
       return true;
     }
-  }
-
-  onSelectService(): void {
-    console.log(this.selectedServiceId);
   }
 
   isServiceSelected(): boolean {
@@ -425,9 +396,15 @@ export class DoctorOverviewSiteComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.visitService.updateVisit({
+      id: this.selectedVisit,
+      patientId: (this.authService.user as Patient).id,
+      serviceId: this.selectedServiceId
+    }).subscribe();
+
     console.log('rejestruje sie');
     console.log(this.selectedDate);
-    console.log(this.selectedHour);
+    console.log(this.selectedVisit);
     console.log(this.selectedServiceId);
   }
 }

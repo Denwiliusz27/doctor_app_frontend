@@ -418,7 +418,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .doctor-overview-site-content {
-  margin: 50px 30px 50px 30px ;
+  margin: 50px 15px 0 15px ;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -557,7 +557,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   top: 55px;
   right: 51.5%;
   transform: translate(50%, 0);
-  width: 535px;
+  width: 580px;
   min-width: 535px;
   height: 397px;
   background-color: red;
