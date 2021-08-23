@@ -1,6 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {of, Subscription} from 'rxjs';
-import {catchError, filter, mergeMap, tap} from 'rxjs/operators';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Doctor, Patient} from '../model/user/user';
 import {Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
@@ -8,7 +6,6 @@ import {FindDoctorsService} from '../services/find-doctors.service';
 import {jqxSchedulerComponent} from 'jqwidgets-ng/jqxscheduler';
 import {View} from '@syncfusion/ej2-angular-schedule';
 import {AvailabilityDoctorService} from '../services/availability-doctor.service';
-import {AvailabilityDoctor} from '../model/availability-doctor/availability-doctor';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {VisitService} from '../services/visit.service';
 import {Visit} from '../model/visit/visit';
@@ -23,8 +20,9 @@ export class DoctorOverviewSiteComponent implements OnInit {
   doctor: Doctor;
   isPhoneNumberGiven = false;
   isDescriptionGiven = false;
-  options: string[] = ['lekarze', 'wizyty', 'wyniki'];
+  options: string[] = ['wizyty', 'znajdź lekarzy' /*'wyniki'*/];
 
+  registrationAccepted = false;
   submitted = false;
   selectedServiceId: number;
   selectedDate: string;
@@ -243,124 +241,8 @@ export class DoctorOverviewSiteComponent implements OnInit {
 
     this.visitService.getFreeVisitsByDoctorId(this.doctor.id).subscribe(visits => {
       visits.forEach(v => {
-        // console.log(v.from);
-
         const splitDate = v.from.split(' ')[0];
 
- /*       // const splitDate = visit.from.split(' ')[0];
-        const splitTime = v.from.split(' ')[1];
-
-        const splittedDate = splitDate.split('-');
-        const splittedDay = splittedDate[2];
-        const splittedMonth = splittedDate[1];
-
-        const tempDate = this.currentDate.split('-');
-        const currentDay = tempDate[2];
-        const currentMonth = tempDate[1];
-
-        const splittedTime = splitTime.split(':');
-        const splittedHour = splittedTime[0];
-        const splittedMinute = splittedTime[1];
-
-        // let add: boolean;
-
-        const add = true;*/
-
-        // console.log(v.from);
-        // console.log(this.currentDate);
-        // console.log(v.from, ' > ', this.currentDate);
-
-
-
-        /*// if (v.from > this.currentDate){
-        console.log(v.from, ' > ', this.currentDate);
-        const vs = this.visitMap.get(splitDate) ?? [];
-        console.log('dodaje: ', v.from);
-        vs.push(v);
-        this.visitMap.set(splitDate, vs);*/
-        /*} else {
-          console.log('usuwam: ', v.from);
-          const index = visits.indexOf(v, 0);
-          if (index > -1) {
-            visits.splice(index, 1);
-          }
-        }*/
-
-
-
-
-
-
-
-        /*if (Number(splittedMonth) < Number(currentMonth)){
-          add = false;
-        } else if (Number(splittedMonth) === Number(currentMonth)){
-          if (Number(splittedDay) < Number(currentDay)){
-            add =  false;
-          } else if (Number(splittedDay) === Number(currentDay)){
-/!*
-            const splittedTime = splitTime.split(':');
-            const splittedHour = splittedTime[0];
-            const splittedMinute = splittedTime[1];*!/
-
-           //console.log('Day: ', splittedDay);
-
-            if (Number(splittedHour) < Number(this.currentHour)){
-              //console.log('odrzucam h ', splittedHour, ':', splittedMinute);
-              add =  false;
-            }
-            else if (Number(splittedHour) === Number(this.currentHour)){
-              if (Number(splittedMinute) <= Number(this.currentMinute)){
-               // console.log('odrzucam m ', splittedHour, ':', splittedMinute);
-                add =  false;
-              } else {
-                add =  true;
-              }
-            } else {
-              add =  true;
-            }
-
-
-            /!* return this.isVisitTimeFuture(splitTime);*!/
-          }
-          else {
-            add =  true;
-          }
-        } else {
-          add =  true;
-        }
-
-        if (add) {
-          const vs = this.visitMap.get(splitDate) ?? [];
-          //console.log('dodaje: ', v.from);
-          vs.push(v);
-          this.visitMap.set(splitDate, vs);
-        } else {
-         // console.log('usuwam: ', v.from);
-          const index = visits.indexOf(v, 0);
-          if (index > -1) {
-            visits.splice(index, 1);
-          }
-        }*/
-
-        /*
-
-
-
-
-        if (this.isVisitDateFuture(v)){
-          const vs = this.visitMap.get(splitDate) ?? [];
-          console.log('dodaje: ', v.from);
-          vs.push(v);
-          this.visitMap.set(splitDate, vs);
-        }
-        else {
-          console.log('usuwam: ', v.from);
-          const index = visits.indexOf(v, 0);
-          if (index > -1) {
-            visits.splice(index, 1);
-          }
-        }*/
         if (v.from > this.currentDate){
           const vs = this.visitMap.get(splitDate) ?? [];
           vs.push(v);
@@ -375,7 +257,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
             visits.splice(index, 1);
           }
         } else {
-          console.log('zostaje: ', v.from);
+         //  console.log('zostaje: ', v.from);
         }
       });
 
@@ -384,7 +266,6 @@ export class DoctorOverviewSiteComponent implements OnInit {
       });
       console.log(this.visitMap);
     });
-
   }
 
   get currentFormControls(): {
@@ -398,7 +279,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
       this.router.navigateByUrl('/pacjent-wizyty');
     } else if (option === 'wyniki') {
       this.router.navigateByUrl('/pacjent-wyniki-badań');
-    } else if (option === 'lekarze') {
+    } else if (option === 'znajdź lekarzy') {
       this.findDoctorService.searchDoctors(undefined, undefined);
       this.router.navigateByUrl('/znajdź-lekarzy');
     }
@@ -425,6 +306,10 @@ export class DoctorOverviewSiteComponent implements OnInit {
 
   onAppointmentDelete(obj): void {}
 
+  onSelectDate() {
+    this.selectedVisit = undefined;
+  }
+
   isDateSelected(): boolean {
     if (this.selectedDate === undefined) {
       return false;
@@ -450,89 +335,9 @@ export class DoctorOverviewSiteComponent implements OnInit {
   }
 
   setCurrentTime(): void{
-    /*this.currentDate = '2021-08-26 09:15:00';
-    this.currentHour = 9;
-    this.currentMinute = 18;*/
-
     this.currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss');
-    this.currentHour = new Date().getHours();
-    this.currentMinute = new Date().getMinutes();
+    // this.currentDate = '2021-08-23 09:15:00';
   }
-
-  /*
-    sprawdza czy wizyta ma przyszłą godzinę
-   */
-  isVisitTimeFuture(splitHour: string): boolean{
-    const splittedTime = splitHour.split(':');
-    const splittedHour = splittedTime[0];
-    const splittedMinute = splittedTime[1];
-
-    if (Number(splittedHour) < Number(this.currentHour)){
-      // console.log('odrzucam ', splittedHour, ':', splittedMinute);
-      return false;
-    }
-    else if (Number(splittedHour) === Number(this.currentHour)){
-      if (Number(splittedMinute) <= Number(this.currentMinute)){
-        // console.log('odrzucam ', splittedHour, ':', splittedMinute);
-        return false;
-      } else {
-        return true;
-      }
-    }
-    return true;
-  }
-
-  /*
-    sprawdza czy wizyta ma przyszłą datę
-   */
-  isVisitDateFuture(visit: Visit): boolean {
-    const splitDate = visit.from.split(' ')[0];
-    const splitTime = visit.from.split(' ')[1];
-
-    const splittedDate = splitDate.split('-');
-    const splittedDay = splittedDate[2];
-    const splittedMonth = splittedDate[1];
-
-    const tempDate = this.currentDate.split('-');
-    const currentDay = tempDate[2];
-    const currentMonth = tempDate[1];
-
-    if (Number(splittedMonth) < Number(currentMonth)){
-      return false;
-    } else if (Number(splittedMonth) === Number(currentMonth)){
-      if (Number(splittedDay) < Number(currentDay)){
-        return false;
-      } else if (Number(splittedDay) === Number(currentDay)){
-
-        const splittedTime = splitTime.split(':');
-        const splittedHour = splittedTime[0];
-        const splittedMinute = splittedTime[1];
-
-        if (Number(splittedHour) < Number(this.currentHour)){
-          // console.log('odrzucam ', splittedHour, ':', splittedMinute);
-          return false;
-        }
-        else if (Number(splittedHour) === Number(this.currentHour)){
-          if (Number(splittedMinute) <= Number(this.currentMinute)){
-            // console.log('odrzucam ', splittedHour, ':', splittedMinute);
-            return false;
-          } else {
-            return true;
-          }
-        }
-        return true;
-
-
-       /* return this.isVisitTimeFuture(splitTime);*/
-      }
-      else {
-        return true;
-      }
-    } else {
-      return true;
-    }
-  }
-
 
   registerAppointment(): void {
     this.submitted = true;
@@ -547,8 +352,36 @@ export class DoctorOverviewSiteComponent implements OnInit {
       patientId: (this.authService.user as Patient).id,
       serviceId: this.selectedServiceId
     }).subscribe();
+    this.registrationAccepted = true;
 
-    console.log('rejestruje sie');
+    /*this.authService.setSelectedVisitId(this.selectedVisit);
+    console.log('id: ', this.authService.visitId);
+    console.log('rejestruje sie');*/
+
+    (async () => {
+      const response = await this.setVisit();
+      console.log('ustawilem');
+    })();
+
+    setTimeout(() => {
+      /*this.visitService.getVisitById(this.selectedVisit).subscribe( response => {
+        this.authService.setSelectedVisit(response);
+        console.log('wizyta: ', this.authService.visit);
+      });*/
+      this.router.navigateByUrl('/wizyta-pacjenta');
+    }, 2000);
+  }
+
+  setVisit(): any {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.visitService.getVisitById(this.selectedVisit).subscribe( response => {
+          this.authService.setSelectedVisit(response);
+          console.log('wizyta: ', this.authService.visit);
+        });
+      }, 1000);
+    });
+
 
   }
 }

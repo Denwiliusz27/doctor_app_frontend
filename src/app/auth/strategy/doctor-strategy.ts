@@ -30,6 +30,9 @@ export class DoctorStrategy implements UserStrategy<Doctor> {
 
   findAllDoctors(): Observable<Doctor[]> {
     return this.http.get<Doctor[]>(`${serverUrl}/doctors/all`);
+  }
 
+  findDoctorById(doctorId: number): Observable<Doctor> {
+    return this.http.get<Doctor>(`${serverUrl}/doctors/id?id=${doctorId}`);
   }
 }

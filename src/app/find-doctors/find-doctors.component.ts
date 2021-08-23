@@ -19,7 +19,7 @@ export class FindDoctorsComponent implements OnInit, OnDestroy {
   selectedSpecializationId: number;
   readonly specializations$ = this.specializationService.specializations$; // lista specjalizacji
   selectedCityId: number;
-  options: string[] = ['wizyty', 'wyniki'];
+  options: string[] = ['wizyty', 'znajdź lekarzy' /*'wyniki'*/];
   doctors: Doctor[] = [];
   subscription: Subscription;
 
@@ -61,6 +61,9 @@ export class FindDoctorsComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/pacjent-wizyty');
     } else if (option === 'wyniki') {
       this.router.navigateByUrl('/pacjent-wyniki-badań');
+    } else if (option === 'znajdź lekarzy') {
+      this.findDoctorService.searchDoctors(this.selectedCityId, this.selectedSpecializationId);
+      this.router.navigateByUrl('/znajdź-lekarzy');
     }
     console.log('przekierowuje do ' + option);
   }

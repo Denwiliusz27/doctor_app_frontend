@@ -24,6 +24,11 @@ export class MedicalServices {
     return this.http.get<MedicalService[]>(`${serverUrl}/medical-services/specialization/${id}`);
   }
 
+  public findByMedicalServiceId(id: number): Observable<MedicalService> {
+    return this.http.get<MedicalService>(`${serverUrl}/medical-services/id/${id}`);
+
+  }
+
   constructor(private readonly http: HttpClient) {
   }
 }

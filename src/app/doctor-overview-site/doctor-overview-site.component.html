@@ -8,12 +8,12 @@
         <div class="menu-element" *ngFor="let option of options" (click)="redirect(option)">
           <div id="blur"></div>
           <div class="icon">
-            <mat-icon *ngIf="option == 'lekarze'">calendar_today</mat-icon>
             <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
-            <mat-icon *ngIf="option == 'wyniki'">description</mat-icon>
+            <mat-icon *ngIf="option == 'znajdź lekarzy'">supervisor_account</mat-icon>
+            <!--<mat-icon *ngIf="option == 'wyniki'">description</mat-icon>-->
           </div>
-          <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>
-          <p class="menu-element-text" *ngIf="option == 'lekarze'">znajdź lekarza</p>
+          <!--<p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>-->
+          <p class="menu-element-text" *ngIf="option == 'lekarze'">znajdź lekarzy</p>
           <p class="menu-element-text" *ngIf="option !== 'wyniki' && option !== 'lekarze'">{{option}}</p>
         </div>
       </div>
@@ -118,7 +118,7 @@
               <p>wybierz datę i godzinę wizyty:</p>
                 <div class="appointment-reservation-date-selectbox-section">
                   <label>
-                    <select class="appointment-reservation-date-selectbox" [(ngModel)]="selectedDate"
+                    <select class="appointment-reservation-date-selectbox" [(ngModel)]="selectedDate" (ngModelChange)="onSelectDate()"
                             [class.login-and-registration-error-border]="(submitted && !isDateSelected())"
                             formControlName="dateFrom" id="dateFrom">
                       <option class="input-disabled-option" disabled selected value="undefined">data</option>
@@ -162,6 +162,9 @@
               </div>
               <div class="appointment-reservation-button-section">
                 <button class="appointment-reservation-button" type="submit">zarezerwuj wizytę</button>
+              </div>
+              <div class="appointment-reservation-accepted" *ngIf="registrationAccepted">
+                <p>zarejestrowano pomyślnie</p>
               </div>
 
             </form>

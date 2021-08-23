@@ -10,11 +10,11 @@
         <div class="menu-element" *ngFor="let option of options" (click)="redirect(option)">
           <div id="blur"></div>
           <div class="icon">
-            <mat-icon *ngIf="option == 'lekarze'">calendar_today</mat-icon>
             <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
-            <mat-icon *ngIf="option == 'wyniki'">description</mat-icon>
+            <mat-icon *ngIf="option == 'znajdź lekarzy'">supervisor_account</mat-icon>
+            <!--<mat-icon *ngIf="option == 'wyniki'">description</mat-icon>-->
           </div>
-          <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>
+          <!--<p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>-->
           <p class="menu-element-text" *ngIf="option == 'lekarze'">znajdź lekarza</p>
           <p class="menu-element-text" *ngIf="option !== 'wyniki' && option !== 'lekarze'">{{option}}</p>
 
@@ -31,11 +31,18 @@
     </div>
     <div class="patient-main-site-content">
       <h1 class="page-header">wizyty</h1>
+      <div class="visit-list-content">
+        <div class="visit-list-visit-container" *ngFor="let visit of visits">
+          <p>wizyta</p>
+        </div>
+      </div>
 
-      <div class="homepage-text">
+
+
+      <!--<div class="homepage-text">
         <p>Zakładka 'wizyty' pozwala pacjentowi przeglądać nadchodzące wizyty oraz te, które już się odbyły, wraz z ich
           opisem oraz przypisanymi do nich wynikami.</p>
-      </div>
+      </div>-->
 
     </div>
   </div>

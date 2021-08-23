@@ -18,7 +18,7 @@ export class DoctorCalendarComponent implements AfterViewInit, OnInit {
   menuOptions: { name: string, url: string }[] = [
     {name: 'kalendarz', url: '/doktor-kalendarz'},
     {name: 'wizyty', url: '/doktor-wizyty'},
-    {name: 'wyniki', url: '/doktor-wyniki-badań'}
+    /*{name: 'wyniki', url: '/doktor-wyniki-badań'}*/
   ];
 
 

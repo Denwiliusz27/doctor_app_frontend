@@ -51,6 +51,7 @@ import { DoctorOverviewSiteComponent } from './doctor-overview-site/doctor-overv
 import {CustomPipeDate} from './pipes/date.pipe';
 import {CustomPipeTime} from './pipes/time.pipe';
 import {DatePipe} from '@angular/common';
+import { PatientVisitOverviewComponent } from './patient-visit-overview/patient-visit-overview.component';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [UserIsNotLoggedGuard]},
@@ -67,6 +68,7 @@ const routes: Routes = [
   {path: 'pacjent-wyniki-badań', component: PatientFindingsComponent, canActivate: [UserIsLoggedGuard]},
   {path: 'znajdź-lekarzy', component: FindDoctorsComponent, canActivate: [PatientGuard]},
   {path: 'strona-lekarza', component: DoctorOverviewSiteComponent, canActivate: [PatientGuard]},
+  {path: 'wizyta-pacjenta', component: PatientVisitOverviewComponent, canActivate: [PatientGuard]},
 
 ];
 
@@ -93,7 +95,8 @@ const routes: Routes = [
     FindDoctorsComponent,
     DoctorOverviewSiteComponent,
     CustomPipeDate,
-    CustomPipeTime
+    CustomPipeTime,
+    PatientVisitOverviewComponent
   ],
   imports: [
     MatFormFieldModule,

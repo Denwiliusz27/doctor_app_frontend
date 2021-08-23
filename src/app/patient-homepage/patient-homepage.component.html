@@ -11,9 +11,10 @@
           <div id="blur"></div>
           <div class="icon">
             <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
-            <mat-icon *ngIf="option == 'wyniki'">description</mat-icon>
+            <mat-icon *ngIf="option == 'znajdź lekarzy'">supervisor_account</mat-icon>
+            <!--<mat-icon *ngIf="option == 'wyniki'">description</mat-icon>-->
           </div>
-          <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>
+         <!-- <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>-->
           <p class="menu-element-text" *ngIf="option !== 'wyniki'">{{option}}</p>
 
         </div>

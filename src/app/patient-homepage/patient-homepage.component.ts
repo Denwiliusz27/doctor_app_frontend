@@ -17,7 +17,7 @@ export class PatientHomepageComponent implements OnInit {
   selectedSpecializationId: number;
   readonly specializations$ = this.specializationStrategy.specializations$; // lista specjalizacji
   selectedCityId: number;
-  options: string[] = ['wizyty', 'wyniki'];
+  options: string[] = ['wizyty', 'znajdź lekarzy'/*, 'wyniki'*/];
   doctors: Doctor[] = [];
 
   constructor(private router: Router, private specializationStrategy: SpecializationService, private cityService: CityService,
@@ -31,6 +31,9 @@ export class PatientHomepageComponent implements OnInit {
       this.router.navigateByUrl('/pacjent-wizyty');
     } else if (option === 'wyniki') {
       this.router.navigateByUrl('/pacjent-wyniki-badań');
+    } else if (option === 'znajdź lekarzy') {
+      this.findDoctorService.searchDoctors(this.selectedCityId, this.selectedSpecializationId);
+      this.router.navigateByUrl('/znajdź-lekarzy');
     }
     console.log('przekierowuje do ' + option);
   }

@@ -345,23 +345,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .doctors-list {
-  margin: 0 30px 0 30px ;
+/*  margin: 0 30px 0 30px ;*/
+  width: 700px;
+  margin: 0 auto 0 auto;
 }
 
 .doctor-overview-container {
   border: 3px solid #1342e8;
   border-radius: 15px;
   padding: 20px;
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: stretch;
+  /* margin-bottom: 15px;
+
+ /*display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   align-items: stretch;*/
+  margin: 0 auto 15px auto;
+
 }
 
 .doctor-description-section {
-  width: 45%;
+  /*width: 45%;*/
 }
 
 .doctor-description-section p {
@@ -656,6 +661,101 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-radius: 7px;
   cursor: pointer;
   letter-spacing: 5px;
+}
+
+.appointment-reservation-accepted {
+  font-size: 26px !important;
+  text-shadow: 2px 2px 2px black !important;
+  font-weight: bold;
+  position: relative;
+}
+
+.appointment-reservation-accepted p {
+  color: green !important;
+}
+
+
+.visit-site-content {
+  margin: 50px 15px 0 15px ;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
+.visit-site-visit-container {
+  border: 3px solid #1342e8;
+  padding: 40px 40px 0 40px;
+  border-radius: 15px;
+  width: 600px;
+  min-width: 400px;
+}
+
+.visit-site-visit-header-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.visit-site-visit-header-text {
+  flex-grow: 1;
+  font-style: italic;
+  color: dimgray;
+  font-size: 32px !important;
+  font-weight: bolder;
+}
+
+.visit-site-visit-header-text p {
+  margin: 0 !important;
+}
+
+.visit-site-visit-details-text {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0 15px 0;
+  padding-bottom: 20px;
+  line-height: 30px;
+  text-align: center;
+  font-style: italic;
+  color: #1342e8;
+  font-size: 26px !important;
+  font-weight: normal;
+}
+
+.visit-site-visit-details-text p {
+  margin: 0 !important;
+}
+.doctor-site-link {
+  font-weight: bolder;
+  transition: all 0.4s ease 0s;
+}
+
+.doctor-site-link:hover {
+  cursor: pointer;
+  letter-spacing: 5px;
+}
+
+.visit-list-content {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.visit-list-visit-container {
+  border: 3px solid #1342e8;
+  margin: 20px 0 0 20px;
+  border-radius: 15px;
+  width: 600px;
+  min-width: 400px;
 }
 
 .calendar {

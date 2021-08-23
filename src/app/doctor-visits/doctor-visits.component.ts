@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./doctor-visits.component.css']
 })
 export class DoctorVisitsComponent implements OnInit {
-  menuOptions: string[] = ['kalendarz', 'wizyty', 'wyniki'];
+  menuOptions: string[] = ['kalendarz', 'wizyty'/*, 'wyniki'*/];
 
   constructor(private router: Router) { }
 

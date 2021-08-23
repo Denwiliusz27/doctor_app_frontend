@@ -19,6 +19,14 @@ export class VisitService {
   updateVisit(updateVisitRequest: UpdateVisitRequest): Observable<Visit>{
     return this.http.put<Visit>(`${serverUrl}/visits`, updateVisitRequest);
   }
+
+  getVisitById(visitId: number): Observable<Visit> {
+    return this.http.get<Visit>(`${serverUrl}/visits/id?visitId=${visitId}`);
+  }
+
+  getByPatientId(patientId: number): Observable<Visit[]>{
+    return this.http.get<Visit[]>(`${serverUrl}/visits/patient?patientId=${patientId}`);
+  }
 }
 
 

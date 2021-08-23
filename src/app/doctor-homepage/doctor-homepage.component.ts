@@ -9,7 +9,7 @@ import {AuthService} from '../auth/auth.service';
   styleUrls: ['./doctor-homepage.component.css']
 })
 export class DoctorHomepageComponent implements OnInit {
-  options: string[] = ['kalendarz', 'wizyty', 'wyniki'];
+  options: string[] = ['kalendarz', 'wizyty'/*, 'wyniki'*/];
   opened = false;
 
   @Output() public menuToggle = new EventEmitter();
