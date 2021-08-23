@@ -31,22 +31,11 @@ export class PatientVisitOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.newVisit = this.authService.visit;
-    console.log('wizyta zarezerwowana: ', this.visit);
-
-    /*this.visitService.getVisitWithDoctorById(this.visit.id).subscribe(res => {
-      this.newVisit = res;
-      console.log('nowa wizyta: ', res);
-    });*/
-
-    /*(async () => {
-      await this.setVisit();
-    })();*/
-
-    console.log('jestem tu');
+   /* console.log('wizyta zarezerwowana: ', this.newVisit);
+    console.log('jestem tu');*/
 
     this.doctor = this.authService.doctor;
 
-    // const docServ = this.doctor.doctorServices;
     const docServ = this.newVisit.doctor.doctorServices;
     docServ.forEach(serv => {
       if (serv.id === this.newVisit.medicalService.id) {
@@ -70,7 +59,7 @@ export class PatientVisitOverviewComponent implements OnInit {
       setTimeout(() => {
         this.visitService.getVisitWithDoctorById(this.visit.id).subscribe(res => {
           this.newVisit = res;
-          console.log('nowa wizyta: ', res);
+         // console.log('nowa wizyta: ', res);
         });
       }, 1000);
     });

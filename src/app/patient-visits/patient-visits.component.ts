@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FindDoctorsService} from '../services/find-doctors.service';
-import {Visit} from '../model/visit/visit';
+import {Visit, VisitWithDoctor} from '../model/visit/visit';
 import {VisitService} from '../services/visit.service';
 import {AuthService} from '../auth/auth.service';
 import {Doctor} from '../model/user/user';
@@ -19,35 +19,17 @@ export interface PatientVisit {
 })
 export class PatientVisitsComponent implements OnInit {
   options: string[] = ['wizyty', 'znajdź lekarzy' /*'wyniki'*/];
-  visits: Visit[];
+  visits: VisitWithDoctor[];
   patientVisits = new Map<Visit, Doctor>();
 
   constructor(private router: Router, private findDoctorService: FindDoctorsService, private authService: AuthService,
               private visitService: VisitService, private doctorService: DoctorStrategy) { }
 
   ngOnInit(): void {
-    this.visitService.getByPatientId(this.authService.user.id).subscribe(res => {
+    this.visitService.getVisitsWithDoctorByPatientId(this.authService.user.id).subscribe(res => {
       this.visits = res;
-
-      res.forEach(visit => {
-        console.log('wizyta: ', visit);
-        let doctor;
-        this.doctorService.findDoctorById(visit.doctorId).subscribe(response => {
-          doctor = response;
-        });
-        this.patientVisits.set(visit, doctor);
-        console.log('ta: ', this.patientVisits.get(visit));
+      // console.log('nowe wizyty: ', res);
     });
-      // console.log('vizyty: ', this.visits);
-    });
-
-    this.patientVisits.forEach(vis => {
-      console.log('mapa: ', vis);
-    });
-
-
-    console.log(this.patientVisits);
-
   }
 
   redirect(option: string): void {

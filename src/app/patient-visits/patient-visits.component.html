@@ -33,7 +33,10 @@
       <h1 class="page-header">wizyty</h1>
       <div class="visit-list-content">
         <div class="visit-list-visit-container" *ngFor="let visit of visits">
-          <p>wizyta</p>
+          <p>{{visit.doctor.name}} {{visit.doctor.surname}}</p>
+          <p>{{visit.medicalService.name}}</p>
+          <p>{{visit.from}}</p>
+          <p>{{visit.doctor.city.name}}, ul. {{visit.doctor.address}}</p>
         </div>
       </div>
 

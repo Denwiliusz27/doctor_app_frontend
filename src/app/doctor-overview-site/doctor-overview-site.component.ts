@@ -250,10 +250,15 @@ export class DoctorOverviewSiteComponent implements OnInit {
         }
       });
 
+      // console.log('obecna: ', this.currentDate);
+
       visits.forEach(v => {
+        // console.log('wizyty: ', v.from);
+
         if (v.from < this.currentDate){
           const index = visits.indexOf(v, 0);
           if (index > -1) {
+            // console.log('usuwam: ', v.from);
             visits.splice(index, 1);
           }
         } else {
@@ -335,6 +340,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
   }
 
   setCurrentTime(): void{
+    // this.currentDate = this.datePipe.transform(new Date(), 'MM d, y, H:mm');
     this.currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss');
     // this.currentDate = '2021-08-23 09:15:00';
   }
