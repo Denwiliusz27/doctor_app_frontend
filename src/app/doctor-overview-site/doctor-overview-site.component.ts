@@ -354,30 +354,48 @@ export class DoctorOverviewSiteComponent implements OnInit {
     }).subscribe();
     this.registrationAccepted = true;
 
-    /*this.authService.setSelectedVisitId(this.selectedVisit);
-    console.log('id: ', this.authService.visitId);
-    console.log('rejestruje sie');*/
+   /* (async () => {
+      await this.updateVisit();
+    })();*/
+
 
     (async () => {
-      const response = await this.setVisit();
-      console.log('ustawilem');
+      await this.setVisit();
     })();
 
+    console.log('vizyta z authServ: ', this.authService.visit);
+
+    /*this.visitService.getVisitWithDoctorById(this.selectedVisit).subscribe(res => {
+      console.log('nowa wizyta: ', res);
+    });*/
+
+
+
+
     setTimeout(() => {
-      /*this.visitService.getVisitById(this.selectedVisit).subscribe( response => {
-        this.authService.setSelectedVisit(response);
-        console.log('wizyta: ', this.authService.visit);
-      });*/
       this.router.navigateByUrl('/wizyta-pacjenta');
-    }, 2000);
+    }, 1000);
+  }
+
+  updateVisit(): any {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.visitService.updateVisit({
+          id: this.selectedVisit,
+          patientId: (this.authService.user as Patient).id,
+          serviceId: this.selectedServiceId
+        }).subscribe();
+        this.registrationAccepted = true;
+      }, 1000);
+    });
   }
 
   setVisit(): any {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        this.visitService.getVisitById(this.selectedVisit).subscribe( response => {
+        this.visitService.getVisitWithDoctorById(this.selectedVisit).subscribe( response => {
           this.authService.setSelectedVisit(response);
-          console.log('wizyta: ', this.authService.visit);
+          // console.log('wizyta: ', this.authService.visit);
         });
       }, 1000);
     });

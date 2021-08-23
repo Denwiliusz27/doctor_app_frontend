@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FindDoctorsService} from '../services/find-doctors.service';
 import {AuthService} from '../auth/auth.service';
-import {Visit} from '../model/visit/visit';
+import {Visit, VisitWithDoctor} from '../model/visit/visit';
 import {VisitService} from '../services/visit.service';
 import {Doctor} from '../model/user/user';
 import {DoctorServiceService} from '../services/doctor-service.service';
@@ -17,58 +17,63 @@ import {MedicalServices} from '../services/medical-services.service';
 })
 export class PatientVisitOverviewComponent implements OnInit {
   options: string[] = ['wizyty', 'znajdź lekarzy' /*'wyniki'*/];
-  selectedVisitId: number;
   visit: Visit;
+  newVisit: VisitWithDoctor;
   doctor: Doctor;
   medicalService;
   price;
   visitDate;
   visitTime;
-  visitMap = new Map<string, Visit[]>();
-
-
+  visitMap = new Map<string, VisitWithDoctor[]>();
 
   constructor(private router: Router,  private findDoctorService: FindDoctorsService, private authService: AuthService,
               private visitService: VisitService, private doctorService: DoctorStrategy, private medicalServices: MedicalServices) { }
 
   ngOnInit(): void {
-    /*this.visitService.getVisitById(this.authService.visitId).subscribe( response => {
-      this.authService.setSelectedVisit(response);
-      console.log('wizyta ze strony wizyty: ', this.authService.visit);
-    });*/
-
-    this.visit = this.authService.visit;
+    this.newVisit = this.authService.visit;
     console.log('wizyta zarezerwowana: ', this.visit);
 
-    /*this.doctorService.findDoctorById(this.visit.doctorId).subscribe(res => {
-      this.doctor = res;
-      console.log(this.doctor);
+    /*this.visitService.getVisitWithDoctorById(this.visit.id).subscribe(res => {
+      this.newVisit = res;
+      console.log('nowa wizyta: ', res);
     });*/
+
+    /*(async () => {
+      await this.setVisit();
+    })();*/
+
+    console.log('jestem tu');
 
     this.doctor = this.authService.doctor;
 
-    const docServ = this.doctor.doctorServices;
+    // const docServ = this.doctor.doctorServices;
+    const docServ = this.newVisit.doctor.doctorServices;
     docServ.forEach(serv => {
-      if (serv.medicalService.id === this.visit.medicalServiceId) {
+      if (serv.id === this.newVisit.medicalService.id) {
         this.medicalService = serv.medicalService;
         this.price = serv.price;
       }
-      console.log(serv.medicalService.id);
+      console.log(serv.id);
     });
 
-
-   /* this.medicalServices.findByMedicalServiceId(this.visit.medicalServiceId).subscribe(res => {
-      this.medicalService = res;
-      console.log(this.medicalService);
-    });*/
-
-    this.visitDate = this.visit.from.split(' ')[0];
-    this.visitTime = this.visit.from.split(' ')[1];
+    this.visitDate = this.newVisit.from.split(' ')[0];
+    this.visitTime = this.newVisit.from.split(' ')[1];
 
     const vs = this.visitMap.get(this.visitDate) ?? [];
-    vs.push(this.visit);
+    vs.push(this.newVisit);
     this.visitMap.set(this.visitDate, vs);
 
+  }
+
+  setVisit(): any {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.visitService.getVisitWithDoctorById(this.visit.id).subscribe(res => {
+          this.newVisit = res;
+          console.log('nowa wizyta: ', res);
+        });
+      }, 1000);
+    });
   }
 
   redirect(option: string): void {

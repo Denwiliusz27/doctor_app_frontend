@@ -10,7 +10,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {AppStorageService} from '../storage/app-storage.service';
 import {Router} from '@angular/router';
 import {serverUrl} from '../../environments/environment';
-import {Visit} from '../model/visit/visit';
+import {Visit, VisitWithDoctor} from '../model/visit/visit';
 import {VisitService} from '../services/visit.service';
 
 @Injectable()
@@ -34,7 +34,7 @@ export class AuthService{
     return this.appStorageService.visitId;
   }
 
-  get visit(): Visit {
+  get visit(): VisitWithDoctor {
     return this.appStorageService.visit;
   }
 
@@ -76,7 +76,7 @@ export class AuthService{
     this.appStorageService.clearVisitId();
   }
 
-  public setSelectedVisit(visit: Visit): void {
+  public setSelectedVisit(visit: VisitWithDoctor): void {
     this.appStorageService.setVisit(visit);
   }
 

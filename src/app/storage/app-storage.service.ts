@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
 import {Doctor, User} from '../model/user/user';
-import {Visit} from '../model/visit/visit';
+import {Visit, VisitWithDoctor} from '../model/visit/visit';
 
 @Injectable({providedIn: 'root'})
 export class AppStorageService {
@@ -48,7 +48,7 @@ export class AppStorageService {
     return this.storage.get(this.VISITID_KEY);
   }
 
-  public setVisit(v: Visit): void {
+  public setVisit(v: VisitWithDoctor): void {
     this.storage.set(this.VISIT_KEY, v);
   }
 
@@ -56,7 +56,7 @@ export class AppStorageService {
     this.storage.set(this.VISIT_KEY, null);
   }
 
-  get visit(): Visit {
+  get visit(): VisitWithDoctor {
     return this.storage.get(this.VISIT_KEY);
   }
 }

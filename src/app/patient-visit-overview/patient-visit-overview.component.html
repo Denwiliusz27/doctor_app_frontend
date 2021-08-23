@@ -38,8 +38,8 @@
             <div class="doctor-other-informations-line"></div>
           </div>
           <div class="visit-site-visit-details-text">
-            <p class="doctor-site-link" (click)="redirectToDoctorSite()" title="odwiedź stronę lekarza">{{doctor.name}} {{doctor.surname}}</p>
-            <p>{{doctor.specialization.name}}</p>
+            <p class="doctor-site-link" (click)="redirectToDoctorSite()" title="odwiedź stronę lekarza">{{newVisit.doctor.name}} {{newVisit.doctor.surname}}</p>
+            <p>{{newVisit.doctor.specialization.name}}</p>
           </div>
 
           <div class="visit-site-visit-header-section">
@@ -49,7 +49,7 @@
             <div class="doctor-other-informations-line"></div>
           </div>
           <div class="visit-site-visit-details-text">
-            <p>{{medicalService.name}} ({{price}} zł)</p>
+            <p>{{newVisit.medicalService.name}} ({{price}} zł)</p>
           </div>
 
           <div class="visit-site-visit-header-section">
