@@ -21,7 +21,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 50px 0 40px 0;
+  padding: 20px 0 40px 0;
   flex-wrap: wrap;
 }
 
@@ -85,8 +85,8 @@
   background-image: url(https://ocdn.eu/pulscms-transforms/1/m5vk9kuTURBXy8zNzljZDJiMC05NDBkLTQyZjEtODc0ZS1lZmEzMTIxNjA5OGUuanBlZ5KVAwAVzQPozQIzkwXNAwLNAZCBoTAF);
 }
 
-.doctor-homepage-option-box #wyniki  {
-  background-image: url(https://www.zikodlazdrowia.org/wp-content/uploads/2017/09/shutterstock_159015314.jpg);
+.doctor-homepage-option-box #pacjenci  {
+  background-image: url(https://cdn.crello.com/api/media/medium/220301970/stock-photo-smiling-asian-woman-crossed-arms);
 }
 
 .homepage-text {
@@ -94,8 +94,11 @@
   font-weight: bolder;
   font-family: Serif, sans-serif;
   color: black;
+  line-height: 28px;
   text-shadow: 1px 1px 1px black;
   margin: 0 auto 0 auto;
+  padding: 0 70px 0 70px;
+  text-align: justify;
 }
 
 mat-sidenav-container {

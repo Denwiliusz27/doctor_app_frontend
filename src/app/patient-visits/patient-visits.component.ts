@@ -21,6 +21,7 @@ export class PatientVisitsComponent implements OnInit {
   options: string[] = ['wizyty', 'znajdź lekarzy' /*'wyniki'*/];
   visits: VisitWithDoctor[];
   patientVisits = new Map<Visit, Doctor>();
+  logoutStatus = false;
 
   constructor(private router: Router, private findDoctorService: FindDoctorsService, private authService: AuthService,
               private visitService: VisitService, private doctorService: DoctorStrategy) { }
@@ -45,6 +46,7 @@ export class PatientVisitsComponent implements OnInit {
   }
 
   logout() {
-    console.log('wylogowuje');
+    this.logoutStatus = true;
+    this.authService.logout();
   }
 }

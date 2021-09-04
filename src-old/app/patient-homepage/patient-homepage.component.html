@@ -1,0 +1,67 @@
+<div class="backgroung-img"></div>
+
+<div class="home-page-content">
+
+  <div class="menu-container">
+    <div class="menu-content">
+      <a class="menu-main_site_link" routerLink="/pacjent-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+        <div class="menu-element" *ngFor="let option of options" (click)="redirect(option)">
+          <div id="blur"></div>
+          <div class="icon">
+            <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
+            <mat-icon *ngIf="option == 'znajdź lekarzy'">supervisor_account</mat-icon>
+            <!--<mat-icon *ngIf="option == 'wyniki'">description</mat-icon>-->
+          </div>
+         <!-- <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>-->
+          <p class="menu-element-text" *ngIf="option !== 'wyniki'">{{option}}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="homepage-main-site">
+    <div class="top-menu">
+      <div class="logout-button" (click)="logout()">
+        <p>wyloguj</p>
+      </div>
+    </div>
+    <div class="patient-main-site-content">
+      <h1 class="page-header">strona główna</h1>
+
+      <div class="find-doctor-selectbox">
+        <select class="find-doctor-select-element" [(ngModel)]="selectedCityId" >
+          <option class="input-disabled-option" disabled selected value="undefined">miasto</option>
+          <option *ngFor="let city of cities$ | async" [ngValue]="city.id">{{city.name}}</option>
+        </select>
+        <select class="find-doctor-select-element" [(ngModel)]="selectedSpecializationId">
+          <option class="input-disabled-option" disabled selected value="undefined">specjalizacja</option>
+          <option *ngFor="let specialization of specializations$ | async" [ngValue]="specialization.id">
+            {{specialization.name}}
+          </option>
+        </select>
+        <button class="find-doctor-button" (click)="findDoctors()">szukaj</button>
+      </div>
+
+      <!--<div class="patient-homepage-option-box">
+        <div id="{{option}}" *ngFor="let option of options" (click)="redirect(option)">
+          <p *ngIf="option === 'wyniki'">wyniki badań</p>
+          <p *ngIf="option !== 'wyniki'">{{option}}</p>
+        </div>
+      </div>-->
+
+      <div class="homepage-text">
+        <p>Strona przeznaczona jest dla osób poszukujących lekarzy oferujących usługi w największych miastach w
+          Polsce. Wyszukiwanie lekarzy danej specjalizacji stacjonujących w danym mieście odbywa sie poprzez wybór
+        odpowiednich opcji u góry strony.</p>
+        <p>W zakładce 'wizyty' pacjent ma możliwość przeglądania nadchodzących oraz odbytych wizyt.</p>
+        <p>Natomiast w zakładce 'wyniki' pacjent może przeglądać wystawione przez lekarzy wyniki badań.</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

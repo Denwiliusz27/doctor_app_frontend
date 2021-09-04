@@ -20,7 +20,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
   doctor: Doctor;
   isPhoneNumberGiven = false;
   isDescriptionGiven = false;
-  options: string[] = ['wizyty', 'znajdź lekarzy' /*'wyniki'*/];
+  options: string[] = ['wizyty', 'znajdź lekarzy'];
 
   registrationAccepted = false;
   submitted = false;
@@ -31,6 +31,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
   currentDate;
   currentHour;
   currentMinute;
+  logoutStatus = false;
 
   appointmentRegistrationFormGroup = new FormGroup({
     dateFrom: new FormControl('', [
@@ -241,30 +242,27 @@ export class DoctorOverviewSiteComponent implements OnInit {
 
     this.visitService.getFreeVisitsByDoctorId(this.doctor.id).subscribe(visits => {
       visits.forEach(v => {
-        const splitDate = v.from.split(' ')[0];
-
-        if (v.from > this.currentDate){
-          const vs = this.visitMap.get(splitDate) ?? [];
-          vs.push(v);
-          this.visitMap.set(splitDate, vs);
-        }
+        const splitDate = v.from.split('T')[0];
+        const vs = this.visitMap.get(splitDate) ?? [];
+        vs.push(v);
+        this.visitMap.set(splitDate, vs);
       });
 
       // console.log('obecna: ', this.currentDate);
-
-      visits.forEach(v => {
-        // console.log('wizyty: ', v.from);
-
-        if (v.from < this.currentDate){
-          const index = visits.indexOf(v, 0);
-          if (index > -1) {
-            // console.log('usuwam: ', v.from);
-            visits.splice(index, 1);
-          }
-        } else {
-         //  console.log('zostaje: ', v.from);
-        }
-      });
+      //
+      // visits.forEach(v => {
+      //   // console.log('wizyty: ', v.from);
+      //
+      //   if (v.from < this.currentDate){
+      //     const index = visits.indexOf(v, 0);
+      //     if (index > -1) {
+      //       // console.log('usuwam: ', v.from);
+      //       visits.splice(index, 1);
+      //     }
+      //   } else {
+      //    //  console.log('zostaje: ', v.from);
+      //   }
+      // });
 
       visits.map(this.buildAppointment).forEach(visit => {
         this.scheduler.addAppointment(visit);
@@ -292,6 +290,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
   }
 
   logout() {
+    this.logoutStatus = true;
     this.authService.logout();
   }
 
@@ -357,7 +356,12 @@ export class DoctorOverviewSiteComponent implements OnInit {
       id: this.selectedVisit,
       patientId: (this.authService.user as Patient).id,
       serviceId: this.selectedServiceId
-    }).subscribe();
+    }).subscribe(response => {
+      setTimeout(() => {
+        this.authService.setSelectedVisit(response.id);
+        this.router.navigateByUrl('/wizyta-pacjenta');
+      }, 1000);
+    });
     this.registrationAccepted = true;
 
    /* (async () => {
@@ -365,9 +369,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
     })();*/
 
 
-    (async () => {
-      await this.setVisit();
-    })();
+    // this.setVisit();
 
     console.log('vizyta z authServ: ', this.authService.visit);
 
@@ -377,10 +379,10 @@ export class DoctorOverviewSiteComponent implements OnInit {
 
 
 
-
+/*
     setTimeout(() => {
       this.router.navigateByUrl('/wizyta-pacjenta');
-    }, 1000);
+    }, 1000);*/
   }
 
   updateVisit(): any {
@@ -396,7 +398,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
     });
   }
 
-  setVisit(): any {
+ /* setVisit(): any {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         this.visitService.getVisitWithDoctorById(this.selectedVisit).subscribe( response => {
@@ -405,7 +407,5 @@ export class DoctorOverviewSiteComponent implements OnInit {
         });
       }, 1000);
     });
-
-
-  }
+*/
 }

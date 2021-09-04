@@ -22,6 +22,7 @@ export class FindDoctorsComponent implements OnInit, OnDestroy {
   options: string[] = ['wizyty', 'znajdź lekarzy' /*'wyniki'*/];
   doctors: Doctor[] = [];
   subscription: Subscription;
+  logoutStatus = false;
 
   constructor(private authService: AuthService, private cityService: CityService, private specializationService: SpecializationService,
               private doctorStrategy: DoctorStrategy, private findDoctorService: FindDoctorsService, private router: Router) { }
@@ -53,6 +54,7 @@ export class FindDoctorsComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+    this.logoutStatus = true;
     this.authService.logout();
   }
 

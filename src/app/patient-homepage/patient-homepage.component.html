@@ -12,9 +12,7 @@
           <div class="icon">
             <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
             <mat-icon *ngIf="option == 'znajdź lekarzy'">supervisor_account</mat-icon>
-            <!--<mat-icon *ngIf="option == 'wyniki'">description</mat-icon>-->
           </div>
-         <!-- <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>-->
           <p class="menu-element-text" *ngIf="option !== 'wyniki'">{{option}}</p>
 
         </div>
@@ -24,12 +22,15 @@
 
   <div class="homepage-main-site">
     <div class="top-menu">
+      <div class="logout-info" *ngIf="logoutStatus">
+        <p>wylogowano pomyślnie</p>
+      </div>
       <div class="logout-button" (click)="logout()">
         <p>wyloguj</p>
       </div>
     </div>
     <div class="patient-main-site-content">
-      <h1 class="page-header">strona główna</h1>
+      <h1 class="page-header">{{user.name}} {{user.surname}}</h1>
 
       <div class="find-doctor-selectbox">
         <select class="find-doctor-select-element" [(ngModel)]="selectedCityId" >
@@ -45,19 +46,12 @@
         <button class="find-doctor-button" (click)="findDoctors()">szukaj</button>
       </div>
 
-      <!--<div class="patient-homepage-option-box">
-        <div id="{{option}}" *ngFor="let option of options" (click)="redirect(option)">
-          <p *ngIf="option === 'wyniki'">wyniki badań</p>
-          <p *ngIf="option !== 'wyniki'">{{option}}</p>
-        </div>
-      </div>-->
-
       <div class="homepage-text">
         <p>Strona przeznaczona jest dla osób poszukujących lekarzy oferujących usługi w największych miastach w
           Polsce. Wyszukiwanie lekarzy danej specjalizacji stacjonujących w danym mieście odbywa sie poprzez wybór
         odpowiednich opcji u góry strony.</p>
         <p>W zakładce 'wizyty' pacjent ma możliwość przeglądania nadchodzących oraz odbytych wizyt.</p>
-        <p>Natomiast w zakładce 'wyniki' pacjent może przeglądać wystawione przez lekarzy wyniki badań.</p>
+        <p>Natomiast w zakładce 'znajdź lekarza' pacjent może przeglądać lekarzy danej specjalizacji z danego miasta.</p>
       </div>
 
     </div>

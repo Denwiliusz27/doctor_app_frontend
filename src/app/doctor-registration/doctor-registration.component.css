@@ -142,6 +142,12 @@ select:focus {
   font-style: normal;
 }
 
+.service-checkbox-price-header {
+  width: 150px;
+  margin-left: 60%;
+  font-style: normal;
+}
+
 .doctor-image-input {
   width: 60%;
   padding: 15px;

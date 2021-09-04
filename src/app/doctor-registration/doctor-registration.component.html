@@ -83,7 +83,8 @@
 
       <div class="service-checkbox" [class.login-and-registration-error-border]="(submitted && isServiceFormValid())"
            title="Należy zaznaczyć co najmniej jedną usługę" *ngIf="(!isSpecializationSelected())">
-        <p class="service-checkbox-header">Usługi:</p>
+        <p class="service-checkbox-header">usługi:</p>
+        <p class="service-checkbox-price-header">cena (zł):</p>
         <label class="service-checkbox-label" for="services" *ngFor="let medicalService of medicalServices$ | async">
           <input type="checkbox" required
                  (change)="addService(medicalService.id, $event.target.checked)" #serviceCheckboxes/>{{medicalService.name}}

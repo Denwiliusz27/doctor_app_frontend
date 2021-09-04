@@ -1,0 +1,83 @@
+<!--
+
+<div class="home-page-content">
+-->
+
+  <div class="menu-container">
+    <div class="menu-content">
+      <a class="menu-main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+        <div class="menu-element" *ngFor="let option of menuOptions" [routerLink]="option.url">
+          <div id="blur"></div>
+          <div class="icon">
+            <mat-icon *ngIf="option.name == 'kalendarz'">calendar_today</mat-icon>
+            <mat-icon *ngIf="option.name == 'wizyty'">assignment_turned_in</mat-icon>
+            <!--<mat-icon *ngIf="option.name == 'wyniki'">description</mat-icon>-->
+          </div>
+          <p class="menu-element-text" *ngIf="option.name == 'wyniki'">wyniki badań</p>
+          <p class="menu-element-text" *ngIf="option.name !== 'wyniki'">{{option.name}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="homepage-main-site">
+    <div class="top-menu">
+      <div class="logout-button" (click)="logout()">
+        <p>wyloguj</p>
+      </div>
+    </div>
+    <div class="homepage-main-site-content">
+      <h1 class="page-header">kalendarz</h1>
+      <div class="calendar">
+        <jqxScheduler #schedulerReference
+                      (onAppointmentAdd)="onAppointmentAdd($event)"
+                      (onAppointmentDelete)="onAppointmentDelete($event)"
+                      [date]="date"
+                      [width]="1100"
+                      [height]="650"
+                      [source]="dataAdapter"
+                      [showLegend]="true"
+                      [editDialogCreate]="editDialogCreate"
+                      [editDialogOpen]="editDialogOpen"
+                      [editDialogClose]="editDialogClose"
+                      [view]="'weekView'"
+                      [localization]="localization"
+                      [appointmentDataFields]="appointmentDataFields"
+                      [resources]="resources"
+                      [views]="views"
+                      [timeZone]="'UTC'"
+        >
+        </jqxScheduler>
+
+
+      </div>
+
+    </div>
+  </div>
+
+<!--
+
+</div>
+-->
+
+<!--
+<jqxScheduler #schedulerReference
+              (onAppointmentAdd)="AppointmentClick()"
+              [date]="date"
+              [width]="800"
+              [height]="500"
+              [source]="dataAdapter"
+              [showLegend]="true"
+              [editDialogCreate]="editDialogCreate"
+              [editDialogOpen]="editDialogOpen"
+              [editDialogClose]="editDialogClose"
+              [localization]="localization"
+              [view]="'weekView'"
+              [appointmentDataFields]="appointmentDataFields"
+              [resources]="resources"
+              [views]="views">
+</jqxScheduler>-->
+
+

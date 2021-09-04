@@ -18,51 +18,24 @@ import {MedicalServices} from '../services/medical-services.service';
 export class PatientVisitOverviewComponent implements OnInit {
   options: string[] = ['wizyty', 'znajdź lekarzy' /*'wyniki'*/];
   visit: Visit;
-  newVisit: VisitWithDoctor;
+  serviceName: string;
   doctor: Doctor;
-  medicalService;
   price;
   visitDate;
-  visitTime;
-  visitMap = new Map<string, VisitWithDoctor[]>();
+  logoutStatus = false;
 
   constructor(private router: Router,  private findDoctorService: FindDoctorsService, private authService: AuthService,
               private visitService: VisitService, private doctorService: DoctorStrategy, private medicalServices: MedicalServices) { }
 
   ngOnInit(): void {
-    this.newVisit = this.authService.visit;
-   /* console.log('wizyta zarezerwowana: ', this.newVisit);
-    console.log('jestem tu');*/
-
-    this.doctor = this.authService.doctor;
-
-    const docServ = this.newVisit.doctor.doctorServices;
-    docServ.forEach(serv => {
-      if (serv.id === this.newVisit.medicalService.id) {
-        this.medicalService = serv.medicalService;
-        this.price = serv.price;
+    this.visitService.getVisitDetails(this.authService.visit).subscribe(
+      response => {
+        this.price = response.service.price;
+        this.visitDate = response.from.split('T')[0];
+        this.doctor = response.doctor;
+        this.serviceName = response.service.medicalService.name;
       }
-      console.log(serv.id);
-    });
-
-    this.visitDate = this.newVisit.from.split(' ')[0];
-    this.visitTime = this.newVisit.from.split(' ')[1];
-
-    const vs = this.visitMap.get(this.visitDate) ?? [];
-    vs.push(this.newVisit);
-    this.visitMap.set(this.visitDate, vs);
-
-  }
-
-  setVisit(): any {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        this.visitService.getVisitWithDoctorById(this.visit.id).subscribe(res => {
-          this.newVisit = res;
-         // console.log('nowa wizyta: ', res);
-        });
-      }, 1000);
-    });
+    );
   }
 
   redirect(option: string): void {
@@ -83,6 +56,7 @@ export class PatientVisitOverviewComponent implements OnInit {
   }
 
   logout() {
+    this.logoutStatus = true;
     this.authService.logout();
   }
 }

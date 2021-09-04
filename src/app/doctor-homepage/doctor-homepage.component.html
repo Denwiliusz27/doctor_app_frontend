@@ -11,12 +11,16 @@
 
   <div class="homepage-main-site">
     <div class="top-menu">
+      <div class="logout-info" *ngIf="logoutStatus">
+        <p>wylogowano pomyślnie</p>
+      </div>
       <div class="logout-button" (click)="logout()">
         <p>wyloguj</p>
       </div>
     </div>
     <div class="homepage-main-site-content">
-      <h1 class="page-header">strona główna</h1>
+      <h1 class="page-header">{{user.name}} {{user.surname}}</h1>
+      <h2 class="specialization_header">{{specialization}}</h2>
 
       <div class="doctor-homepage-option-box">
         <div id="{{option}}" *ngFor="let option of options" (click)="redirect(option)">
@@ -26,39 +30,12 @@
       </div>
 
       <div class="homepage-text">
-        <p>Strona główna przeznaczona jest dla lekarzy oferujących swoje usługi poprzez rejestracje internetową .</p>
+        <p>Strona główna danego lekarza prezentuje informacje o nim, a także dostępne opcje znajdujące się pod kolejnymi zakładkami.</p>
         <p>W zakładce 'kalendarz' lekarz może ustawić konkretne dni oraz godziny swojej dostępności.</p>
-        <p>W zakładce 'wizyty' lekarz ma możliwośc przeglądania zaplanowanych oraz odbytych wizyt, a także ich
-          akceptowania.</p>
-        <p>Natomiast w zakładce 'wyniki badań' lekarz może wystawić wyniki pacjentom oraz dodawać opisy do wizyt.</p>
+        <p>W zakładce 'wizyty' lekarz ma możliwość przeglądania zaplanowanych oraz odbytych wizyt.</p>
+        <p>Natomiast w zakładce 'pacjenci' lekarz może przeglądać listę swoich pacjentów.</p>
       </div>
     </div>
 
   </div>
-<!--
-  <mat-sidenav-container>
-    <mat-sidenav [(opened)]="opened">menu</mat-sidenav>
-    <mat-sidenav-content>
-      <button mat-icon-button (click)="opened=!opened">
-        <mat-icon>menu</mat-icon>
-      </button>
-
-      <div class="main-site">
-        <div class="main-site-content">
-          <h1>strona główna</h1>
-
-          <div class="option-box">
-            <div id="{{option}}" *ngFor="let option of options" (click)="redirect(option)">
-              <p *ngIf="option === 'wyniki'">wyniki badań</p>
-              <p *ngIf="option !== 'wyniki'">{{option}}</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>-->
-
-
 </div>

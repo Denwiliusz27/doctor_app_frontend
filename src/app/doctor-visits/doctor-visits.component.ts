@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-doctor-visits',
@@ -7,9 +8,10 @@ import {Router} from '@angular/router';
   styleUrls: ['./doctor-visits.component.css']
 })
 export class DoctorVisitsComponent implements OnInit {
-  menuOptions: string[] = ['kalendarz', 'wizyty'/*, 'wyniki'*/];
+  menuOptions: string[] = ['kalendarz', 'wizyty', 'pacjenci'];
+  logoutStatus = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -21,13 +23,14 @@ export class DoctorVisitsComponent implements OnInit {
     else if (option === 'wizyty') {
       this.router.navigateByUrl('/doktor-wizyty');
     }
-    else if (option === 'wyniki') {
-      this.router.navigateByUrl('/doktor-wyniki-badań');
+    else if (option === 'pacjenci') {
+      this.router.navigateByUrl('/doktor-pacjenci');
     }
     console.log('przekierowuje do ' + option);
   }
 
   logout() {
-    console.log('wylogowuję');
+    this.logoutStatus = true;
+    this.authService.logout();
   }
 }

@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="home-page.component.css">
+<div class="backgroung-img"></div>
+
+<div class="home-content">
+
+  <p class="main_text">ODWIEDŹ STRONĘ JAKO</p>
+  <div class="option-box">
+    <div id="{{option}}" *ngFor="let option of options" (click)="redirect(option)">
+      <div id="blur"></div>
+      <p>{{option}}</p>
+    </div>
+  </div>
+
+  <div class="homepage-text">
+    <p>Strona służy do obsługi rezerwacji wizyt u lekarzy. Przeznaczona jest ona zarówno dla osób oferujących swoje
+      usługi, jak i dla tych, którzy będą z nich korzystać. Szeroki wybór lekarzy przyjmujących w największych miastach
+      Polski, pozwala szybko znaleźć odpowiadający termin wizyty w rozsądnej cenie.</p>
+    <p>Uproszczony interfejs sprawia, że strona jest przyjazna również dla osób starszych.</p>
+  </div>
+
+</div>

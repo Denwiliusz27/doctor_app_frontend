@@ -10,11 +10,9 @@
           <div class="icon">
             <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
             <mat-icon *ngIf="option == 'znajdź lekarzy'">supervisor_account</mat-icon>
-            <!--<mat-icon *ngIf="option == 'wyniki'">description</mat-icon>-->
           </div>
-          <!--<p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>-->
           <p class="menu-element-text" *ngIf="option == 'lekarze'">znajdź lekarzy</p>
-          <p class="menu-element-text" *ngIf="option !== 'wyniki' && option !== 'lekarze'">{{option}}</p>
+          <p class="menu-element-text" *ngIf="option !== 'lekarze'">{{option}}</p>
         </div>
       </div>
     </div>
@@ -22,6 +20,9 @@
 
   <div class="homepage-main-site">
     <div class="top-menu">
+      <div class="logout-info" *ngIf="logoutStatus">
+        <p>wylogowano pomyślnie</p>
+      </div>
       <div class="logout-button" (click)="logout()">
         <p>wyloguj</p>
       </div>
@@ -108,6 +109,7 @@
                           [appointmentDataFields]="appointmentDataFields"
                           [resources]="resources"
                           [views]="views"
+                          [timeZone]="'UTC'"
             >
             </jqxScheduler>
             <div class="doctor-calendar-overwrite-div"></div>

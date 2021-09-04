@@ -1,0 +1,144 @@
+.backgroung-img {
+  background-image: url(https://cdnb.artstation.com/p/assets/images/images/010/287/509/large/kleif-alexander-tan-6.jpg?1523611112);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-filter: brightness(120%) blur(8px);
+  filter: brightness(120%) blur(8px);
+  width: 100%;
+  height: 100vh;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  display: block;
+}
+
+.home-content {
+  margin: 15px 25px 10px 25px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: 0 0 30px 0;
+}
+
+.option-box {
+  display: flex;
+  /*flex-direction: column;*/
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.option-box div {
+  padding: 10px;
+  position: relative;
+  margin: 0 50px 60px 50px;
+  background-color: white;
+  flex-basis: 430px;
+  height: 300px;
+  border: 7px solid mediumblue;
+  border-radius: 20px;
+  box-shadow: 6px 6px 6px black;
+
+  text-align: center;
+  vertical-align: middle;
+  line-height: 300px;
+  font-size: 70px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  transition: all 0.4s ease 0s;
+  top: 0;
+  left: 0;
+}
+
+.option-box div:hover {
+  left: -7px;
+  top: -7px;
+  cursor: pointer;
+}
+
+.option-box #blur {
+  -webkit-filter: brightness(120%) blur(8px);
+  filter: brightness(120%) blur(8px);
+  padding: 0;
+  margin: 0;
+  border: none;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+
+.option-box #blur:hover {
+  left: 0;
+  top: 0;
+}
+
+.option-box #lekarz {
+  background-image: url(https://www.evi-med.pl/wp-content/uploads/2019/02/Evimed_przychodnia_Gdynia_6-1024x684.jpg);
+}
+
+.option-box #pacjent {
+  background-image: url(https://wp.pl.aleteia.org/wp-content/uploads/sites/9/2018/09/web3-doctor-hospital-patient-humanity-shutterstock.jpg?w=640&crop=1);
+}
+
+.option-box p {
+  position: absolute;
+
+  margin: 0;
+  font-size: 90px;
+  letter-spacing: 5px;
+  font-weight: bolder;
+  font-family: Serif, sans-serif;
+  color: mediumblue;
+  text-shadow: 3px 3px 4px black;
+}
+
+.homepage-text {
+  width: 1030px;
+  font-size: 24px;
+  font-weight: bolder;
+  font-family: Serif, sans-serif;
+  color: black;
+  text-shadow: 1px 1px 1px black;
+  margin: 0 auto 0 auto;
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 25px;
+}
+
+a {
+  font-size: 35px;
+  font-family: "Rage Italic", sans-serif;
+  font-style: italic;
+  margin: 20px;
+  text-decoration: none;
+  text-shadow: 3px 3px 3px black;
+  color: white;
+}
+
+.main_text{
+  text-align: center;
+  font-size: 65px;
+  font-weight: 100;
+  color: #1342e8;
+  text-shadow: 2px 2px 5px black;
+  font-style: italic;
+  font-family: "Arial", sans-serif;
+  margin: 50px 0 50px 0;
+}
+

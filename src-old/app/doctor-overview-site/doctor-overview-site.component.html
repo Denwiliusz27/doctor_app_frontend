@@ -1,0 +1,183 @@
+<div class="home-page-content">
+
+  <div class="menu-container">
+    <div class="menu-content">
+      <a class="menu-main_site_link" routerLink="/pacjent-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+        <div class="menu-element" *ngFor="let option of options" (click)="redirect(option)">
+          <div id="blur"></div>
+          <div class="icon">
+            <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
+            <mat-icon *ngIf="option == 'znajdź lekarzy'">supervisor_account</mat-icon>
+            <!--<mat-icon *ngIf="option == 'wyniki'">description</mat-icon>-->
+          </div>
+          <!--<p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>-->
+          <p class="menu-element-text" *ngIf="option == 'lekarze'">znajdź lekarzy</p>
+          <p class="menu-element-text" *ngIf="option !== 'wyniki' && option !== 'lekarze'">{{option}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="homepage-main-site">
+    <div class="top-menu">
+      <div class="logout-button" (click)="logout()">
+        <p>wyloguj</p>
+      </div>
+    </div>
+    <div class="patient-main-site-content">
+      <h1 class="page-header">strona lekarza</h1>
+
+      <div class="doctor-overview-site-content">
+        <div class="doctor-overview-site-details">
+          <div class="doctor-overview-site-basic-informations">
+            <p id="name">{{doctor.name}} {{doctor.surname}}</p>
+            <br>
+            <p id="specialization">{{doctor.specialization.name}}</p>
+          </div>
+
+          <div class="doctor-overview-site-other-informations">
+            <div class="doctor-overview-site-other-informations-container">
+              <div class="doctor-other-informations-header-section">
+                <div class="doctor-other-informations-header-text">
+                  <p>Adres</p>
+                </div>
+                <div class="doctor-other-informations-line"></div>
+              </div>
+              <div class="doctor-other-informations-details-text">
+                <p>{{doctor.city.name}}, ul. {{doctor.address}}</p>
+              </div>
+            </div>
+
+            <div class="doctor-overview-site-other-informations-container" *ngIf="isPhoneNumberGiven">
+              <div class="doctor-other-informations-header-section">
+                <div class="doctor-other-informations-header-text">
+                  <p>Telefon</p>
+                </div>
+                <div class="doctor-other-informations-line"></div>
+              </div>
+              <div class="doctor-other-informations-details-text">
+                <p>{{doctor.phoneNumber}}</p>
+              </div>
+            </div>
+
+            <div class="doctor-overview-site-other-informations-container">
+              <div class="doctor-other-informations-header-section">
+                <div class="doctor-other-informations-header-text">
+                  <p>Oferowane usługi</p>
+                </div>
+                <div class="doctor-other-informations-line"></div>
+              </div>
+              <div class="doctor-other-informations-details-services" *ngFor="let medicalService of doctor.doctorServices">
+                <p>- {{medicalService.medicalService.name}} ({{medicalService.price}} zł)</p>
+              </div>
+            </div>
+
+            <div class="doctor-overview-site-other-informations-container" *ngIf="isDescriptionGiven">
+              <div class="doctor-other-informations-header-section">
+                <div class="doctor-other-informations-header-text">
+                  <p>Opis</p>
+                </div>
+                <div class="doctor-other-informations-line"></div>
+              </div>
+              <div class="doctor-other-informations-details-description">
+                <p>{{doctor.description}}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="doctor-overview-site-calendar">
+          <p class="doctor-overview-site-calendar-header">Wolne terminy</p>
+          <div class="overwrite-div">
+            <jqxScheduler class="doctor-site-calendar" #schedulerReference
+                          (onAppointmentAdd)="onAppointmentAdd($event)"
+                          (onAppointmentDelete)="onAppointmentDelete($event)"
+                          [date]="date"
+                          [width]="600"
+                          [height]="450"
+                          [source]="dataAdapter"
+                          [showLegend]="true"
+                          [editDialogCreate]=""
+                          [editDialogOpen]=""
+                          [editDialogClose]=""
+                          [view]="'weekView'"
+                          [localization]="localization"
+                          [appointmentDataFields]="appointmentDataFields"
+                          [resources]="resources"
+                          [views]="views"
+                          [timeZone]="'UTC'"
+            >
+            </jqxScheduler>
+            <div class="doctor-calendar-overwrite-div"></div>
+          </div>
+
+          <div class="appointment-reservation-section">
+            <form [formGroup]="appointmentRegistrationFormGroup" (ngSubmit)="registerAppointment()">
+              <p>wybierz datę i godzinę wizyty:</p>
+                <div class="appointment-reservation-date-selectbox-section">
+                  <label>
+                    <select class="appointment-reservation-date-selectbox" [(ngModel)]="selectedDate" (ngModelChange)="onSelectDate()"
+                            [class.login-and-registration-error-border]="(submitted && !isDateSelected())"
+                            formControlName="dateFrom" id="dateFrom">
+                      <option class="input-disabled-option" disabled selected value="undefined">data</option>
+                      <option *ngFor="let date of visitMap | keyvalue" [value]="date.key">{{date.key | customPipeDate}}</option>
+                    </select>
+                    <div class="login-and-registration-error" *ngIf="submitted && !isDateSelected()">
+                      <p>nie wybrano daty</p>
+                    </div>
+                  </label>
+
+                  <label>
+                    <select class="appointment-reservation-date-selectbox" [(ngModel)]="selectedVisit"
+                            [class.login-and-registration-error-border]="(submitted && !isHourSelected())"
+                            formControlName="dateTo" id="dateTo">
+                      <option class="input-disabled-option" disabled selected value="undefined">godzina</option>
+                      <option *ngFor="let v of visitMap.get(selectedDate)" [value]="v.id">{{v.from | customPipeTime}} - {{v.to | customPipeTime}}</option>
+                    </select>
+                    <div class="login-and-registration-error" *ngIf="submitted && !isHourSelected()">
+                      <p>nie wybrano godziny</p>
+                    </div>
+                  </label>
+
+                </div>
+
+
+              <p>wybierz rodzaj wizyty:</p>
+              <div class="appointment-reservation-service-selectbox-section">
+                <label>
+                  <select class="appointment-reservation-service-selectbox" [(ngModel)]="selectedServiceId"
+                          [class.login-and-registration-error-border]="(submitted && !isServiceSelected())"
+                          formControlName="serviceId" id="serviceId">
+                    <option class="input-disabled-option" disabled selected value="undefined">rodzaj wizyty</option>
+                    <option *ngFor="let service of doctor.doctorServices" [value]="service.medicalService.id">{{service.medicalService.name}} ({{service.price}} zł)</option>
+                  </select>
+                  <div class="login-and-registration-error" *ngIf="submitted && !isServiceSelected()">
+                    <p>nie wybrano rodzaju usługi</p>
+                  </div>
+                </label>
+
+
+              </div>
+              <div class="appointment-reservation-button-section">
+                <button class="appointment-reservation-button" type="submit">zarezerwuj wizytę</button>
+              </div>
+              <div class="appointment-reservation-accepted" *ngIf="registrationAccepted">
+                <p>zarejestrowano pomyślnie</p>
+              </div>
+
+            </form>
+
+
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

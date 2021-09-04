@@ -22,6 +22,9 @@
 
   <div class="homepage-main-site">
     <div class="top-menu">
+      <div class="logout-info" *ngIf="logoutStatus">
+        <p>wylogowano pomyślnie</p>
+      </div>
       <div class="logout-button" (click)="logout()">
         <p>wyloguj</p>
       </div>
@@ -38,8 +41,8 @@
             <div class="doctor-other-informations-line"></div>
           </div>
           <div class="visit-site-visit-details-text">
-            <p class="doctor-site-link" (click)="redirectToDoctorSite()" title="odwiedź stronę lekarza">{{newVisit.doctor.name}} {{newVisit.doctor.surname}}</p>
-            <p>{{newVisit.doctor.specialization.name}}</p>
+            <p class="doctor-site-link" (click)="redirectToDoctorSite()" title="odwiedź stronę lekarza">{{doctor?.name}} {{doctor?.surname}}</p>
+            <p>{{doctor?.specialization?.name}}</p>
           </div>
 
           <div class="visit-site-visit-header-section">
@@ -49,7 +52,7 @@
             <div class="doctor-other-informations-line"></div>
           </div>
           <div class="visit-site-visit-details-text">
-            <p>{{newVisit.medicalService.name}} ({{price}} zł)</p>
+            <p>{{serviceName}} ({{price}} zł)</p>
           </div>
 
           <div class="visit-site-visit-header-section">
@@ -60,8 +63,6 @@
           </div>
           <div class="visit-site-visit-details-text">
             <p>{{visitDate}}</p>
-            <p *ngFor="let v of visitMap.get(visitDate)" [value]="v.id">{{v.from | customPipeTime}}</p>
-
           </div>
 
           <div class="visit-site-visit-header-section">
@@ -71,7 +72,7 @@
             <div class="doctor-other-informations-line"></div>
           </div>
           <div class="visit-site-visit-details-text">
-            <p>{{doctor.city.name}}, ul. {{doctor.address}}</p>
+            <p>{{doctor?.city?.name}}, ul. {{doctor?.address}}</p>
           </div>
         </div>
       </div>

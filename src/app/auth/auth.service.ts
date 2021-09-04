@@ -34,7 +34,7 @@ export class AuthService{
     return this.appStorageService.visitId;
   }
 
-  get visit(): VisitWithDoctor {
+  get visit(): number {
     return this.appStorageService.visit;
   }
 
@@ -76,7 +76,7 @@ export class AuthService{
     this.appStorageService.clearVisitId();
   }
 
-  public setSelectedVisit(visit: VisitWithDoctor): void {
+  public setSelectedVisit(visit: number): void {
     this.appStorageService.setVisit(visit);
   }
 
@@ -85,7 +85,9 @@ export class AuthService{
   }
 
   public logout(): void{
-    this.appStorageService.clearUser();
-    this.router.navigate(['']);
+    setTimeout(() => {
+      this.appStorageService.clearUser();
+      this.router.navigate(['']);
+    }, 1000);
   }
 }

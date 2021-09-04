@@ -19,6 +19,8 @@ export class PatientHomepageComponent implements OnInit {
   selectedCityId: number;
   options: string[] = ['wizyty', 'znajdź lekarzy'/*, 'wyniki'*/];
   doctors: Doctor[] = [];
+  user = this.authService.user;
+  logoutStatus = false;
 
   constructor(private router: Router, private specializationStrategy: SpecializationService, private cityService: CityService,
               private authService: AuthService, private doctorStrategy: DoctorStrategy, private findDoctorService: FindDoctorsService) { }
@@ -39,6 +41,7 @@ export class PatientHomepageComponent implements OnInit {
   }
 
   logout() {
+    this.logoutStatus = true;
     this.authService.logout();
   }
 

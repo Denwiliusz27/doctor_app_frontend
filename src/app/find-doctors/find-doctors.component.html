@@ -24,6 +24,9 @@
 
   <div class="homepage-main-site">
     <div class="top-menu">
+      <div class="logout-info" *ngIf="logoutStatus">
+        <p>wylogowano pomyślnie</p>
+      </div>
       <div class="logout-button" (click)="logout()">
         <p>wyloguj</p>
       </div>

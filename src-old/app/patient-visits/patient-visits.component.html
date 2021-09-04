@@ -1,0 +1,54 @@
+<div class="backgroung-img"></div>
+
+<div class="home-page-content">
+
+  <div class="menu-container">
+    <div class="menu-content">
+      <a class="menu-main_site_link" routerLink="/pacjent-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+        <div class="menu-element" *ngFor="let option of options" (click)="redirect(option)">
+          <div id="blur"></div>
+          <div class="icon">
+            <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
+            <mat-icon *ngIf="option == 'znajdź lekarzy'">supervisor_account</mat-icon>
+            <!--<mat-icon *ngIf="option == 'wyniki'">description</mat-icon>-->
+          </div>
+          <!--<p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>-->
+          <p class="menu-element-text" *ngIf="option == 'lekarze'">znajdź lekarza</p>
+          <p class="menu-element-text" *ngIf="option !== 'wyniki' && option !== 'lekarze'">{{option}}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="homepage-main-site">
+    <div class="top-menu">
+      <div class="logout-button" (click)="logout()">
+        <p>wyloguj</p>
+      </div>
+    </div>
+    <div class="patient-main-site-content">
+      <h1 class="page-header">wizyty</h1>
+      <div class="visit-list-content">
+        <div class="visit-list-visit-container" *ngFor="let visit of visits">
+          <p>{{visit.doctor.name}} {{visit.doctor.surname}}</p>
+          <p>{{visit.medicalService.name}}</p>
+          <p>{{visit.from}}</p>
+          <p>{{visit.doctor.city.name}}, ul. {{visit.doctor.address}}</p>
+        </div>
+      </div>
+
+
+
+      <!--<div class="homepage-text">
+        <p>Zakładka 'wizyty' pozwala pacjentowi przeglądać nadchodzące wizyty oraz te, które już się odbyły, wraz z ich
+          opisem oraz przypisanymi do nich wynikami.</p>
+      </div>-->
+
+    </div>
+  </div>
+
+</div>
+

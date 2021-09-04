@@ -48,7 +48,7 @@ export class AppStorageService {
     return this.storage.get(this.VISITID_KEY);
   }
 
-  public setVisit(v: VisitWithDoctor): void {
+  public setVisit(v: number): void {
     this.storage.set(this.VISIT_KEY, v);
   }
 
@@ -56,7 +56,7 @@ export class AppStorageService {
     this.storage.set(this.VISIT_KEY, null);
   }
 
-  get visit(): VisitWithDoctor {
+  get visit(): number {
     return this.storage.get(this.VISIT_KEY);
   }
 }
