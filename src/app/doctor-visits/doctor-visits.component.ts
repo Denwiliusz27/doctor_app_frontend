@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
+import {VisitService} from '../services/visit.service';
 
 @Component({
   selector: 'app-doctor-visits',
@@ -10,10 +11,15 @@ import {AuthService} from '../auth/auth.service';
 export class DoctorVisitsComponent implements OnInit {
   menuOptions: string[] = ['kalendarz', 'wizyty', 'pacjenci'];
   logoutStatus = false;
+  visits;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private visitService: VisitService) { }
 
   ngOnInit(): void {
+    this.visitService.getVisitDetailsListByDoctorId(this.authService.user.id).subscribe(res => {
+      console.log('wizyty: ', res);
+      this.visits = res;
+    });
   }
 
   redirect(option: string): void {

@@ -50,11 +50,9 @@
       <div class="patients-list" style="margin-top: 30px">
         <div class="patient-overview-container" id="{{visit}}" *ngFor="let visit of visits">
           <div class="patient-description-section">
-            <!--<p id="name">{{visit.doctor.name}} {{visit.doctor.surname}}</p>
-            <br>-->
-            <p id="name">Rodzaj usługi: {{visit.medicalService.name}}</p>
+            <p id="name">rodzaj usługi: {{visit.service.medicalService.name}}</p>
             <br>
-            <p class="other">Data: {{visit.from}}</p>
+            <p class="other">data: {{visit.from.split('T')[0]}}, {{visit.from.split('T')[1].substring(0, 5)}}</p>
           </div>
           <div class="doctor-page-button" (click)="displayVisitSite(visit)">
             <p style="margin: 0 !important;">szczegóły wizyty</p>

@@ -1,5 +1,6 @@
-import {Doctor} from '../user/user';
+import {Doctor, Patient} from '../user/user';
 import {MedicalService} from '../medical-service/medical-service';
+import {DoctorService} from '../../services/doctor.service';
 
 export interface Visit{
   id: number;
@@ -25,4 +26,13 @@ export interface VisitWithDoctor{
   availabilityId: number;
   from: string;
   to: string;
+}
+
+export interface VisitDetails {
+  id: number;
+  patient: Patient;
+  doctor: Doctor;
+  from: string;
+  to: string;
+  service: DoctorService;
 }

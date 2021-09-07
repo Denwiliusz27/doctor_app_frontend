@@ -248,22 +248,6 @@ export class DoctorOverviewSiteComponent implements OnInit {
         this.visitMap.set(splitDate, vs);
       });
 
-      // console.log('obecna: ', this.currentDate);
-      //
-      // visits.forEach(v => {
-      //   // console.log('wizyty: ', v.from);
-      //
-      //   if (v.from < this.currentDate){
-      //     const index = visits.indexOf(v, 0);
-      //     if (index > -1) {
-      //       // console.log('usuwam: ', v.from);
-      //       visits.splice(index, 1);
-      //     }
-      //   } else {
-      //    //  console.log('zostaje: ', v.from);
-      //   }
-      // });
-
       visits.map(this.buildAppointment).forEach(visit => {
         this.scheduler.addAppointment(visit);
       });

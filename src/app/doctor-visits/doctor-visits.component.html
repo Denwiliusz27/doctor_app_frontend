@@ -32,6 +32,30 @@
     <div class="homepage-main-site-content">
       <h1 class="page-header">wizyty</h1>
 
+      <div class="select-visits-period-button-container">
+        <div class="select-visits-period-button">
+          <div tabindex="1" class="past-visits-button">odbyte</div>
+        </div>
+        <div class="select-visits-period-button">
+          <div tabindex="2" class="all-visits-button">wszystkie</div>
+        </div>
+        <div class="select-visits-period-button">
+          <div tabindex="3" class="future-visits-button">nadchodzące</div>
+        </div>
+      </div>
+
+      <div class="patients-list" style="margin-top: 30px">
+        <div class="patient-overview-container" id="{{visit}}" *ngFor="let visit of visits">
+          <div class="patient-description-section">
+            <p id="name">{{visit.patient.name}} {{visit.patient.surname}}</p>
+            <br>
+            <p class="other">rodzaj usługi: {{visit.service.medicalService.name}}</p>
+            <br>
+            <p class="other">data: {{visit.from.split('T')[0]}}, {{visit.from.split('T')[1].substring(0, 5)}}</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
