@@ -22,6 +22,7 @@ export class PatientVisitOverviewComponent implements OnInit {
   doctor: Doctor;
   price;
   visitDate;
+  visitTime;
   logoutStatus = false;
 
   constructor(private router: Router,  private findDoctorService: FindDoctorsService, private authService: AuthService,
@@ -32,6 +33,7 @@ export class PatientVisitOverviewComponent implements OnInit {
       response => {
         this.price = response.service.price;
         this.visitDate = response.from.split('T')[0];
+        this.visitTime = response.from.split('T')[1].substring(0, 5);
         this.doctor = response.doctor;
         this.serviceName = response.service.medicalService.name;
       }

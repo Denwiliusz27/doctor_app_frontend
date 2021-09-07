@@ -32,23 +32,35 @@
         <p>wyloguj</p>
       </div>
     </div>
-    <div class="patient-main-site-content">
+    <div class="homepage-main-site-content">
       <h1 class="page-header">wizyty</h1>
-      <div class="visit-list-content">
-        <div class="visit-list-visit-container" *ngFor="let visit of visits">
-          <p>{{visit.doctor.name}} {{visit.doctor.surname}}</p>
-          <p>{{visit.medicalService.name}}</p>
-          <p>{{visit.from}}</p>
-          <p>{{visit.doctor.city.name}}, ul. {{visit.doctor.address}}</p>
+
+      <div class="select-visits-period-button-container">
+        <div class="select-visits-period-button">
+          <div tabindex="1" class="past-visits-button">odbyte</div>
+        </div>
+        <div class="select-visits-period-button">
+          <div tabindex="2" class="all-visits-button">wszystkie</div>
+        </div>
+        <div class="select-visits-period-button">
+          <div tabindex="3" class="future-visits-button">nadchodzące</div>
         </div>
       </div>
 
-
-
-      <!--<div class="homepage-text">
-        <p>Zakładka 'wizyty' pozwala pacjentowi przeglądać nadchodzące wizyty oraz te, które już się odbyły, wraz z ich
-          opisem oraz przypisanymi do nich wynikami.</p>
-      </div>-->
+      <div class="patients-list" style="margin-top: 30px">
+        <div class="patient-overview-container" id="{{visit}}" *ngFor="let visit of visits">
+          <div class="patient-description-section">
+            <!--<p id="name">{{visit.doctor.name}} {{visit.doctor.surname}}</p>
+            <br>-->
+            <p id="name">Rodzaj usługi: {{visit.medicalService.name}}</p>
+            <br>
+            <p class="other">Data: {{visit.from}}</p>
+          </div>
+          <div class="doctor-page-button" (click)="displayVisitSite(visit)">
+            <p style="margin: 0 !important;">szczegóły wizyty</p>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

@@ -231,27 +231,7 @@ button:hover {
   cursor: pointer;
   letter-spacing: 5px;
 }
-/*
 
-.error {
-  justify-content: center;
-  display: flex;
-}
-
-.error p{
-  margin: 0;
-  width: 60%;
-  font-size: 24px;
-  text-shadow: 2px 2px 2px black;
-  color: red;
-  font-weight: bold;
-  position: relative;
-}
-
-.error-red-border {
-  border: 3px solid red;
-}
-*/
 
 .email-error {
   position: fixed;

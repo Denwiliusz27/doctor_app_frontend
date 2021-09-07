@@ -834,3 +834,74 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 tbody tr:first-child {
   pointer-events: none;
 }
+
+.select-visits-period-button-container {
+  padding: 10px 0 10px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-visits-period-button {
+  font-size: 24px;
+  font-family: "Rage Italic", sans-serif;
+  text-shadow: none;
+  text-decoration: none;
+  font-style: italic;
+  transition: all 0.4s ease 0s;
+}
+
+.select-visits-period-button div {
+  margin: 10px 10px 0 10px;
+  width: 250px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-visits-period-button:hover {
+  border-radius: 7px;
+  letter-spacing: 5px;
+  cursor: pointer;
+  background-size: 100% 100%;
+  color: forestgreen;
+}
+
+.past-visits-button {
+  color: white;
+  border-radius: 15px;
+  border: 3px solid #255be5;
+  background-color: #388cef;
+}
+
+.past-visits-button:focus {
+  border: 3px solid darkgreen;
+  background-color: forestgreen;
+}
+
+.all-visits-button {
+  color: white;
+  border-radius: 15px;
+  border: 3px solid #0034ea;
+  background-color: #1c48e7;
+}
+
+.all-visits-button:focus {
+  border: 3px solid darkgreen;
+  background-color: forestgreen;
+}
+
+.future-visits-button {
+  color: white;
+  border-radius: 15px;
+  border: 3px solid #051038;
+  background-color: #0e32b3;
+}
+
+.future-visits-button:focus {
+  border: 3px solid darkgreen;
+  background-color: forestgreen;
+}

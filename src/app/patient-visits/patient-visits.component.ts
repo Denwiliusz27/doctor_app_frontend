@@ -7,10 +7,6 @@ import {AuthService} from '../auth/auth.service';
 import {Doctor} from '../model/user/user';
 import {DoctorStrategy} from '../auth/strategy/doctor-strategy';
 
-export interface PatientVisit {
-  visit: Visit;
-  doctor: Doctor;
-}
 
 @Component({
   selector: 'app-patient-visits',
@@ -20,7 +16,6 @@ export interface PatientVisit {
 export class PatientVisitsComponent implements OnInit {
   options: string[] = ['wizyty', 'znajdź lekarzy' /*'wyniki'*/];
   visits: VisitWithDoctor[];
-  patientVisits = new Map<Visit, Doctor>();
   logoutStatus = false;
 
   constructor(private router: Router, private findDoctorService: FindDoctorsService, private authService: AuthService,
@@ -29,7 +24,6 @@ export class PatientVisitsComponent implements OnInit {
   ngOnInit(): void {
     this.visitService.getVisitsWithDoctorByPatientId(this.authService.user.id).subscribe(res => {
       this.visits = res;
-      // console.log('nowe wizyty: ', res);
     });
   }
 
@@ -43,6 +37,13 @@ export class PatientVisitsComponent implements OnInit {
       this.router.navigateByUrl('/znajdź-lekarzy');
     }
     console.log('przekierowuje do ' + option);
+  }
+
+  displayVisitSite(visit): void {
+    setTimeout(() => {
+      this.authService.setSelectedVisit(visit.id);
+      this.router.navigateByUrl('/wizyta-pacjenta');
+    }, 500);
   }
 
   logout() {
