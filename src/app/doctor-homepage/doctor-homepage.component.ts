@@ -16,6 +16,7 @@ export class DoctorHomepageComponent implements OnInit {
   user = this.authService.user;
   specialization: string;
   logoutStatus = false;
+  services;
 
   @Output() public menuToggle = new EventEmitter();
   @ViewChild('sidenav') sidenav: MatSidenav;
@@ -25,6 +26,7 @@ export class DoctorHomepageComponent implements OnInit {
   ngOnInit(): void {
     this.doctorService.getDoctorByUserId(this.user.userId).subscribe(res => {
       this.specialization = res.specialization.name;
+      this.services = res.doctorServices;
       console.log(this.specialization);
     });
   }

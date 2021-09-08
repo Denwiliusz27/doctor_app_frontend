@@ -11,10 +11,8 @@
             <mat-icon *ngIf="option == 'kalendarz'">calendar_today</mat-icon>
             <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
             <mat-icon *ngIf="option == 'pacjenci'">supervisor_account</mat-icon>
-            <!--<mat-icon *ngIf="option == 'wyniki'">description</mat-icon>-->
           </div>
-          <p class="menu-element-text" *ngIf="option == 'wyniki'">wyniki badań</p>
-          <p class="menu-element-text" *ngIf="option !== 'wyniki'">{{option}}</p>
+          <p class="menu-element-text">{{option}}</p>
         </div>
       </div>
     </div>
