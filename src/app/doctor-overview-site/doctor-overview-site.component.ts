@@ -231,6 +231,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
 
   ngOnInit(): void {
     this.doctor = this.authService.doctor;
+
     if (this.doctor.phoneNumber){
       this.isPhoneNumberGiven = true;
     }

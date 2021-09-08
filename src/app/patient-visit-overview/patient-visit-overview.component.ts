@@ -53,8 +53,12 @@ export class PatientVisitOverviewComponent implements OnInit {
   }
 
   redirectToDoctorSite(): void{
-    this.authService.setSelectedDoctor(this.doctor);
-    this.router.navigateByUrl('/strona-lekarza');
+    this.doctorService.findDoctorById(this.doctor.id).subscribe(res => {
+      this.authService.setSelectedDoctor(res);
+      this.router.navigateByUrl('/strona-lekarza');
+    });
+    /*this.authService.setSelectedDoctor(this.doctor);
+    this.router.navigateByUrl('/strona-lekarza');*/
   }
 
   logout() {
