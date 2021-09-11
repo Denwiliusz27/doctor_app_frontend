@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {VisitService} from '../services/visit.service';
+import {VisitType} from '../model/visit/visit';
 
 @Component({
   selector: 'app-doctor-visits',
@@ -12,6 +13,7 @@ export class DoctorVisitsComponent implements OnInit {
   menuOptions: string[] = ['kalendarz', 'wizyty', 'pacjenci'];
   logoutStatus = false;
   visits;
+  type = VisitType;
 
   constructor(private router: Router, private authService: AuthService, private visitService: VisitService) { }
 
@@ -38,5 +40,11 @@ export class DoctorVisitsComponent implements OnInit {
   logout() {
     this.logoutStatus = true;
     this.authService.logout();
+  }
+
+  fetchVisits(type: VisitType) {
+    this.visitService.getVisitDetailsListByDoctorId(this.authService.user.id, type).subscribe(res => {
+      this.visits = res;
+    });
   }
 }

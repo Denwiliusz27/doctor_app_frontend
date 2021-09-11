@@ -36,13 +36,13 @@
       <h1 class="page-header">wizyty</h1>
 
       <div class="select-visits-period-button-container">
-        <div class="select-visits-period-button">
+        <div class="select-visits-period-button" (click)="fetchVisits(type.AFTER)">
           <div tabindex="1" class="past-visits-button">odbyte</div>
         </div>
-        <div class="select-visits-period-button">
+        <div class="select-visits-period-button" (click)="fetchVisits(type.ALL)">
           <div tabindex="2" class="all-visits-button">wszystkie</div>
         </div>
-        <div class="select-visits-period-button">
+        <div class="select-visits-period-button" (click)="fetchVisits(type.BEFORE)">
           <div tabindex="3" class="future-visits-button">nadchodzące</div>
         </div>
       </div>

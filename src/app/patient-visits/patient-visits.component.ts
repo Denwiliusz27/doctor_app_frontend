@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FindDoctorsService} from '../services/find-doctors.service';
-import {Visit, VisitWithDoctor} from '../model/visit/visit';
+import {VisitType} from '../model/visit/visit';
 import {VisitService} from '../services/visit.service';
 import {AuthService} from '../auth/auth.service';
-import {Doctor} from '../model/user/user';
 import {DoctorStrategy} from '../auth/strategy/doctor-strategy';
 
 @Component({
@@ -17,11 +16,13 @@ export class PatientVisitsComponent implements OnInit {
   visits;
   logoutStatus = false;
 
+  type = VisitType;
+
   constructor(private router: Router, private findDoctorService: FindDoctorsService, private authService: AuthService,
               private visitService: VisitService, private doctorService: DoctorStrategy) { }
 
   ngOnInit(): void {
-    this.visitService.getVisitDetailsListByPatientId(this.authService.user.id).subscribe(res => {
+    this.visitService.getVisitDetailsListByPatientId(this.authService.user.id, VisitType.ALL).subscribe(res => {
       this.visits = res;
     });
   }
@@ -48,5 +49,11 @@ export class PatientVisitsComponent implements OnInit {
   logout() {
     this.logoutStatus = true;
     this.authService.logout();
+  }
+
+  fetchVisits(type: VisitType) {
+    this.visitService.getVisitDetailsListByPatientId(this.authService.user.id, type).subscribe(res => {
+      this.visits = res;
+    });
   }
 }

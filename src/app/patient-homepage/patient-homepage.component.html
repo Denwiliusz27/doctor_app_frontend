@@ -13,7 +13,7 @@
             <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
             <mat-icon *ngIf="option == 'znajdź lekarzy'">supervisor_account</mat-icon>
           </div>
-          <p class="menu-element-text" *ngIf="option !== 'wyniki'">{{option}}</p>
+          <p class="menu-element-text">{{option}}</p>
 
         </div>
       </div>
@@ -31,6 +31,10 @@
     </div>
     <div class="user-main-site-content">
       <h1 class="page-header">{{user.name}} {{user.surname}}</h1>
+
+      <div class="find-doctor-text-section">
+        <p>znajdź lekarzy:</p>
+      </div>
 
       <div class="find-doctor-selectbox">
         <select class="find-doctor-select-element" [(ngModel)]="selectedCityId" >

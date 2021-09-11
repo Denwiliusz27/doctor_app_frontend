@@ -36,3 +36,9 @@ export interface VisitDetails {
   to: string;
   service: DoctorService;
 }
+
+export enum VisitType {
+  ALL = 'ALL',
+  BEFORE = 'BEFORE',
+  AFTER = 'AFTER'
+}
