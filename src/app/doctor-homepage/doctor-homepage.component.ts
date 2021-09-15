@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import {MatSidenav} from '@angular/material/sidenav';
 import {AuthService} from '../auth/auth.service';
 import {DoctorService} from '../services/doctor.service';
-import {Doctor} from '../model/user/user';
 
 @Component({
   selector: 'app-doctor-homepage',
@@ -34,9 +33,6 @@ export class DoctorHomepageComponent implements OnInit {
     this.sidenav.close();
   }
 
-  /*
-  Przekierwuje na właściwą stronę powiązaną z wybraną opcją
-   */
   redirect(option: string): void {
     if (option === 'kalendarz') {
       this.router.navigateByUrl('/doktor-kalendarz');

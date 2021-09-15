@@ -15,11 +15,11 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./find-doctors.component.css']
 })
 export class FindDoctorsComponent implements OnInit, OnDestroy {
-  readonly cities$ = this.cityService.cities$; // lista miast
+  readonly cities$ = this.cityService.cities$;
   selectedSpecializationId: number;
-  readonly specializations$ = this.specializationService.specializations$; // lista specjalizacji
+  readonly specializations$ = this.specializationService.specializations$;
   selectedCityId: number;
-  options: string[] = ['wizyty', 'znajdź lekarzy' /*'wyniki'*/];
+  options: string[] = ['wizyty', 'znajdź lekarzy'];
   doctors: Doctor[] = [];
   subscription: Subscription;
   logoutStatus = false;

@@ -13,13 +13,11 @@ import {UserRole} from '../model/user/user';
   styleUrls: ['./doctor-login.component.css']
 })
 
-/*
-Komponent służący do logowania doktora na konto
- */
+
 export class DoctorLoginComponent implements OnInit {
   submitted = false;
-  emailNotExist = false;  // zmienna do sprawdzenia czy podany email istnieje w bd
-  passwordCorrect = true;  // zmienna do sprawdzenia czy dla podanego maila, wpisane hasło się zgadza
+  emailNotExist = false;
+  passwordCorrect = true;
   loginAccepted = false;
 
   loginFormGroup = new FormGroup({

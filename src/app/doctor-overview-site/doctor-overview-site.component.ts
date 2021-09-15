@@ -9,7 +9,6 @@ import {AvailabilityDoctorService} from '../services/availability-doctor.service
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {VisitService} from '../services/visit.service';
 import {Visit} from '../model/visit/visit';
-import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-doctor-overview-site',

@@ -14,7 +14,7 @@ import {MedicalServices} from '../services/medical-services.service';
   styleUrls: ['./patient-visit-overview.component.css']
 })
 export class PatientVisitOverviewComponent implements OnInit {
-  options: string[] = ['wizyty', 'znajdź lekarzy' /*'wyniki'*/];
+  options: string[] = ['wizyty', 'znajdź lekarzy'];
   visit: Visit;
   serviceName: string;
   doctor: Doctor;

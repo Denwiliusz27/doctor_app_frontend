@@ -101,7 +101,7 @@ const routes: Routes = [
     MatListModule,
     RouterModule.forRoot(
       routes,
-      {enableTracing: false} // <-- debugging purposes only
+      {enableTracing: false}
     ),
     BrowserAnimationsModule,
     MatSelectModule,
