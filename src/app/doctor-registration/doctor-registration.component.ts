@@ -9,7 +9,7 @@ import {MedicalServices} from '../services/medical-services.service';
 import {CreateDoctorRequest} from '../model/user/dto/create-user';
 import {AuthService} from '../auth/auth.service';
 import {UserRole} from '../model/user/user';
-import {catchError, delay} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 
 /*
 Reprezentuje usługę z opłatą za nią. isChosen ustawiane na true jeśli została wybrana na stronie
@@ -47,7 +47,7 @@ export class DoctorRegistrationComponent implements OnInit {
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.pattern('^[A-Z][a-z-ąśćęįłńóżź]*')
+      Validators.pattern('^[A-ZĄĆŚĘŁŃÓŻŹ][a-z-ąśćęįłńóżź]*')
     ]),
     surname: new FormControl('', [
       Validators.required,
@@ -57,7 +57,6 @@ export class DoctorRegistrationComponent implements OnInit {
     email: new FormControl('', [
       Validators.required,
       Validators.email
-      // Validators.pattern('^[a-z\\d]+[\\w\\d.-]*@(?:[a-z\\d]+[a-z\\d-]+\\.){1,5}[a-z]{2,6}$')
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -78,9 +77,6 @@ export class DoctorRegistrationComponent implements OnInit {
     phoneNumber: new FormControl('', [
       Validators.pattern('^[0-9]{3}[0-9]{3}[0-9]{3}')
     ]),
-    /*image: new FormControl('', [
-      Validators.required
-    ]),*/
     description: new FormControl()
   });
 
@@ -132,13 +128,11 @@ export class DoctorRegistrationComponent implements OnInit {
     }
   }
 
-
   /*
   Przy zmianie specjalizacji, nadpisuje selectedSpecializationId i wyzerowuje liste wybranych wcześniej usług
    */
   onSelectSpecialization(): void {
     this.selectedServices = [];
-    console.log(this.selectedSpecializationId);
     this.medicalServices$ = this.medicalService.findById(this.selectedSpecializationId);
   }
 
@@ -158,14 +152,6 @@ export class DoctorRegistrationComponent implements OnInit {
         currentService.isChosen = false;
       }
     }
-    console.log(this.selectedServices);
-  }
-
-  /*
-  Dodaje zdjęcie do zmiennej imageFIle
-   */
-  uploadImage(event): void {
-    this.imageFile = event.target.files[0];
   }
 
   /*
@@ -237,22 +223,6 @@ export class DoctorRegistrationComponent implements OnInit {
     }
   }
 
-/*  @ViewChildren('serviceCheckboxes') checkboxes: QueryList<ElementRef>;
-  @ViewChildren('priceInputs') priceCheckboxes: QueryList<ElementRef>;
-
-  uncheckAllServices(): void {
-    this.checkboxes.forEach((element) => {
-      element.nativeElement.checked = false;
-    });
-    this.priceCheckboxes.forEach((element) => {
-      element.nativeElement.value = 0;
-    });
-  }*/
-
-  onSelectCity(): void {
-    console.log(this.selectedCityId);
-  }
-
   /*
   Sprawdza czy miasto zostało wybrane
    */
@@ -269,9 +239,9 @@ export class DoctorRegistrationComponent implements OnInit {
    */
   isSpecializationSelected(): boolean {
     if (this.selectedSpecializationId === undefined) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
 }

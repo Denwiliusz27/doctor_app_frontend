@@ -15,5 +15,4 @@ export class FindDoctorsService {
   searchDoctors(cityId: number, specializationId: number): void {
     this._searchParams.next({cityId, specializationId});
   }
-
 }

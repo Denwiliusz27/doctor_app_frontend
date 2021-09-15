@@ -41,7 +41,6 @@
         </div>
       </label>
 
-
       <label class="login-and-registration-form-label">
         <input class="login-and-registration-form-input" title="Powinien składać się wyłącznie z cyfr" type="text"
                formControlName="pesel" required [class.login-and-registration-error-border] = "submitted && currentFormControls.pesel.errors"
@@ -59,7 +58,6 @@
           <p>pesel nie spełnia założeń</p>
         </div>
       </label>
-
 
       <label class="login-and-registration-form-label">
         <input class="login-and-registration-form-input" title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'"
@@ -96,20 +94,6 @@
       <div class="registration-accepted" *ngIf="submitted && accountCreated">
         <p>zarejestrowano pomyślnie</p>
       </div>
-
     </form>
-
-   <!-- <div class="email-error" *ngIf="submitted && emailExist">
-      <p>taki email istnieje</p>
-      <div class="error-options">
-        <div class="go-back" (click)="disableForms = false">
-          <p>wróc</p>
-        </div>
-        <div class="login">
-          <p>zaloguj</p>
-        </div>
-      </div>
-    </div>-->
-
   </div>
 </div>

@@ -28,9 +28,6 @@ export class DoctorOverviewSiteComponent implements OnInit {
   selectedDate: string;
   selectedVisit: number;
   visitMap = new Map<string, Visit[]>();
-  currentDate;
-  currentHour;
-  currentMinute;
   logoutStatus = false;
 
   appointmentRegistrationFormGroup = new FormGroup({
@@ -85,7 +82,6 @@ export class DoctorOverviewSiteComponent implements OnInit {
       readOnly: true,
       resizable: false,
       draggable: false
-      /* resourceId: 'calendar'*/
     };
   resources: jqwidgets.SchedulerResources =
     {
@@ -97,7 +93,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
     [
       {
         type: 'weekView',
-        showWeekends: true,
+        showWeekends: false,
         timeRuler: {
           scale: 'half-hour', formatString: 'HH:mm',
           scaleStartHour: 8, scaleEndHour: 20,
@@ -118,7 +114,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
     // separator of parts of a time (e.g. ':' in 05:44 PM)
     ':': ':',
     // the first day of the week (0 = Sunday, 1 = Monday, etc)
-    firstDay: 1,
+    firstDay: 0,
     days: {
       // full day names
       names: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
@@ -225,8 +221,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
 
 
   constructor(private router: Router, private authService: AuthService, private findDoctorService: FindDoctorsService,
-              private readonly availabilityDoctorService: AvailabilityDoctorService, private visitService: VisitService,
-              private datePipe: DatePipe) {
+              private readonly availabilityDoctorService: AvailabilityDoctorService, private visitService: VisitService) {
   }
 
   ngOnInit(): void {
@@ -239,8 +234,6 @@ export class DoctorOverviewSiteComponent implements OnInit {
       this.isDescriptionGiven = true;
     }
 
-    this.setCurrentTime();
-
     this.visitService.getFreeVisitsByDoctorId(this.doctor.id).subscribe(visits => {
       visits.forEach(v => {
         const splitDate = v.from.split('T')[0];
@@ -252,7 +245,6 @@ export class DoctorOverviewSiteComponent implements OnInit {
       visits.map(this.buildAppointment).forEach(visit => {
         this.scheduler.addAppointment(visit);
       });
-      console.log(this.visitMap);
     });
   }
 
@@ -265,13 +257,10 @@ export class DoctorOverviewSiteComponent implements OnInit {
   redirect(option: string): void {
     if (option === 'wizyty') {
       this.router.navigateByUrl('/pacjent-wizyty');
-    } else if (option === 'wyniki') {
-      this.router.navigateByUrl('/pacjent-wyniki-badań');
     } else if (option === 'znajdź lekarzy') {
       this.findDoctorService.searchDoctors(undefined, undefined);
       this.router.navigateByUrl('/znajdź-lekarzy');
     }
-    console.log('przekierowuje do ' + option);
   }
 
   logout() {
@@ -295,7 +284,7 @@ export class DoctorOverviewSiteComponent implements OnInit {
 
   onAppointmentDelete(obj): void {}
 
-  onSelectDate() {
+  onSelectDate(): void {
     this.selectedVisit = undefined;
   }
 
@@ -323,17 +312,10 @@ export class DoctorOverviewSiteComponent implements OnInit {
     }
   }
 
-  setCurrentTime(): void{
-    // this.currentDate = this.datePipe.transform(new Date(), 'MM d, y, H:mm');
-    this.currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss');
-    // this.currentDate = '2021-08-23 09:15:00';
-  }
-
   registerAppointment(): void {
     this.submitted = true;
 
     if (!this.isServiceSelected() || !this.isDateSelected() || !this.isHourSelected()){
-      console.log('nie wypełniono poprawnie pól');
       return;
     }
 
@@ -348,26 +330,6 @@ export class DoctorOverviewSiteComponent implements OnInit {
       }, 1000);
     });
     this.registrationAccepted = true;
-
-   /* (async () => {
-      await this.updateVisit();
-    })();*/
-
-
-    // this.setVisit();
-
-    console.log('vizyta z authServ: ', this.authService.visit);
-
-    /*this.visitService.getVisitWithDoctorById(this.selectedVisit).subscribe(res => {
-      console.log('nowa wizyta: ', res);
-    });*/
-
-
-
-/*
-    setTimeout(() => {
-      this.router.navigateByUrl('/wizyta-pacjenta');
-    }, 1000);*/
   }
 
   updateVisit(): any {
@@ -382,15 +344,4 @@ export class DoctorOverviewSiteComponent implements OnInit {
       }, 1000);
     });
   }
-
- /* setVisit(): any {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        this.visitService.getVisitWithDoctorById(this.selectedVisit).subscribe( response => {
-          this.authService.setSelectedVisit(response);
-          // console.log('wizyta: ', this.authService.visit);
-        });
-      }, 1000);
-    });
-*/
 }

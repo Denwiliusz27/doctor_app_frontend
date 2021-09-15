@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Doctor, LoginUser, Patient} from '../../model/user/user';
+import {Doctor} from '../../model/user/user';
 import {UserStrategy} from './user-strategy';
 import {CreateUserRequest} from '../../model/user/dto/create-user';
 import {Observable} from 'rxjs';

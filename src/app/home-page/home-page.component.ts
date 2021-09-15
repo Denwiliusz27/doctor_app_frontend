@@ -21,6 +21,5 @@ export class HomePageComponent implements OnInit {
     else if (option === 'pacjent') {
       this.router.navigateByUrl('/pacjent-login');
     }
-    console.log('przekierowuje do ' + option);
   }
 }

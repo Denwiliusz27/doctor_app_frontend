@@ -19,7 +19,6 @@ export class DoctorVisitsComponent implements OnInit {
 
   ngOnInit(): void {
     this.visitService.getVisitDetailsListByDoctorId(this.authService.user.id).subscribe(res => {
-      console.log('wizyty: ', res);
       this.visits = res;
     });
   }
@@ -34,7 +33,6 @@ export class DoctorVisitsComponent implements OnInit {
     else if (option === 'pacjenci') {
       this.router.navigateByUrl('/doktor-pacjenci');
     }
-    console.log('przekierowuje do ' + option);
   }
 
   logout() {

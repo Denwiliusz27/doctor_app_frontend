@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FindDoctorsService} from '../services/find-doctors.service';
 import {AuthService} from '../auth/auth.service';
-import {Visit, VisitWithDoctor} from '../model/visit/visit';
+import {Visit, } from '../model/visit/visit';
 import {VisitService} from '../services/visit.service';
 import {Doctor} from '../model/user/user';
-import {DoctorServiceService} from '../services/doctor-service.service';
 import {DoctorStrategy} from '../auth/strategy/doctor-strategy';
-import {MedicalService} from '../model/medical-service/medical-service';
 import {MedicalServices} from '../services/medical-services.service';
 
 @Component({
@@ -43,13 +41,10 @@ export class PatientVisitOverviewComponent implements OnInit {
   redirect(option: string): void {
     if (option === 'wizyty') {
       this.router.navigateByUrl('/pacjent-wizyty');
-    } else if (option === 'wyniki') {
-      this.router.navigateByUrl('/pacjent-wyniki-badań');
     } else if (option === 'znajdź lekarzy') {
       this.findDoctorService.searchDoctors(undefined, undefined);
       this.router.navigateByUrl('/znajdź-lekarzy');
     }
-    console.log('przekierowuje do ' + option);
   }
 
   redirectToDoctorSite(): void{
@@ -57,8 +52,6 @@ export class PatientVisitOverviewComponent implements OnInit {
       this.authService.setSelectedDoctor(res);
       this.router.navigateByUrl('/strona-lekarza');
     });
-    /*this.authService.setSelectedDoctor(this.doctor);
-    this.router.navigateByUrl('/strona-lekarza');*/
   }
 
   logout() {

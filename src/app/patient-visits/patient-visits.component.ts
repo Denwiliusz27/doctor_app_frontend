@@ -19,7 +19,7 @@ export class PatientVisitsComponent implements OnInit {
   type = VisitType;
 
   constructor(private router: Router, private findDoctorService: FindDoctorsService, private authService: AuthService,
-              private visitService: VisitService, private doctorService: DoctorStrategy) { }
+              private visitService: VisitService) { }
 
   ngOnInit(): void {
     this.visitService.getVisitDetailsListByPatientId(this.authService.user.id, VisitType.ALL).subscribe(res => {
@@ -30,13 +30,10 @@ export class PatientVisitsComponent implements OnInit {
   redirect(option: string): void {
     if (option === 'wizyty') {
       this.router.navigateByUrl('/pacjent-wizyty');
-    } else if (option === 'wyniki') {
-      this.router.navigateByUrl('/pacjent-wyniki-badań');
-    }  else if (option === 'znajdź lekarzy') {
+    } else if (option === 'znajdź lekarzy') {
       this.findDoctorService.searchDoctors(undefined, undefined);
       this.router.navigateByUrl('/znajdź-lekarzy');
     }
-    console.log('przekierowuje do ' + option);
   }
 
   displayVisitSite(visit): void {

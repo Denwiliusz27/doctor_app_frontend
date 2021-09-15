@@ -73,7 +73,7 @@
 
       <label class="login-and-registration-form-label" for="specializations">
         <select [(ngModel)]="selectedSpecializationId" (ngModelChange)="onSelectSpecialization()" formControlName="specializationId"
-                id="specializations" [class.login-and-registration-error-border]="(submitted && isSpecializationSelected())">
+                id="specializations" [class.login-and-registration-error-border]="(submitted && !isSpecializationSelected())">
           <option class="input-disabled-option" disabled selected value="undefined">specjalizacja</option>
           <option *ngFor="let specialization of specializations$ | async" [ngValue]="specialization.id">
             {{specialization.name}}
@@ -82,14 +82,14 @@
       </label>
 
       <div class="service-checkbox" [class.login-and-registration-error-border]="(submitted && isServiceFormValid())"
-           title="Należy zaznaczyć co najmniej jedną usługę" *ngIf="(!isSpecializationSelected())">
+           title="Należy zaznaczyć co najmniej jedną usługę" *ngIf="isSpecializationSelected()">
         <p class="service-checkbox-header">usługi:</p>
         <p class="service-checkbox-price-header">cena (zł):</p>
         <label class="service-checkbox-label" for="services" *ngFor="let medicalService of medicalServices$ | async">
           <input type="checkbox" required
-                 (change)="addService(medicalService.id, $event.target.checked)" #serviceCheckboxes/>{{medicalService.name}}
+                 (change)="addService(medicalService.id, $event.target.checked)" />{{medicalService.name}}
           <input class="service-checkbox-price-input" type="number" value=0 title="Cena powinna być większa od zera"
-                 (keyup)="onPriceInput(medicalService.id, $event.target.value)" #priceInputs>
+                 (keyup)="onPriceInput(medicalService.id, $event.target.value)" >
         </label>
       </div>
       <div class="login-and-registration-error" *ngIf="submitted && noServiceChecked()">
@@ -103,7 +103,7 @@
       </div>
 
       <label class="login-and-registration-form-label">
-        <select [(ngModel)]="selectedCityId" (ngModelChange)="onSelectCity()" [class.login-and-registration-error-border]="(submitted && isCitySelected())"
+        <select [(ngModel)]="selectedCityId" [class.login-and-registration-error-border]="(submitted && isCitySelected())"
                 formControlName="cityId" id="city">
           <option class="input-disabled-option" disabled selected value="undefined">miasto</option>
           <option *ngFor="let city of cities$ | async" [ngValue]="city.id">{{city.name}}</option>
@@ -135,30 +135,13 @@
       <label class="login-and-registration-form-label">
         <textarea title="Pare słów o Tobie" formControlName="description" type="text" placeholder="opis"></textarea>
       </label>
-<!--
-      <label class="login-and-registration-form-label">
-        <input class="doctor-image-input" type="file" accept="image/*" formControlName="image" required (change)="uploadImage($event)"
-               title="Plik powinien byc obiektem graficznym"
-               [class.login-and-registration-error-border]="submitted && currentFormControls.image.errors" data-buttonText="Zdjecie">
-        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.image.errors?.required" >
-          <p>nie dodano zdjęcia</p>
-        </div>
-      </label>-->
 
       <button type="submit">zarejestruj się</button>
 
       <div class="registration-accepted" *ngIf="submitted && accountCreated">
         <p>zarejestrowano pomyślnie</p>
       </div>
-
-      <!--<div class="login-and-registration-accepted" *ngIf="submitted && accountCreated">
-        <p>Zarejestrowano pomyślnie</p>
-      </div>-->
-
     </form>
-    <!--<div class="email-error" *ngIf="submitted && accountCreated">
-      <p>Utworzono pomyślnie</p>
-    </div>-->
   </div>
 </div>
 

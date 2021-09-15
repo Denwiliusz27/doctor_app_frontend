@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {DoctorService} from '../services/doctor.service';
-import {Observable} from 'rxjs';
-import {Doctor, Patient} from '../model/user/user';
+import {Doctor} from '../model/user/user';
 import {AuthService} from '../auth/auth.service';
 
 @Component({
@@ -33,7 +32,6 @@ export class DoctorPatientsComponent implements OnInit {
     else if (option === 'pacjenci') {
       this.router.navigateByUrl('/doktor-pacjenci');
     }
-    console.log('przekierowuje do ' + option);
   }
 
   logout() {

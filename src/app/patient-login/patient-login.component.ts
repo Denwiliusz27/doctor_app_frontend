@@ -23,7 +23,6 @@ export class PatientLoginComponent implements OnInit {
     email: new FormControl('', [
       Validators.required,
       Validators.email
-      // Validators.pattern('^[a-z\\d]+[\\w\\d.-]*@(?:[a-z\\d]+[a-z\\d-]+\\.){1,5}[a-z]{2,6}$')
     ]),
     password: new FormControl('', [
       Validators.required,

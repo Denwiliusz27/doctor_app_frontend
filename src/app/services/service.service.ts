@@ -18,7 +18,7 @@ export class ServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getServicesBySpecializationId(specializationId: number){
+  /*getServicesBySpecializationId(specializationId: number){
     return this.http.get<Service[]>(`http://localhost:8080/uslugi/specjalizacja/${specializationId}`);
-  }
+  }*/
 }

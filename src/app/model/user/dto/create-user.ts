@@ -7,10 +7,6 @@ export interface CreateUserRequest {
   password: string;
 }
 
-export type CreatePatientRequest = {
-  pesel: string;
-} & CreateUserRequest;
-
 export type CreateDoctorRequest = {
   description: string;
   phoneNumber: string;
@@ -18,4 +14,8 @@ export type CreateDoctorRequest = {
   specializationId: number;
   cityId: number;
   medicalServices: CreateDoctorService[];
+} & CreateUserRequest;
+
+export type CreatePatientRequest = {
+  pesel: string;
 } & CreateUserRequest;

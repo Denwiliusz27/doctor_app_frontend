@@ -6,7 +6,6 @@ import {AvailabilityDoctorService} from '../services/availability-doctor.service
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {AvailabilityDoctor} from '../model/availability-doctor/availability-doctor';
-import SchedulerAppointmentDataFields = jqwidgets.SchedulerAppointmentDataFields;
 
 
 @Component({
@@ -14,14 +13,13 @@ import SchedulerAppointmentDataFields = jqwidgets.SchedulerAppointmentDataFields
   templateUrl: './doctor-calendar.component.html',
   styleUrls: ['./doctor-calendar.component.css']
 })
-export class DoctorCalendarComponent implements AfterViewInit, OnInit {
+export class DoctorCalendarComponent implements OnInit {
   menuOptions: { name: string, url: string }[] = [
     {name: 'kalendarz', url: '/doktor-kalendarz'},
     {name: 'wizyty', url: '/doktor-wizyty'},
     {name: 'pacjenci', url: '/doktor-pacjenci'},
   ];
   logoutStatus = false;
-
 
   @ViewChild('schedulerReference', { static: false }) scheduler: jqxSchedulerComponent;
 
@@ -56,7 +54,6 @@ export class DoctorCalendarComponent implements AfterViewInit, OnInit {
       readOnly: true,
       resizable: false,
       draggable: false
-      /* resourceId: 'calendar'*/
     };
   resources: jqwidgets.SchedulerResources =
     {
@@ -89,7 +86,7 @@ export class DoctorCalendarComponent implements AfterViewInit, OnInit {
     // separator of parts of a time (e.g. ':' in 05:44 PM)
     ':': ':',
     // the first day of the week (0 = Sunday, 1 = Monday, etc)
-    firstDay: 1,
+    firstDay: 0,
     days: {
       // full day names
       names: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
@@ -104,13 +101,6 @@ export class DoctorCalendarComponent implements AfterViewInit, OnInit {
       // abbreviated month names
       namesAbbr: ['St', 'Lut', 'Mrz', 'Kw', 'Maj', 'Cz', 'Lip', 'Sier', 'Wrz', 'Paź', 'lis', 'Gr', '']
     },
-    // AM and PM designators in one of these forms:
-    // The usual view, and the upper and lower case versions
-    //      [standard,lowercase,uppercase]
-    // The culture does not use AM or PM (likely all standard date formats use 24 hour time)
-    //      null
-    /*AM: ['AM', 'am', 'AM'],
-    PM: ['PM', 'pm', 'PM'],*/
     eras: [
       // eras in reverse chronological order.
       // name: the name of the era in this culture (e.g. A.D., C.E.)
@@ -211,9 +201,6 @@ export class DoctorCalendarComponent implements AfterViewInit, OnInit {
       });
   }
 
-  ngAfterViewInit(): void {
-  }
-
   buildAppointment(availabilityDoctor: AvailabilityDoctor): any {
     return {
       subject: 'Dostępny',
@@ -263,25 +250,15 @@ export class DoctorCalendarComponent implements AfterViewInit, OnInit {
       });
     });
     fields.status.hide();
-  };
+  }
 
   editDialogOpen = (dialog, fields, editAppointment) => {
     fields.repeatContainer.hide();
-    fields.statusLabel.html('Czy na pewno chcesz usunąć dyspozycyjność?');
-  };
+    fields.statusLabel.html('Czy chcesz dodać swoją dyspozycyjność?');
+  }
 
   editDialogClose = (dialog, fields, editAppointment) => {
-    // console.log(dialog);
-    // console.log(editAppointment);
-    // console.log('dialog close');
-    // console.log(dialog);
-    // console.log(fields);
-    // console.log(editAppointment);
-    // console.log(fields.subject.val());
-    // console.log(fields.from.val());
-    // console.log(fields.to.val());
-    // console.log(this.appointments);
-  };
+  }
 
   onAppointmentAdd(obj): void {
     this.addedAppointments = obj.args.appointment;

@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Specialization} from '../model/specialization/specialization';
 import {serverUrl} from '../../environments/environment';
-import {share, shareReplay} from 'rxjs/operators';
+import {shareReplay} from 'rxjs/operators';
 
 @Injectable({
    providedIn: 'root'
@@ -13,7 +13,6 @@ export class SpecializationService {
     .pipe(
     shareReplay(1)
     );
-
 
   get specializations$(): Observable<Specialization[]> {
     return this._specializations$;

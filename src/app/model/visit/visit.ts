@@ -1,5 +1,4 @@
 import {Doctor, Patient} from '../user/user';
-import {MedicalService} from '../medical-service/medical-service';
 import {DoctorService} from '../../services/doctor.service';
 
 export interface Visit{
@@ -16,16 +15,6 @@ export interface UpdateVisitRequest {
   id: number;
   patientId: number;
   serviceId: number;
-}
-
-export interface VisitWithDoctor{
-  id: number;
-  patientId: number;
-  doctor: Doctor;
-  medicalService: MedicalService;
-  availabilityId: number;
-  from: string;
-  to: string;
 }
 
 export interface VisitDetails {

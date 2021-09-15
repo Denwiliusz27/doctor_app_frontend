@@ -142,9 +142,7 @@
                       <p>nie wybrano godziny</p>
                     </div>
                   </label>
-
                 </div>
-
 
               <p>wybierz rodzaj wizyty:</p>
               <div class="appointment-reservation-service-selectbox-section">
@@ -153,13 +151,14 @@
                           [class.login-and-registration-error-border]="(submitted && !isServiceSelected())"
                           formControlName="serviceId" id="serviceId">
                     <option class="input-disabled-option" disabled selected value="undefined">rodzaj wizyty</option>
-                    <option *ngFor="let service of doctor.doctorServices" [value]="service.medicalService.id">{{service.medicalService.name}} ({{service.price}} zł)</option>
+                    <option *ngFor="let service of doctor.doctorServices" [value]="service.medicalService.id">
+                      {{service.medicalService.name}} ({{service.price}} zł)
+                    </option>
                   </select>
                   <div class="login-and-registration-error" *ngIf="submitted && !isServiceSelected()">
                     <p>nie wybrano rodzaju usługi</p>
                   </div>
                 </label>
-
 
               </div>
               <div class="appointment-reservation-button-section">
@@ -168,16 +167,10 @@
               <div class="appointment-reservation-accepted" *ngIf="registrationAccepted">
                 <p>zarejestrowano pomyślnie</p>
               </div>
-
             </form>
-
-
-
           </div>
-
         </div>
       </div>
-
     </div>
   </div>
 </div>

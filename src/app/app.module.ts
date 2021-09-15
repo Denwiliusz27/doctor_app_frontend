@@ -1,4 +1,4 @@
-import {InjectionToken, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {Routes, RouterModule} from '@angular/router';
 
@@ -7,7 +7,6 @@ import {HomePageComponent} from './home-page/home-page.component';
 import {DoctorLoginComponent} from './doctor-login/doctor-login.component';
 import {PatientLoginComponent} from './patient-login/patient-login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-// import {DialogOverviewExampleComponent, PatientRegistrationComponent} from './patient-registration/patient-registration.component';
 import {DoctorRegistrationComponent} from './doctor-registration/doctor-registration.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -22,12 +21,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {PatientHomepageComponent} from './patient-homepage/patient-homepage.component';
 import {PatientRegistrationComponent} from './patient-registration/patient-registration.component';
 import {DoctorCalendarComponent} from './doctor-calendar/doctor-calendar.component';
-
-import {DoctorFindingsComponent} from './doctor-findings/doctor-findings.component';
 import {DoctorVisitsComponent} from './doctor-visits/doctor-visits.component';
 import {PatientVisitsComponent} from './patient-visits/patient-visits.component';
-import {PatientFindingsComponent} from './patient-findings/patient-findings.component';
-import {PatientFindDoctorComponent} from './patient-find-doctor/patient-find-doctor.component';
 import {
   ScheduleModule,
   RecurrenceEditorModule,
@@ -37,13 +32,10 @@ import {
   MonthService,
   MonthAgendaService
 } from '@syncfusion/ej2-angular-schedule';
-import {UserIsLoggedGuard} from './auth/guard/user-guard.service';
 import {AuthModule} from './auth/auth.module';
 import {UserIsNotLoggedGuard} from './auth/guard/user-is-not-logged';
-import {LOCAL_STORAGE, SESSION_STORAGE, StorageService} from 'ngx-webstorage-service';
 import {DoctorGuard} from './auth/guard/doctor.guard';
 import {PatientGuard} from './auth/guard/patient.guard';
-import { TestsComponent } from './tests/tests.component';
 import {jqxButtonModule} from 'jqwidgets-ng/jqxbuttons';
 import {jqxSchedulerModule} from 'jqwidgets-ng/jqxscheduler';
 import { FindDoctorsComponent } from './find-doctors/find-doctors.component';
@@ -62,21 +54,15 @@ const routes: Routes = [
   {path: 'doktor-rejestracja', component: DoctorRegistrationComponent, canActivate: [UserIsNotLoggedGuard]},
   {path: 'doktor-strona-główna', component: DoctorHomepageComponent, canActivate: [DoctorGuard]},
   {path: 'pacjent-strona-główna', component: PatientHomepageComponent, canActivate: [PatientGuard]},
-  {path: 'doktor-kalendarz', component: DoctorCalendarComponent, canActivate: [UserIsLoggedGuard]},
-  {path: 'doktor-wyniki-badań', component: DoctorFindingsComponent, canActivate: [UserIsLoggedGuard]},
-  {path: 'doktor-wizyty', component: DoctorVisitsComponent, canActivate: [UserIsLoggedGuard]},
-  {path: 'doktor-pacjenci', component: DoctorPatientsComponent, canActivate: [UserIsLoggedGuard]},
-  {path: 'pacjent-wizyty', component: PatientVisitsComponent, canActivate: [UserIsLoggedGuard]},
-  {path: 'pacjent-wyniki-badań', component: PatientFindingsComponent, canActivate: [UserIsLoggedGuard]},
+  {path: 'doktor-kalendarz', component: DoctorCalendarComponent, canActivate: [DoctorGuard]},
+  {path: 'doktor-wizyty', component: DoctorVisitsComponent, canActivate: [DoctorGuard]},
+  {path: 'doktor-pacjenci', component: DoctorPatientsComponent, canActivate: [DoctorGuard]},
+  {path: 'pacjent-wizyty', component: PatientVisitsComponent, canActivate: [PatientGuard]},
   {path: 'znajdź-lekarzy', component: FindDoctorsComponent, canActivate: [PatientGuard]},
   {path: 'strona-lekarza', component: DoctorOverviewSiteComponent, canActivate: [PatientGuard]},
-  {path: 'wizyta-pacjenta', component: PatientVisitOverviewComponent, canActivate: [PatientGuard]},
-
+  {path: 'wizyta-pacjenta', component: PatientVisitOverviewComponent, canActivate: [PatientGuard]}
 ];
 
-
-/*export const MY_AWESOME_SERVICE_STORAGE =
-  new InjectionToken<StorageService>('MY_STORE');*/
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,12 +74,8 @@ const routes: Routes = [
     DoctorHomepageComponent,
     PatientHomepageComponent,
     DoctorCalendarComponent,
-    DoctorFindingsComponent,
     DoctorVisitsComponent,
     PatientVisitsComponent,
-    PatientFindingsComponent,
-    PatientFindDoctorComponent,
-    TestsComponent,
     FindDoctorsComponent,
     DoctorOverviewSiteComponent,
     CustomPipeDate,

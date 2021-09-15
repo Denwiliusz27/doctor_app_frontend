@@ -1,17 +1,16 @@
-import {Inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Doctor, LoginUser, Patient, User, UserRole} from '../model/user/user';
+import {Doctor, LoginUser, User, UserRole} from '../model/user/user';
 import {CreateUserRequest} from '../model/user/dto/create-user';
 import {UserStrategy} from './strategy/user-strategy';
 import {PatientStrategy} from './strategy/patient-strategy';
 import {DoctorStrategy} from './strategy/doctor-strategy';
-import {Observable, of} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import {AppStorageService} from '../storage/app-storage.service';
 import {Router} from '@angular/router';
 import {serverUrl} from '../../environments/environment';
-import {Visit, VisitWithDoctor} from '../model/visit/visit';
-import {VisitService} from '../services/visit.service';
+
 
 @Injectable()
 export class AuthService{

@@ -1,7 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
 import {Doctor, User} from '../model/user/user';
-import {Visit, VisitWithDoctor} from '../model/visit/visit';
 
 @Injectable({providedIn: 'root'})
 export class AppStorageService {

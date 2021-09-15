@@ -15,7 +15,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./find-doctors.component.css']
 })
 export class FindDoctorsComponent implements OnInit, OnDestroy {
-  readonly cities$ = this.cityService.cities$; // lista specjalizacji
+  readonly cities$ = this.cityService.cities$; // lista miast
   selectedSpecializationId: number;
   readonly specializations$ = this.specializationService.specializations$; // lista specjalizacji
   selectedCityId: number;
@@ -61,13 +61,10 @@ export class FindDoctorsComponent implements OnInit, OnDestroy {
   redirect(option: string): void {
     if (option === 'wizyty') {
       this.router.navigateByUrl('/pacjent-wizyty');
-    } else if (option === 'wyniki') {
-      this.router.navigateByUrl('/pacjent-wyniki-badań');
-    } else if (option === 'znajdź lekarzy') {
+    }  else if (option === 'znajdź lekarzy') {
       this.findDoctorService.searchDoctors(this.selectedCityId, this.selectedSpecializationId);
       this.router.navigateByUrl('/znajdź-lekarzy');
     }
-    console.log('przekierowuje do ' + option);
   }
 
   findDoctors() {

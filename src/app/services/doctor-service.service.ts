@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 
 export interface DoctorService{
   doctorId: number;
@@ -15,9 +14,9 @@ export class DoctorServiceService {
 
   constructor(private http: HttpClient) {
   }
-
+/*
   addDoctorServices(doctorServices: DoctorService[]) {
-    return this.http.post('http://localhost:8080/uslugi-lekarzy/dodaj', doctorServices).subscribe(odp => console.log(odp));
-  }
+    return this.http.post('http://localhost:8080/uslugi-lekarzy/dodaj', doctorServices).subscribe();
+  }*/
 
 }

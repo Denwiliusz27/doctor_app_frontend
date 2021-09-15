@@ -27,7 +27,6 @@ export class DoctorHomepageComponent implements OnInit {
     this.doctorService.getDoctorByUserId(this.user.userId).subscribe(res => {
       this.specialization = res.specialization.name;
       this.services = res.doctorServices;
-      console.log(this.specialization);
     });
   }
 
@@ -41,13 +40,11 @@ export class DoctorHomepageComponent implements OnInit {
   redirect(option: string): void {
     if (option === 'kalendarz') {
       this.router.navigateByUrl('/doktor-kalendarz');
-    }
-    else if (option === 'wizyty') {
+    } else if (option === 'wizyty') {
       this.router.navigateByUrl('/doktor-wizyty');
     } else if (option === 'pacjenci') {
       this.router.navigateByUrl('/doktor-pacjenci');
     }
-    console.log('przekierowuje do ' + option);
   }
 
   logout() {

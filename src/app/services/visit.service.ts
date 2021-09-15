@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {UpdateVisitRequest, Visit, VisitDetails, VisitType, VisitWithDoctor} from '../model/visit/visit';
-import {AvailabilityDoctor} from '../model/availability-doctor/availability-doctor';
+import {UpdateVisitRequest, Visit, VisitDetails, VisitType} from '../model/visit/visit';
 import {serverUrl} from '../../environments/environment';
 
 @Injectable({

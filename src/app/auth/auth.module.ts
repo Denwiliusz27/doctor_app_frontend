@@ -10,5 +10,6 @@ import {PatientGuard} from './guard/patient.guard';
 @NgModule({
   providers: [AuthService, PatientStrategy, DoctorStrategy, UserIsLoggedGuard, UserIsNotLoggedGuard, DoctorGuard, PatientGuard]
 })
+
 export class AuthModule{
 }
