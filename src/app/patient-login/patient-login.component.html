@@ -1,0 +1,57 @@
+<div class="backgroung-img"></div>
+
+<div class="login-and-registration-page-content">
+
+  <div class="main-site-sticky-link">
+    <a class="login-and-registration-main-site-link" routerLink="/">przychodnia.pl</a>
+  </div>
+
+  <p class="login-and-registration-header">PACJENT</p>
+
+  <div class="login-and-registration-form-container">
+    <form class="login-and-registration-form" [formGroup]="loginFormGroup" (ngSubmit)="login()">
+
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" type="text" formControlName="email" required
+               [class.login-and-registration-error-border] = "submitted && currentFormControls.email.errors || submitted && emailNotExist"
+               placeholder="e-mail">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.required" >
+          <p>nie podano adresu e-mail</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.email" >
+          <p>niepoprawny adres e-mail</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && emailNotExist">
+          <p>konto o takim emailu nie istnieje</p>
+        </div>
+      </label>
+
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" type="password" formControlName="password" required
+               [class.login-and-registration-error-border] = "submitted && currentFormControls.password.errors || submitted && !passwordCorrect"
+               placeholder="hasło">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.required" >
+          <p>nie podano hasła</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.minlength" >
+          <p>hasło za krótkie</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && !passwordCorrect">
+          <p>niepoprawne hasło</p>
+        </div>
+      </label>
+
+      <button class="login-button" type="submit" >zaloguj się</button>
+
+      <div class="login-accepted" *ngIf="submitted && loginAccepted">
+        <p>zalogowano pomyślnie</p>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="registration_link" (click)="redirect()">
+    <p class="login-and-registration-button-text">zarejestruj się</p>
+  </div>
+
+</div>

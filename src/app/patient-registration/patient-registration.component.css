@@ -1,0 +1,47 @@
+.backgroung-img {
+  background-image: url(https://image.ceneostatic.pl/data/article_picture/ef/b6/fb2d-4c36-4ec6-ba73-6521402da566_large.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-filter: blur(6px);
+  filter: blur(6px);
+  width: 100%;
+  height: 100vh;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  display: block;
+}
+
+p {
+  font-size: 32px;
+  text-align: center;
+  color: #1342e8;
+  font-style: italic;
+  font-family: "Arial", sans-serif;
+  text-shadow: 1px 1px 3px black;
+}
+
+button {
+  margin: 40px 0 0 0;
+  height: 61px;
+  width: 63%;
+  color: white;
+  font-size: 24px;
+  font-style: italic;
+  border: 3px solid darkgreen;
+  border-radius: 40px;
+  background-color: forestgreen;
+
+  transition: all 0.4s ease 0s;
+}
+
+button:hover {
+  border-radius: 7px;
+  cursor: pointer;
+  letter-spacing: 5px;
+}

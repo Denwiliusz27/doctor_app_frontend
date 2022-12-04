@@ -1,0 +1,48 @@
+<div class="home-page-content">
+
+  <div class="menu-container">
+    <div class="menu-content">
+      <a class="menu-main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+        <div class="menu-element" *ngFor="let option of menuOptions" (click)="redirect(option)">
+          <div id="blur"></div>
+          <div class="icon">
+            <mat-icon *ngIf="option == 'kalendarz'">calendar_today</mat-icon>
+            <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
+            <mat-icon *ngIf="option == 'pacjenci'">supervisor_account</mat-icon>
+          </div>
+          <p class="menu-element-text">{{option}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="homepage-main-site">
+    <div class="top-menu">
+      <div class="logout-info" *ngIf="logoutStatus">
+        <p>wylogowano pomyślnie</p>
+      </div>
+      <div class="logout-button" (click)="logout()">
+        <p>wyloguj</p>
+      </div>
+    </div>
+    <div class="homepage-main-site-content">
+      <h1 class="page-header">pacjenci</h1>
+
+      <div class="patients-list" style="margin-top: 30px">
+        <div class="patient-overview-container" id="{{patient}}" *ngFor="let patient of patients$ | async">
+          <div class="patient-description-section">
+            <p id="name">{{patient.name}} {{patient.surname}}</p>
+            <br>
+            <p class="other">pesel: {{patient.pesel}}</p>
+            <br>
+            <p class="other">email: {{patient.email}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

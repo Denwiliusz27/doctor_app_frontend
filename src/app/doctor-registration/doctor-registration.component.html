@@ -1,0 +1,147 @@
+<div class="backgroung-img"></div>
+
+<div class="login-and-registration-page-content">
+
+  <div class="main-site-sticky-link">
+    <a class="login-and-registration-main-site-link" routerLink="/">przychodnia.pl</a>
+  </div>
+
+    <p class="login-and-registration-header">REJESTRACJA</p>
+
+  <div class="login-and-registration-form-container">
+    <form class="login-and-registration-form" [formGroup]="registrationFormGroup" (ngSubmit)="register()">
+
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Powinno zaczynać się od dużej litery i zawierać wyłącznie litery" type="text"
+               formControlName="name" required [class.login-and-registration-error-border]="submitted && currentFormControls.name.errors"
+               placeholder="imie*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.name.errors?.required" >
+          <p>nie wpisano imienia</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.name.errors?.minlength" >
+          <p>imie za krótkie</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.name.errors?.pattern" >
+          <p>imie nie spełnia założeń</p>
+        </div>
+      </label>
+
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Powinno zaczynać się od dużej litery i nie zawierać cyfr" type="text" formControlName="surname"
+               required [class.login-and-registration-error-border]="submitted && currentFormControls.surname.errors"
+               placeholder="nazwisko*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.surname.errors?.required" >
+          <p>nie wpisano nazwiska</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.surname.errors?.minlength" >
+          <p>nazwisko za krótkie</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.surname.errors?.pattern" >
+          <p>nazwisko nie spełnia założeń</p>
+        </div>
+      </label>
+
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Nie powinno zawierać znaków interpunkcyjnych prócz '.' lub '-'" type="text" formControlName="email"
+               required [class.login-and-registration-error-border]="submitted && currentFormControls.email.errors || submitted && emailNotExist"
+               placeholder="e-mail*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.required" >
+          <p>nie podano adresu e-mail</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.email.errors?.email" >
+          <p>niepoprawny adres e-mail</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && emailNotExist">
+          <p>taki email istnieje</p>
+        </div>
+      </label>
+
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Musi zawierać 8 znaków, jedną cyfrę, jedną małą i dużą literę" type="password"
+               formControlName="password" required
+               [class.login-and-registration-error-border]="submitted && currentFormControls.password.errors" placeholder="hasło*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.required" >
+          <p>nie podano hasła</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.minlength" >
+          <p>hasło za krótkie</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.password.errors?.pattern" >
+          <p>hasło nie spełnia założeń</p>
+        </div>
+      </label>
+
+      <label class="login-and-registration-form-label" for="specializations">
+        <select [(ngModel)]="selectedSpecializationId" (ngModelChange)="onSelectSpecialization()" formControlName="specializationId"
+                id="specializations" [class.login-and-registration-error-border]="(submitted && !isSpecializationSelected())">
+          <option class="input-disabled-option" disabled selected value="undefined">specjalizacja</option>
+          <option *ngFor="let specialization of specializations$ | async" [ngValue]="specialization.id">
+            {{specialization.name}}
+          </option>
+        </select>
+      </label>
+
+      <div class="service-checkbox" [class.login-and-registration-error-border]="(submitted && isServiceFormValid())"
+           title="Należy zaznaczyć co najmniej jedną usługę" *ngIf="isSpecializationSelected()">
+        <p class="service-checkbox-header">usługi:</p>
+        <p class="service-checkbox-price-header">cena (zł):</p>
+        <label class="service-checkbox-label" for="services" *ngFor="let medicalService of medicalServices$ | async">
+          <input type="checkbox" required
+                 (change)="addService(medicalService.id, $event.target.checked)" />{{medicalService.name}}
+          <input class="service-checkbox-price-input" type="number" value=0 title="Cena powinna być większa od zera"
+                 (keyup)="onPriceInput(medicalService.id, $event.target.value)" >
+        </label>
+      </div>
+      <div class="login-and-registration-error" *ngIf="submitted && noServiceChecked()">
+        <p>nie wybrano żadnego pola</p>
+      </div>
+      <div class="login-and-registration-error" *ngIf="submitted && isPriceZero()">
+        <p>należy wprowadzić cenę za usługę</p>
+      </div>
+      <div class="login-and-registration-error" *ngIf="submitted && isPriceNegative()">
+        <p>cena nie może być ujemna</p>
+      </div>
+
+      <label class="login-and-registration-form-label">
+        <select [(ngModel)]="selectedCityId" [class.login-and-registration-error-border]="(submitted && isCitySelected())"
+                formControlName="cityId" id="city">
+          <option class="input-disabled-option" disabled selected value="undefined">miasto</option>
+          <option *ngFor="let city of cities$ | async" [ngValue]="city.id">{{city.name}}</option>
+        </select>
+      </label>
+      <div class="login-and-registration-error" *ngIf="submitted && isCitySelected()">
+        <p>nie wybrano żadnego pola</p>
+      </div>
+
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Powinna zawierać nazwę oraz numer" type="text" formControlName="address" required
+               [class.login-and-registration-error-border]="submitted && currentFormControls.address.errors" placeholder="adres*">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.address.errors?.required" >
+          <p>nie wpisano adresu</p>
+        </div>
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.address.errors?.pattern" >
+          <p>adres nie spełnia wymagań</p>
+        </div>
+      </label>
+
+      <label class="login-and-registration-form-label">
+        <input class="login-and-registration-form-input" title="Powinien składać się wyłącznie z cyfr" type="tel" formControlName="phoneNumber"
+               [class.login-and-registration-error-border]="submitted && currentFormControls.phoneNumber.errors" placeholder="numer telefonu">
+        <div class="login-and-registration-error" *ngIf="submitted && currentFormControls.phoneNumber.errors?.pattern" >
+          <p>podany numer nie spełnia wymagań</p>
+        </div>
+      </label>
+
+      <label class="login-and-registration-form-label">
+        <textarea title="Pare słów o Tobie" formControlName="description" type="text" placeholder="opis"></textarea>
+      </label>
+
+      <button type="submit">zarejestruj się</button>
+
+      <div class="registration-accepted" *ngIf="submitted && accountCreated">
+        <p>zarejestrowano pomyślnie</p>
+      </div>
+    </form>
+  </div>
+</div>
+

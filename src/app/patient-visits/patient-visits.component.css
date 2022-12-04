@@ -1,0 +1,23 @@
+.user-main-site-content {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.homepage-text {
+  width: 1000px;
+  line-height: 28px;
+  position: fixed;
+  bottom: 0;
+  font-size: 24px;
+  font-weight: bolder;
+  font-family: Serif, sans-serif;
+  color: black;
+  text-shadow: 1px 1px 1px black;
+  margin: 0 auto 0 auto;
+  padding-bottom: 20px;
+}

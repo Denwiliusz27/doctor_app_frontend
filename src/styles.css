@@ -1,1 +1,955 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
+@import '../node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.main-site-sticky-link {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 25px;
+}
+
+.login-and-registration-header {
+  font-size: 65px !important;
+  font-weight: 100;
+  color: #1342e8 !important;
+  text-shadow: 2px 2px 5px black !important;
+  margin: 80px 0 35px 0 !important;
+}
+
+
+.login-and-registration-main-site-link {
+  font-size: 35px;
+  font-family: "Rage Italic", sans-serif;
+  font-style: italic;
+  margin: 20px;
+  text-decoration: none;
+  text-shadow: 3px 3px 3px black;
+  color: white;
+}
+
+.login-and-registration-page-content {
+  margin: 15px 25px 15px 25px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.login-and-registration-form-container {
+  justify-content: center;
+  display: flex;
+  text-align: center;
+  padding: 0 0 40px 0;
+}
+
+.login-and-registration-form-input::placeholder {
+  color: dimgray;
+  font-style: italic;
+}
+
+.login-and-registration-form {
+  width: 70%;
+}
+
+.login-and-registration-form-label {
+  display: block;
+  margin: 35px 0 0 0;
+}
+
+.login-and-registration-form-input {
+  width: 60%;
+  padding: 15px;
+  font-size: 24px;
+  border: 3px solid #1342e8;
+  border-radius: 7px;
+}
+
+.login-and-registration-form-input:focus {
+  outline: none;
+  background-color: aliceblue;
+}
+
+.login-button {
+  margin: 3% 0 0 0;
+  height: 61px;
+  width: 63%;
+  color: white;
+  font-size: 24px;
+  font-style: italic;
+  border: 3px solid #1342e8;
+  border-radius: 40px;
+  background-color: #0363c9;
+
+  transition: all 0.4s ease 0s;
+}
+
+.login-button:hover {
+  border-radius: 7px;
+  cursor: pointer;
+  letter-spacing: 5px;
+}
+
+.login-and-registration-error {
+  justify-content: center;
+  display: flex;
+  line-height: 28px;
+}
+
+.login-and-registration-error p{
+  margin: 0;
+  font-size: 24px !important;
+  text-shadow: 2px 2px 2px black !important;
+  color: red !important;
+  font-weight: bold;
+  position: relative;
+}
+
+.login-and-registration-error-border {
+  border: 3px solid red !important;
+}
+
+.registration-accepted p{
+  padding: 40px 0 40px 0;
+  margin: 0;
+  font-size: 32px !important;
+  text-shadow: 2px 2px 2px black !important;
+  color: green !important;
+  font-weight: bold;
+  position: relative;
+}
+
+.login-accepted p {
+  padding: 30px 0 0 0;
+  margin: 0;
+  font-size: 32px !important;
+  text-shadow: 2px 2px 2px black !important;
+  color: #0363c9 !important;
+  font-weight: bold;
+  position: relative;
+}
+
+.home-page-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.page-header {
+  font-size: 80px !important;
+  font-weight: lighter;
+  color: #1342e8;
+  text-shadow: 3px 3px 3px black;
+
+  padding: 50px 0 20px 0;
+  margin: 60px 0 0 0;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+}
+
+.specialization_header {
+  font-size: 48px !important;
+  font-weight: lighter;
+  color: #1342e8;
+  text-shadow: 2px 2px 2px black;
+
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-family: "Arial", sans-serif;
+  font-style: italic !important;
+  text-align: center;
+}
+
+.doctor-homepage-services-section {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.menu-main_site_link {
+  font-size: 35px;
+  font-family: "Rage Italic", sans-serif;
+  font-style: italic;
+  text-decoration: none;
+  text-shadow: 3px 3px 3px black;
+  color: white;
+}
+
+.menu-container {
+  padding: 25px 0 15px 0;
+  word-wrap: break-word;
+  width: 250px;
+  height: 100%;
+  position: fixed;
+ /* background: rgb(2,0,36);*/
+  background-color: #0c3ee8 /* linear-gradient(180deg, #0c3ee8 0%, #021e74 100%)*/;
+}
+
+.top-menu {
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(0deg, rgba(167, 167, 167, 1.0) 0%, #ffffff 100%);
+  border-bottom: 2px solid rgb(167, 167, 167);
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  text-align: right;
+}
+
+.logout-info {
+  position: fixed;
+  width: 150px;
+  height: 40px;
+  right: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout-info p {
+  position: absolute;
+  text-align: center;
+  font-size: 24px;
+  font-family: "Rage Italic", sans-serif;
+  text-shadow: 1px 1px 1px black !important;
+  text-decoration: none;
+  font-weight: bold;
+  font-style: italic;
+  color: forestgreen;
+  margin: auto;
+}
+
+.logout-button {
+  position: fixed;
+  width: 150px;
+  height: 40px;
+  border: 3px solid darkgreen;
+  /*margin: 10px 0 10px 0;*/
+  right: 30px;
+  border-radius: 15px;
+  background-color: forestgreen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.4s ease 0s;
+}
+
+.logout-button:hover {
+  border-radius: 7px;
+  letter-spacing: 5px;
+  cursor: pointer;
+}
+
+.logout-button p {
+  position: absolute;
+  font-size: 24px;
+  font-family: "Rage Italic", sans-serif;
+  text-shadow: none;
+  text-decoration: none;
+  font-style: italic;
+  color: white;
+  margin: auto;
+}
+
+
+
+.menu-content {
+  width: 230px;
+  margin: 0 auto 0 auto;
+  height: 100%;
+}
+
+.menu-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.menu-element {
+  height: 80px;
+  width: 180px;
+  margin: 0 auto 50px auto;
+  border-radius: 8px;
+  color: white;
+  font-size: 25px;
+  font-family: "Rage Italic", sans-serif;
+  font-style: italic;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ /* justify-content: center;*/
+
+  /* "to left" / "to right" - affects initial color */
+  background: linear-gradient(to left, #5f6882 50%, forestgreen 50%) right;
+
+  background-size: 200%;
+  transition: .5s ease-out;
+}
+
+.menu-element:hover {
+  letter-spacing: 3px;
+  background-position: left;
+  width: 210px;
+  cursor: pointer;
+}
+
+.menu-element-text {
+  margin-bottom: 0 !important;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 30px;
+}
+
+.icon {
+  width: 50px;
+}
+
+.straight-line {
+  margin: 15px auto 0 auto;
+  width: 180px;
+  color: white;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.homepage-main-site {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 70px 0 20px 0;
+  margin-left: 250px;
+}
+
+.homepage-main-site-content {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.homepage-text {
+  width: 1000px;
+  line-height: 28px;
+  position: fixed;
+  bottom: 0;
+  font-size: 24px;
+  font-weight: bolder;
+  font-family: Serif, sans-serif;
+  color: black;
+  text-shadow: 1px 1px 1px black;
+  margin: 0 auto 0 auto;
+  padding-bottom: 20px;
+}
+
+
+.user-main-site-content {
+  width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.find-doctor-selectbox {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  width: 100%;
+  height: 80px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.find-doctor-text-section {
+  font-size: 32px !important;
+  font-weight: bolder;
+  color: dimgray;
+  margin: 20px 0 0 90px !important;
+  left: 0;
+  width: 100%;
+  font-family: "Arial", sans-serif;
+  font-style: italic !important;
+}
+
+.find-doctor-text-section p {
+  margin-bottom: 0 !important;
+}
+
+.find-doctor-select-element {
+  width: 400px;
+  padding: 15px;
+  margin: 0 15px 0 15px;
+  font-size: 32px;
+  border: 4px solid #1342e8;
+  border-radius: 15px;
+}
+
+.find-doctor-select-element:focus {
+  outline: none;
+  background-color: aliceblue;
+}
+
+
+.find-doctor-button {
+  color: white;
+  margin: 0 15px 0 15px;
+  width: 150px;
+  font-size: 32px;
+  font-style: italic;
+  border: 3px solid darkgreen;
+  border-radius: 15px;
+  background-color: forestgreen;
+
+  transition: all 0.4s ease 0s;
+}
+
+.find-doctor-button:hover {
+  border-radius: 7px;
+  cursor: pointer;
+  letter-spacing: 5px;
+}
+
+.doctors-list {
+/*  margin: 0 30px 0 30px ;*/
+  width: 700px;
+  margin: 0 auto 0 auto;
+}
+
+.doctor-overview-container {
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 0 auto 15px auto;
+}
+
+.doctor-description-section {
+  /*width: 45%;*/
+}
+
+.doctor-description-section p {
+  font-style: italic;
+  color: #1342e8;
+  margin: 0 !important;
+}
+
+.doctor-description-section #name{
+  font-size: 28px !important;
+  font-weight: bolder;
+}
+
+.doctor-description-section #address{
+  font-size: 24px !important;
+  font-weight: normal;
+}
+
+.doctor-description-section #specialization{
+  font-size: 24px !important;
+  font-weight: normal;
+}
+
+
+.patients-list {
+  width: 700px;
+  margin: 0 auto 0 auto;
+}
+
+.patient-overview-container {
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+  padding: 20px;
+  width: 500px;
+  margin: 0 auto 15px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.patient-description-section {
+  margin: 0 auto 0 auto;
+}
+
+.patient-description-section p {
+  font-style: italic;
+  color: #1342e8;
+  margin: 0 !important;
+}
+
+.patient-description-section #name{
+  text-align: center;
+  font-size: 28px !important;
+  line-height: 34px;
+  font-weight: bolder;
+}
+
+.patient-description-section .other{
+  font-size: 24px !important;
+  font-weight: normal;
+}
+
+.vertical-line {
+  width: 1px;
+  background-color: #1342e8;
+  border: 1px solid #1342e8;
+  border-radius: 30px;
+}
+
+.doctor-availability-calendar {
+  width: 45%;
+}
+
+.doctor-page-button {
+  padding: 10px 0 10px 0;
+  margin-top: 20px;
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+  background-color: #0363c9;
+  text-align: center;
+  transition: all 0.4s ease 0s;
+}
+
+.doctor-page-button p {
+  color: white;
+  font-size: 20px;
+}
+
+.doctor-page-button:hover {
+  border-radius: 7px;
+  cursor: pointer;
+  letter-spacing: 5px;
+}
+
+.doctor-overview-site-content {
+  margin: 50px 15px 0 15px ;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+.doctor-overview-site-details {
+  width: 45%;
+  min-width: 600px;
+}
+
+.doctor-overview-site-basic-informations {
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.doctor-overview-site-basic-informations p {
+  font-style: italic;
+  color: #1342e8;
+  margin: 0 !important;
+}
+
+.doctor-overview-site-basic-informations #name{
+  font-size: 28px !important;
+  font-weight: bolder;
+}
+
+.doctor-overview-site-basic-informations #specialization{
+  font-size: 24px !important;
+  font-weight: normal;
+}
+
+.doctor-overview-site-other-informations {
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+  padding: 20px;
+  min-height: 723px;
+}
+
+.doctor-overview-site-other-informations-container {
+  margin: 10px 0 25px 0;
+}
+
+.doctor-other-informations-header-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.doctor-other-informations-header-text {
+  flex-grow: 1;
+  font-style: italic;
+  color: dimgray;
+  font-size: 32px !important;
+  font-weight: bolder;
+}
+
+.doctor-other-informations-header-text p {
+  margin: 0 !important;
+}
+
+.doctor-other-informations-details-text {
+  margin: 15px 0 15px 0;
+  line-height: 30px;
+  text-align: center;
+  font-style: italic;
+  color: #1342e8;
+  font-size: 26px !important;
+  font-weight: normal;
+}
+
+.doctor-other-informations-details-services {
+  margin: 15px auto 0 auto;
+  width: 85%;
+  line-height: 28px;
+  font-style: italic;
+  color: #1342e8;
+  font-size: 26px !important;
+  font-weight: normal;
+}
+
+.doctor-other-informations-details-services p{
+  display: inline-block;
+  text-align: left;
+  margin: 0 !important;
+}
+
+.doctor-other-informations-details-description {
+  margin: 15px auto 15px auto;
+  line-height: 30px;
+  width: 85%;
+  font-style: italic;
+  color: #1342e8;
+  font-size: 26px !important;
+  font-weight: normal;
+}
+
+.doctor-other-informations-line {
+  background-color: #1342e8;
+  border: 1px solid #1342e8;
+  height: 1px;
+  border-radius: 30px;
+  flex-grow: 5;
+}
+
+
+.doctor-overview-site-calendar {
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+  width: 45%;
+  min-width: 600px;
+  min-height: 490px;
+  padding: 20px;
+}
+
+.overwrite-div {
+  position: relative;
+  z-index: 1;
+}
+
+.doctor-site-calendar {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 2;
+}
+
+.doctor-calendar-overwrite-div {
+  position: absolute;
+  z-index: 9;
+  top: 55px;
+  right: 51.5%;
+  transform: translate(50%, 0);
+  width: 580px;
+  min-width: 535px;
+  height: 397px;
+  /*background-color: red;
+  opacity: 0.5;*/
+}
+
+.doctor-overview-site-calendar-header {
+  font-style: italic;
+  color: dimgray;
+  font-size: 32px !important;
+  font-weight: bolder;
+  text-align: center;
+  padding-bottom: 20px;
+  margin: 0 !important;
+}
+
+.appointment-reservation-section {
+  padding-top: 467px;
+}
+
+.appointment-reservation-section p {
+  text-align: center;
+  font-style: italic;
+  color: dimgray;
+  font-size: 26px !important;
+  font-weight: bolder;
+  margin: 10px 0 10px 0 !important;
+}
+
+.appointment-reservation-date-selectbox-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
+.appointment-reservation-date-selectbox {
+  width: 255px;
+  padding: 15px;
+  margin: 0 15px 0 15px;
+  font-size: 26px;
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+}
+
+.appointment-reservation-date-selectbox:focus {
+  outline: none;
+  background-color: aliceblue;
+}
+
+.appointment-reservation-service-selectbox-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
+.appointment-reservation-service-selectbox {
+  width: 540px;
+  padding: 15px;
+  font-size: 26px;
+  border: 3px solid #1342e8;
+  border-radius: 15px;
+}
+
+.appointment-reservation-service-selectbox:focus {
+  outline: none;
+  background-color: aliceblue;
+}
+
+.appointment-reservation-button-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
+.appointment-reservation-button {
+  color: white;
+  margin: 0 5px 0 5px;
+  padding: 15px;
+  width: 540px;
+  font-size: 26px;
+  font-style: italic;
+  border: 3px solid darkgreen;
+  border-radius: 15px;
+  background-color: forestgreen;
+
+  transition: all 0.4s ease 0s;
+}
+
+.appointment-reservation-button:hover {
+  border-radius: 7px;
+  cursor: pointer;
+  letter-spacing: 5px;
+}
+
+.appointment-reservation-accepted {
+  font-size: 26px !important;
+  text-shadow: 2px 2px 2px black !important;
+  font-weight: bold;
+  position: relative;
+}
+
+.appointment-reservation-accepted p {
+  color: green !important;
+}
+
+
+.visit-site-content {
+  margin: 30px 15px 0 15px ;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
+.visit-site-visit-container {
+  border: 3px solid #1342e8;
+  padding: 40px 40px 0 40px;
+  border-radius: 15px;
+  width: 600px;
+  min-width: 400px;
+}
+
+.visit-site-visit-header-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.visit-site-visit-header-text {
+  flex-grow: 1;
+  font-style: italic;
+  color: dimgray;
+  font-size: 32px !important;
+  font-weight: bolder;
+}
+
+.visit-site-visit-header-text p {
+  margin: 0 !important;
+}
+
+.visit-site-visit-details-text {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0 15px 0;
+  padding-bottom: 20px;
+  line-height: 30px;
+  text-align: center;
+  font-style: italic;
+  color: #1342e8;
+  font-size: 26px !important;
+  font-weight: normal;
+}
+
+.visit-site-visit-details-text p {
+  margin: 0 !important;
+}
+.doctor-site-link {
+  font-weight: bolder;
+  transition: all 0.4s ease 0s;
+}
+
+.doctor-site-link:hover {
+  cursor: pointer;
+  letter-spacing: 5px;
+}
+
+.visit-list-content {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.visit-list-visit-container {
+  border: 3px solid #1342e8;
+  margin: 20px 0 0 20px;
+  border-radius: 15px;
+  width: 600px;
+  min-width: 400px;
+}
+
+.calendar {
+  padding-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*workaround*/
+tbody tr:first-child {
+  pointer-events: none;
+}
+
+.select-visits-period-button-container {
+  padding: 10px 0 10px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-visits-period-button {
+  font-size: 24px;
+  font-family: "Rage Italic", sans-serif;
+  text-shadow: none;
+  text-decoration: none;
+  font-style: italic;
+  transition: all 0.4s ease 0s;
+}
+
+.select-visits-period-button div {
+  margin: 10px 10px 0 10px;
+  width: 250px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-visits-period-button:hover {
+  border-radius: 7px;
+  letter-spacing: 5px;
+  cursor: pointer;
+  background-size: 100% 100%;
+  color: forestgreen;
+}
+
+.past-visits-button {
+  color: white;
+  border-radius: 15px;
+  border: 3px solid #255be5;
+  background-color: #388cef;
+}
+
+.past-visits-button:focus {
+  border: 3px solid darkgreen;
+  background-color: forestgreen;
+}
+
+.all-visits-button {
+  color: white;
+  border-radius: 15px;
+  border: 3px solid #0034ea;
+  background-color: #1c48e7;
+}
+
+.all-visits-button:focus {
+  border: 3px solid darkgreen;
+  background-color: forestgreen;
+}
+
+.future-visits-button {
+  color: white;
+  border-radius: 15px;
+  border: 3px solid #051038;
+  background-color: #0e32b3;
+}
+
+.future-visits-button:focus {
+  border: 3px solid darkgreen;
+  background-color: forestgreen;
+}

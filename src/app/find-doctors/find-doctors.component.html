@@ -1,0 +1,67 @@
+<div class="backgroung-img" xmlns="http://www.w3.org/1999/html"></div>
+
+<div class="home-page-content">
+
+  <div class="menu-container">
+    <div class="menu-content">
+      <a class="menu-main_site_link" routerLink="/pacjent-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+        <div class="menu-element" *ngFor="let option of options" (click)="redirect(option)">
+          <div id="blur"></div>
+          <div class="icon">
+            <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
+            <mat-icon *ngIf="option == 'znajdź lekarzy'">supervisor_account</mat-icon>
+          </div>
+          <p class="menu-element-text">{{option}}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="homepage-main-site">
+    <div class="top-menu">
+      <div class="logout-info" *ngIf="logoutStatus">
+        <p>wylogowano pomyślnie</p>
+      </div>
+      <div class="logout-button" (click)="logout()">
+        <p>wyloguj</p>
+      </div>
+    </div>
+    <div class="user-main-site-content">
+      <h1 class="page-header">znajdź lekarzy</h1>
+
+      <div class="find-doctor-selectbox">
+        <select class="find-doctor-select-element" [(ngModel)]="selectedCityId" >
+          <option class="input-disabled-option" disabled selected value="undefined">miasto</option>
+          <option *ngFor="let city of cities$ | async" [ngValue]="city.id">{{city.name}}</option>
+        </select>
+        <select class="find-doctor-select-element" [(ngModel)]="selectedSpecializationId">
+          <option class="input-disabled-option" disabled selected value="undefined">specjalizacja</option>
+          <option *ngFor="let specialization of specializations$ | async" [ngValue]="specialization.id">
+            {{specialization.name}}
+          </option>
+        </select>
+        <button class="find-doctor-button" (click)="findDoctors()">szukaj</button>
+      </div>
+
+      <div class="doctors-list">
+        <div class="doctor-overview-container" id="{{doctor}}" *ngFor="let doctor of doctors">
+          <div class="doctor-description-section">
+            <p id="name">{{doctor.name}} {{doctor.surname}}</p>
+            <br>
+            <p id="specialization">{{doctor.specialization.name}}</p>
+            <br>
+            <p id="address">{{doctor.city.name}}, ul. {{doctor.address}}</p>
+
+            <div class="doctor-page-button" (click)="displayDoctorSite(doctor)">
+              <p>odwiedź stronę lekarza</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

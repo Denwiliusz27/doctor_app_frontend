@@ -1,0 +1,60 @@
+<div class="backgroung-img"></div>
+
+<div class="home-page-content">
+
+  <div class="menu-container">
+    <div class="menu-content">
+      <a class="menu-main_site_link" routerLink="/pacjent-strona-główna">przychodnia.pl</a>
+      <div class="straight-line"></div>
+      <div class="menu-list">
+        <div class="menu-element" *ngFor="let option of options" (click)="redirect(option)">
+          <div id="blur"></div>
+          <div class="icon">
+            <mat-icon *ngIf="option == 'wizyty'">assignment_turned_in</mat-icon>
+            <mat-icon *ngIf="option == 'znajdź lekarzy'">supervisor_account</mat-icon>
+          </div>
+          <p class="menu-element-text">{{option}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="homepage-main-site">
+    <div class="top-menu">
+      <div class="logout-info" *ngIf="logoutStatus">
+        <p>wylogowano pomyślnie</p>
+      </div>
+      <div class="logout-button" (click)="logout()">
+        <p>wyloguj</p>
+      </div>
+    </div>
+    <div class="homepage-main-site-content">
+      <h1 class="page-header">wizyty</h1>
+
+      <div class="select-visits-period-button-container">
+        <div class="select-visits-period-button" (click)="fetchVisits(type.AFTER)">
+          <div tabindex="1" class="past-visits-button">odbyte</div>
+        </div>
+        <div class="select-visits-period-button" (click)="fetchVisits(type.ALL)">
+          <div tabindex="2" class="all-visits-button">wszystkie</div>
+        </div>
+        <div class="select-visits-period-button" (click)="fetchVisits(type.BEFORE)">
+          <div tabindex="3" class="future-visits-button">nadchodzące</div>
+        </div>
+      </div>
+
+      <div class="patients-list" style="margin-top: 30px">
+        <div class="patient-overview-container" id="{{visit}}" *ngFor="let visit of visits">
+          <div class="patient-description-section">
+            <p id="name">rodzaj usługi: {{visit.service.medicalService.name}}</p>
+            <br>
+            <p class="other">data: {{visit.from.split('T')[0]}}, {{visit.from.split('T')[1].substring(0, 5)}}</p>
+          </div>
+          <div class="doctor-page-button" (click)="displayVisitSite(visit)">
+            <p style="margin: 0 !important;">szczegóły wizyty</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

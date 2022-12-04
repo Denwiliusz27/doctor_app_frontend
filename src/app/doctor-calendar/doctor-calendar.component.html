@@ -1,0 +1,52 @@
+<div class="menu-container">
+  <div class="menu-content">
+    <a class="menu-main_site_link" routerLink="/doktor-strona-główna">przychodnia.pl</a>
+    <div class="straight-line"></div>
+    <div class="menu-list">
+      <div class="menu-element" *ngFor="let option of menuOptions" [routerLink]="option.url">
+        <div id="blur"></div>
+        <div class="icon">
+          <mat-icon *ngIf="option.name == 'kalendarz'">calendar_today</mat-icon>
+          <mat-icon *ngIf="option.name == 'wizyty'">assignment_turned_in</mat-icon>
+          <mat-icon *ngIf="option.name == 'pacjenci'">supervisor_account</mat-icon>
+        </div>
+        <p class="menu-element-text">{{option.name}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="homepage-main-site">
+  <div class="top-menu">
+    <div class="logout-info" *ngIf="logoutStatus">
+      <p>wylogowano pomyślnie</p>
+    </div>
+    <div class="logout-button" (click)="logout()">
+      <p>wyloguj</p>
+    </div>
+  </div>
+  <div class="homepage-main-site-content">
+    <h1 class="page-header">kalendarz</h1>
+    <div class="calendar">
+      <jqxScheduler #schedulerReference
+                    (onAppointmentAdd)="onAppointmentAdd($event)"
+                    (onAppointmentDelete)="onAppointmentDelete($event)"
+                    [date]="date"
+                    [width]="1100"
+                    [height]="650"
+                    [source]="dataAdapter"
+                    [showLegend]="true"
+                    [editDialogCreate]="editDialogCreate"
+                    [editDialogOpen]="editDialogOpen"
+                    [editDialogClose]="editDialogClose"
+                    [view]="'weekView'"
+                    [localization]="localization"
+                    [appointmentDataFields]="appointmentDataFields"
+                    [resources]="resources"
+                    [views]="views"
+                    [timeZone]="'UTC'"
+      >
+      </jqxScheduler>
+    </div>
+  </div>
+</div>

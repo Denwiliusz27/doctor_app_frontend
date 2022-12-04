@@ -1,0 +1,165 @@
+.backgroung-img {
+  background-image: url(https://www.gov.pl/photo/format/cb19f05a-0349-4bd9-8d38-6698d1aee2cc/resolution/1460x616);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-filter: blur(6px);
+  filter: blur(6px);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  width: 100%;
+  height: 100vh;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  display: block;
+}
+
+select {
+  width: 63.5%;
+  padding: 15px;
+  font-size: 24px;
+  border: 3px solid #1342e8;
+  border-radius: 7px;
+}
+
+select:focus {
+  outline: none;
+  background-color: aliceblue;
+}
+
+.input-disabled-option {
+   color: dimgray;
+   background-color: darkgray;
+ }
+
+.service-checkbox {
+  width: 60%;
+  margin: 3% auto 0 auto;
+  padding: 15px;
+  font-size: 24px;
+  line-height: 28px;
+  border: 3px solid #1342e8;
+  border-radius: 7px;
+  background-color: white;
+}
+
+.service-checkbox-label {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 30px 60% auto;
+  word-wrap: break-word;
+  text-align: left;
+  padding: 0 10px 0 10px;
+  margin: 10px 0 10px 0;
+}
+
+.service-checkbox-label input {
+  width: 20px;
+  padding: 20px;
+}
+
+.service-checkbox-header {
+  padding-bottom: 10px;
+  font-style: normal;
+}
+
+.service-checkbox-price-header {
+  width: 150px;
+  margin-left: 60%;
+  font-style: normal;
+}
+
+.doctor-image-input {
+  width: 60%;
+  padding: 15px;
+  font-size: 24px;
+  border: 3px solid #1342e8;
+  border-radius: 7px;
+  background-color: white;
+}
+
+.service-checkbox-price-input {
+  width: 70px !important;
+  padding: 10px !important;
+  font-size: 18px;
+  border: 2px solid #1342e8 !important;
+  border-radius: 7px;
+}
+
+.service-checkbox-price-input:focus {
+  outline: none;
+  background-color: aliceblue;
+}
+
+.text-for-checkbox {
+  padding: 0;
+  text-align: left;
+  font-size: 20px;
+  font-style: normal;
+  font-family: "Arial", sans-serif;
+}
+
+textarea {
+  height: 300px;
+  width: 60%;
+  padding: 15px;
+  font-size: 24px;
+  border: 3px solid #1342e8;
+  border-radius: 7px;
+  font-style: italic;
+  font-family: "Arial", sans-serif;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+  background-color: aliceblue;
+  font-style: normal;
+}
+
+p {
+  font-size: 32px;
+  text-align: center;
+  color: #1342e8;
+  font-style: italic;
+  font-family: "Arial", sans-serif;
+  text-shadow: 1px 1px 3px black;
+}
+
+button {
+  margin: 3% 0 0 0;
+  height: 61px;
+  width: 63%;
+  color: white;
+  font-size: 24px;
+  font-style: italic;
+  border: 3px solid darkgreen;
+  border-radius: 40px;
+  background-color: forestgreen;
+
+  transition: all 0.4s ease 0s;
+}
+
+button:hover {
+  border-radius: 7px;
+  cursor: pointer;
+  letter-spacing: 5px;
+}
+
+.email-error {
+  position: fixed;
+  top: 200px;
+  z-index: 10;
+  width: 80%;
+  height: 400px;
+  background-color: white;
+}
+
+input:disabled {
+  background-color: darkgray;
+}
